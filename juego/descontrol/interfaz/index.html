@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="la fiesta">
+    <meta name="keywords"
+        content="micro aventuras de rol, rol, sistema de rol, juego de combate por turnos, rol rápido, rol puerta patada, juego de rol">
+    <meta name="author" content="Guillermo Tavarozzi">
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Last-Modified" content="0">
+    <title>Descontrol</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-09R6PTWDCE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-09R6PTWDCE');
+</script>
+<body>
+    <div class="layout">
+        <div class="item-grilla contenedor-carta">
+            <img src="img/portada.png" alt="" id="imgCarta" class="img-carta">
+            <div class="contenedor-consola-carta" id="consolaCarta">
+                <span class="consola-carta" id="textoConsolaCarta"></span>
+            </div>
+        </div>
+
+        <div class="item-grilla contenedor-consola-personaje" id="consolaPersonaje">
+            <span class="consola-personaje" id="textoConsolaPersonaje">CONSOLA</span>
+        </div>
+
+        <div class="item-grilla contenedor-botones-juego">
+            <div class="boton-juego boton-levantarCarta" id="btnLevantarCarta">
+                <span>LEVANTAR CARTA</span>
+            </div>
+            <div class="boton-juego boton-atacar" id="btnAtacar">
+                <span>ATACAR</span>
+            </div>
+        </div>
+
+        <div class="item-grilla encabezado-elementos-generales">
+            <div class="encabezado-personaje">AVATAR</div>
+            <div class="encabezado-atributo">ATRIBUTO</div>
+            <div class="encabezado-estado">ESTADO</div>
+        </div>
+        <div class="item-grilla contenedor-elementos-generales">
+            <div class="elemento-general contenedor-personaje" id="personajeBtn">
+                <img src="img/new.png" alt="" id="imgPersonaje" class="img-personaje">
+            </div>
+            <div class="elemento-general contenedor-atributo">
+                <div class="atributo" id="ataqueBtn">
+                    <img src="img/ataque.png" alt="" class="img-atributo">
+                    <span class="text-atributo" id="ataqueIndicador">0</span>
+                </div>
+                <div class="atributo" id="esquivaBtn">
+                    <img src="img/esquiva.png" alt="" class="img-atributo">
+                    <span class="text-atributo" id="esquivaIndicador">0</span>
+                </div>
+                <div class="atributo" id="velocidadBtn">
+                    <img src="img/velocidad.png" alt="" class="img-atributo">
+                    <span class="text-atributo" id="velocidadIndicador">0</span>
+                </div>
+                <div class="atributo" id="vidaBtn">
+                    <img src="img/vida.png" alt="" class="img-atributo">
+                    <span class="text-atributo" id="vidaIndicador">0</span>
+                </div>
+                <div class="atributo" id="accionBtn">
+                    <img src="img/accion.png" alt="" class="img-atributo">
+                    <span class="text-atributo" id="accionIndicador">0</span>
+                </div>
+            </div>
+            <div class="elemento-general contenedor-estado" id="estadoBtn">
+                <img src="img/lucido.png" alt="" class="img-estado" id="imgEstado">
+            </div>
+        </div>
+
+        <div class="modal" id="modalAvatares" style="display: none;">
+            <div class="item-modal header"><span class="texto">AVATARES</span></div>
+            <div class="item-modal" id="cerrarModalPersonaje"><img src="img/cerrar.png" class="modal-img"></div>
+        </div>
+
+        <div class="btn-cambiar-personaje" id="btnCambiarPersonaje" style="display: none;">
+            <span>cambiar</span>
+        </div>
+
+        <div class="contenedor-btn-mas-menos" style="display: none;" id="btnMasMenos">
+            <img src="img/arriba.png" alt="" id="masBtn">
+            <img src="img/abajo.png" alt="" id="menosBtn">
+        </div>
+
+        <div class="contenedor-selector-estado" id="modalCambioEstado" style="display: none;">
+            <div class="item-selector-estados encabezado">
+                <span>ESTADOS</span>
+            </div>
+            <div class="item-selector-estados cerrar-selector-estados" id="cerrarModalEstados">
+                <img src="img/cerrar.png" alt="" class="img-estado cerrar-btn">
+            </div>
+            <div class="item-selector-estados estados">
+                <div class="estado estado-ebrio" id="ebrio">
+                    <span class="estado-header">EBRIO</span>
+                    <img src="img/ebrio.png" alt="" class="img-estado">
+                </div>
+                <div class="estado estado-lucido" id="lucido">
+                    <span class="estado-header">LUCIDO</span>
+                    <img src="img/lucido.png" alt="" class="img-estado">
+                </div>
+                <div class="estado estado-extaciado" id="extaciado">
+                    <span class="estado-header">EXTACIADO</span>
+                    <img src="img/extaciado.png" alt="" class="img-estado">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/personajes.js"></script>
+    <script src="js/cartas.js"></script>
+    <script src="js/UI.js"></script>
+    <script src="js/funcionesCartas.js"></script>
+    <script src="js/funcionesPersonajes.js"></script>
+    <script src="js/funcionesGenerales.js"></script>
+</body>
+
+</html>
