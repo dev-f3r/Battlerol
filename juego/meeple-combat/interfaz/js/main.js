@@ -571,6 +571,15 @@ document.body.addEventListener('dragstart', (e) => {
     }
 
 
+    if (comando === '/soldado') {
+      if (esPersonaje) { // ? Cambio de personaje principal
+        avatar('soldado')
+      } else { // ? Cambio de esbirro
+        cambiarEsbirro('soldado')
+      }
+    }
+
+
 
 
 
@@ -1270,6 +1279,22 @@ const armasDict = {
     coste: 1,
     tipo: "",
     descripcion: "FRUTOS <br> Arma mixta cuerpo a cuerpo / 2 Acciones <br> 175% de ataque como daño mágico o físico <br> distancia máxima 1 casillero x punto de ataque"
+  },
+  "fusil": {
+    nombre: "fusil",
+    icono: "img/fusil.png",
+    danno: 2,
+    coste: 3,
+    tipo: "mecanomagica",
+    descripcion: "FUSIL <br> Arma Tecnomágica / 2 Acciones <br> 200% de ataque como daño físico (poder por disparo 3) <br> distancia máxima 3 casillero x punto de ataque"
+  },
+  "granada": {
+    nombre: "granada",
+    icono: "img/granada.png",
+    danno: 3,
+    coste: 6,
+    tipo: "mecanomagica",
+    descripcion: "GRANADA <br> Arma Tecnomágica  / 3 Acciones <br> 300% de ataque como daño físico en el lugar de impacto y la mitad de este en los casilleros adyacentes (poder por lanzamiento 6) <br> distancia máxima 3 casillero x punto de ataque"
   }
 }
 const listaArmas = Object.keys(armasDict)
@@ -2029,9 +2054,9 @@ const personajesDict = {
     equipo2: "nada",
     equipo3: "nada",
 
-    habilidad1: "enraizar",
-    habilidad2: "envenenar",
-    habilidad3: "sanar",
+    habilidad1: "drenar",
+    habilidad2: "ataque poderoso",
+    habilidad3: "reanimar",
   },
 
   "guardiarunico": {
@@ -2058,7 +2083,7 @@ const personajesDict = {
 
     habilidad1: "embestida con escudo",
     habilidad2: "enraizar",
-    habilidad3: "sanar",
+    habilidad3: "envenenar",
   },
 
 
@@ -2331,6 +2356,33 @@ const personajesDict = {
     equipo1: "nada",
     equipo2: "nada",
     equipo3: "nada"
+  },
+
+  "soldado": {
+    nombre: "soldado",
+    portada: "img/soldado.png",
+    icono: "",
+    descripcion: "Combatiente con poco entrenamiento y equipado con armas de tecnología arcana.",
+
+    ataque: 5,
+    esquiva: 2,
+    bloqueo: 4,
+    velocidad: 3,
+    vida: 20,
+    vidaMaxima: 20,
+    poder: 55,
+    poderMaximo: 55,
+
+    arma1: "fusil",
+    arma2: "granada",
+
+    equipo1: "nada",
+    equipo2: "nada",
+    equipo3: "nada",
+
+    habilidad1: "",
+    habilidad2: "",
+    habilidad3: "",
   }
 
 }
