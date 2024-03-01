@@ -826,3 +826,13 @@ const personajesOcultos = {
     }
 
 }
+
+const nombrePersonajes = Object.keys(personajes).filter(nombre => {
+    if (
+        nombre !== 'bienvenida'
+        && nombre !== 'nuevopj'
+        && nombre !== 'nuevoesbirro'
+    ) {
+        return true
+    } else return false
+})
