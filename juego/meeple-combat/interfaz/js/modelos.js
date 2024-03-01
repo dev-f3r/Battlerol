@@ -131,6 +131,7 @@ class Modal {
     #boton_atras
     #boton_adelante
 
+    #vistas = []
     #index_vista
 
     /**
@@ -185,19 +186,19 @@ class Modal {
         }
 
         // * Agregar elementos al modal
-        this.#elemento.appendChild(titulo)
-        this.#elemento.appendChild(this.#boton_cerrar.ElementoModal)
+        this.#elemento.appendChild(titulo) // Titulo
+        this.#elemento.appendChild(this.#boton_cerrar.ElementoModal) // Boton cerrar
         this.#botones_gral.forEach(boton => {
-            this.#elemento.appendChild(boton.ElementoModal)
+            this.#elemento.appendChild(boton.ElementoModal) // Botones generales
         })
-        this.#elemento.appendChild(this.#boton_atras.ElementoModal)
-        this.#elemento.appendChild(this.#boton_especial.ElementoModal)
-        this.#elemento.appendChild(this.#boton_adelante.ElementoModal)
+        this.#elemento.appendChild(this.#boton_atras.ElementoModal) // Boton atras
+        this.#elemento.appendChild(this.#boton_especial.ElementoModal) // Boton especial
+        this.#elemento.appendChild(this.#boton_adelante.ElementoModal) // Botone adelante
 
         // * Configuración final del modal
-        this.#elemento.classList.add(...this.#clases)
-        this.#elemento.id = this.#id
-        this.#elemento.style.display = this.#mostrar
+        this.#elemento.classList.add(...this.#clases) // Clases del modal
+        this.#elemento.id = this.#id // Id del modal
+        this.#elemento.style.display = this.#mostrar // Visibilidad del modal
     }
 
 
