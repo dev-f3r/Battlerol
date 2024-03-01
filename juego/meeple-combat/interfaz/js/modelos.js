@@ -12,6 +12,8 @@ class Boton {
     #id
     #elemento
 
+    #funcionClick
+
     /**
      * Constructor de la clase Boton.
      * @param {string} nombre - El nombre del botón (id: nombre_btn).
@@ -23,7 +25,8 @@ class Boton {
         nombre = "nada",
         clases = [],
         mostrar = false,
-        hijo = document.createElement('span')
+        hijo = document.createElement('span'),
+        funcionClick = () => console.log("click")
     ) {
         this.#nombre = nombre;
         this.#clases = clases;
@@ -32,6 +35,8 @@ class Boton {
         this.#id = `${nombre}_btn`; // ID del botón
 
         this.#elemento = document.createElement("button"); // Crea el elemento HTML <button>
+
+        this.#funcionClick = funcionClick
 
         this.ConstruirModal() // Arma el botón en cada instancia nueva
     }
@@ -44,6 +49,7 @@ class Boton {
         this.#elemento.id = this.#id; // Establece el ID del botón
         this.#elemento.appendChild(this.#hijo); // Inserta el elemento hijo dentro del botón
         this.#elemento.style.display = this.#mostrar; // Establece el estilo de visualización del botón
+        this.#elemento.addEventListener("click", this.#funcionClick) // Asigna la función que se ejecuta al clickear el botón.
     }
 
     /**
@@ -89,7 +95,8 @@ class BotonModal extends Boton {
         nombre = "nada",
         clases = [],
         mostrar = false,
-        src = ""
+        src = "",
+        funcionClick = () => console.log("click")
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
         const icono = document.createElement("img")
@@ -98,7 +105,7 @@ class BotonModal extends Boton {
         icono.src = src ? `img/${src}.png` : "img/nada.png"
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
-        super(nombre, clases, mostrar, icono)
+        super(nombre, clases, mostrar, icono, funcionClick)
 
         this.#icono = icono
     }
@@ -123,6 +130,8 @@ class Modal {
     #boton_especial
     #boton_atras
     #boton_adelante
+
+    #index_vista
 
     /**
      * Constructor de la clase Modal. Crea un modal con la estructura básica.
@@ -152,7 +161,7 @@ class Modal {
         this.#elemento = document.createElement("div")
 
         this.#botones_gral = botones_gral
-        this.#boton_especial = boton_especial // Botón especial: Se define el botón con una acción especial.
+        this.#boton_especial = boton_especial
 
         // Construcción del modal: Se llama al método ConstruirModal() para construir la estructura HTML del modal.
         this.ConstruirModal()
@@ -168,13 +177,13 @@ class Modal {
         const botonesNavegacion = this.CrearBotonesNavegacion()
         this.#boton_atras = botonesNavegacion[0]
         this.#boton_adelante = botonesNavegacion[1]
-        this.#boton_cerrar = this.CrearBotonCerrar()   
-    
+        this.#boton_cerrar = this.CrearBotonCerrar()
+
         // * Lógica de botones generales 
         if (this.#botones_gral.length > this.#maximo_botones) {
             this.CrearBotonesGenerales()
         }
-    
+
         // * Agregar elementos al modal
         this.#elemento.appendChild(titulo)
         this.#elemento.appendChild(this.#boton_cerrar.ElementoModal)
@@ -184,13 +193,13 @@ class Modal {
         this.#elemento.appendChild(this.#boton_atras.ElementoModal)
         this.#elemento.appendChild(this.#boton_especial.ElementoModal)
         this.#elemento.appendChild(this.#boton_adelante.ElementoModal)
-    
+
         // * Configuración final del modal
         this.#elemento.classList.add(...this.#clases)
         this.#elemento.id = this.#id
         this.#elemento.style.display = this.#mostrar
     }
-    
+
 
     /**
      * Genera el elemento HTML para el título del modal.
@@ -214,9 +223,9 @@ class Modal {
      * Crea botones generales adicionales en caso de ser necesario para mantener un diseño equilibrado.
      */
     CrearBotonesGenerales() {
-        const restantes = this.#maximo_botones - (this.#maximo_botones % this.#botones_gral)
+        const restantes = this.#maximo_botones - (this.#botones_gral.length % this.#maximo_botones)
 
-        for (let i = 0; i < restantes; i++) {
+        for (let i = 0; i <= restantes; i++) {
             this.#botones_gral.push(new BotonModal())
         }
     }
@@ -226,8 +235,8 @@ class Modal {
      * @returns {BotonModal[]} Arreglo con los botones de navegación.
      */
     CrearBotonesNavegacion() {
-        const boton_atras = new BotonModal(`atras_modal_${this.#nombre}`, ["item-modal"], true, "atras")
-        const boton_adelante = new BotonModal(`adelante_modal_${this.#nombre}`, ["item-modal"], true, "adelante")
+        const boton_atras = new BotonModal(`atras_modal_${this.#nombre}`, ["item-modal"], true, "atras", this.CambiarVistaAtras)
+        const boton_adelante = new BotonModal(`adelante_modal_${this.#nombre}`, ["item-modal"], true, "adelante", this.CambiarVistaAdelante)
 
         return [boton_atras, boton_adelante]
     }
@@ -250,11 +259,11 @@ class Modal {
         return this.#elemento
     }
 
-    CambiarVistaAdelante() {
+    CambiarVistaAdelante = () => {
         console.log("adelante")
     }
 
     CambiarVistaAtras() {
-        console.log("")
+        console.log("atras")
     }
 }
