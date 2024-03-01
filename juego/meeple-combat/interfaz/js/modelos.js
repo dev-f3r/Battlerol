@@ -29,3 +29,7 @@ class BotonModal {
             </button>`
     }
 }
+
+class Modal {
+    
+}
