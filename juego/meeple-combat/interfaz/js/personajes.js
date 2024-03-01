@@ -403,84 +403,58 @@ const esbirros2 = {
 
 const personajes = {
 
-    "bienvenida": {
-        nombre: "BEINVENIDO",
-        portada: "img/logo-meeple-combat.png",
-        icono: "",
-        descripcion: "Sin descripción.",
+    // "bienvenida": {
+    //     nombre: "BEINVENIDO",
+    //     portada: "img/logo-meeple-combat.png",
+    //     icono: "",
+    //     descripcion: "Sin descripción.",
 
-        ataque: 0,
-        esquiva: 0,
-        bloqueo: 0,
-        velocidad: 0,
-        vida: 0,
-        vidaMaxima: 0,
-        poder: 0,
-        poderMaximo: 0,
+    //     ataque: 0,
+    //     esquiva: 0,
+    //     bloqueo: 0,
+    //     velocidad: 0,
+    //     vida: 0,
+    //     vidaMaxima: 0,
+    //     poder: 0,
+    //     poderMaximo: 0,
 
-        arma1: "nada",
-        arma2: "nada",
+    //     arma1: "nada",
+    //     arma2: "nada",
 
-        equipo1: "nada",
-        equipo2: "nada",
-        equipo3: "nada",
+    //     equipo1: "nada",
+    //     equipo2: "nada",
+    //     equipo3: "nada",
 
-        habilidad1: "habilidad 1",
-        habilidad2: "habilidad 2",
-        habilidad3: "habilidad 3",
-    },
-    "nuevopj": {
-        nombre: "nuevo",
-        portada: "img/nuevopj.png",
-        icono: "",
-        descripcion: "Sin descripción.",
+    //     habilidad1: "habilidad 1",
+    //     habilidad2: "habilidad 2",
+    //     habilidad3: "habilidad 3",
+    // },
+    // "nuevoesbirro": {
+    //     nombre: "nuevo",
+    //     portada: "img/nuevoesbirro.png",
+    //     icono: "",
+    //     descripcion: "Sin descripción.",
 
-        ataque: 0,
-        esquiva: 0,
-        bloqueo: 0,
-        velocidad: 0,
-        vida: 0,
-        vidaMaxima: 0,
-        poder: 0,
-        poderMaximo: 0,
+    //     ataque: 0,
+    //     esquiva: 0,
+    //     bloqueo: 0,
+    //     velocidad: 0,
+    //     vida: 0,
+    //     vidaMaxima: 0,
+    //     poder: 0,
+    //     poderMaximo: 0,
 
-        arma1: "nada",
-        arma2: "nada",
+    //     arma1: "nada",
+    //     arma2: "nada",
 
-        equipo1: "nada",
-        equipo2: "nada",
-        equipo3: "nada",
+    //     equipo1: "nada",
+    //     equipo2: "nada",
+    //     equipo3: "nada",
 
-        habilidad1: "habilidad 1",
-        habilidad2: "habilidad 2",
-        habilidad3: "habilidad 3",
-    },
-    "nuevoesbirro": {
-        nombre: "nuevo",
-        portada: "img/nuevoesbirro.png",
-        icono: "",
-        descripcion: "Sin descripción.",
-
-        ataque: 0,
-        esquiva: 0,
-        bloqueo: 0,
-        velocidad: 0,
-        vida: 0,
-        vidaMaxima: 0,
-        poder: 0,
-        poderMaximo: 0,
-
-        arma1: "nada",
-        arma2: "nada",
-
-        equipo1: "nada",
-        equipo2: "nada",
-        equipo3: "nada",
-
-        habilidad1: "habilidad 1",
-        habilidad2: "habilidad 2",
-        habilidad3: "habilidad 3",
-    },
+    //     habilidad1: "habilidad 1",
+    //     habilidad2: "habilidad 2",
+    //     habilidad3: "habilidad 3",
+    // },
     "guerrero": {
         nombre: "guerrero",
         portada: "img/guerrero.png",
@@ -716,6 +690,111 @@ const personajes = {
         habilidad3: "sanar",
     },
 
+    "nigromante": {
+        nombre: "nigromante",
+        portada: "img/nigromante.png",
+        icono: "",
+        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+
+        ataque: 5,
+        esquiva: 2,
+        bloqueo: 5,
+        velocidad: 3,
+        vida: 25,
+        vidaMaxima: 25,
+        poder: 40,
+        poderMaximo: 40,
+
+        arma1: "baculo",
+        arma2: "runa",
+
+        equipo1: "nada",
+        equipo2: "nada",
+        equipo3: "nada",
+
+        habilidad1: "enraizar",
+        habilidad2: "envenenar",
+        habilidad3: "sanar",
+    },
+    "paladinoscuro": {
+        nombre: "paladin oscuro",
+        portada: "img/paladinoscuro.png",
+        icono: "",
+        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+
+        ataque: 5,
+        esquiva: 2,
+        bloqueo: 5,
+        velocidad: 3,
+        vida: 25,
+        vidaMaxima: 25,
+        poder: 40,
+        poderMaximo: 40,
+
+        arma1: "hojaruna",
+        arma2: "magia",
+
+        equipo1: "nada",
+        equipo2: "nada",
+        equipo3: "nada",
+
+        habilidad1: "drenar",
+        habilidad2: "ataque poderoso",
+        habilidad3: "reanimar",
+    },
+    "guardiarunico": {
+        nombre: "guardia runico",
+        portada: "img/guardiarunico.png",
+        icono: "",
+        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+
+        ataque: 5,
+        esquiva: 2,
+        bloqueo: 5,
+        velocidad: 3,
+        vida: 25,
+        vidaMaxima: 25,
+        poder: 40,
+        poderMaximo: 40,
+
+        arma1: "hojaruna",
+        arma2: "escudo",
+
+        equipo1: "nada",
+        equipo2: "nada",
+        equipo3: "nada",
+
+        habilidad1: "embestida con escudo",
+        habilidad2: "enraizar",
+        habilidad3: "envenenar",
+    },
+
+    "nuevopj": {
+        nombre: "nuevo",
+        portada: "img/nuevopj.png",
+        icono: "",
+        descripcion: "Sin descripción.",
+
+        ataque: 0,
+        esquiva: 0,
+        bloqueo: 0,
+        velocidad: 0,
+        vida: 0,
+        vidaMaxima: 0,
+        poder: 0,
+        poderMaximo: 0,
+
+        arma1: "nada",
+        arma2: "nada",
+
+        equipo1: "nada",
+        equipo2: "nada",
+        equipo3: "nada",
+
+        habilidad1: "habilidad 1",
+        habilidad2: "habilidad 2",
+        habilidad3: "habilidad 3",
+    },
 }
 
 const personajesOcultos = {
@@ -830,7 +909,7 @@ const personajesOcultos = {
 const nombrePersonajes = Object.keys(personajes).filter(nombre => {
     if (
         nombre !== 'bienvenida'
-        && nombre !== 'nuevopj'
+        // && nombre !== 'nuevopj'
         && nombre !== 'nuevoesbirro'
     ) {
         return true
