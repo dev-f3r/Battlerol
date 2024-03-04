@@ -796,7 +796,7 @@ const avatares = {
         habilidad3: "habilidad 3",
     },
 
-    // ! NUEVOS PERSONAJES HUMANOS DEBEN IR DESPUES DE "nuevopj"
+    // ! NUEVOS AVATARES HUMANOS DEBEN IR DESPUES DE "nuevopj"
     "test1": {
         nombre: "test1",
         portada: "img/nada.png",

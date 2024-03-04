@@ -1,14 +1,16 @@
 // * ESTE ARCHIVO SE USA PARA GENERAR ELEMENTOS UI
 
-// Maximo de botones generales (se excluyen los botones de navegacion) por modal
+// Maximo de botones generales (se excluyen los botones de navegacion) por modal.
 const maximo_botones = 13
 
-// Botones para cada modal
+// Botones para cada modal.
 const botones = {
-    // ? Lista de botones para modal personajes
-    "personajes": nombrePersonajes.map((nombre, i) => {
-        // El nombre se extrae de la portada 'img/<nombre>.png' del personaje
-        const filNombre = personaje.portada.match(/\/(.+?)\.png/)
+    // ? Lista de botones para modal avatares
+    "avatares": nombreAvatares.map((nombre, i) => {
+        // Extrae el avatar determinado de la colleción de avatares.
+        const avatar = avatares[nombre]
+        // El nombre se extrae de la portada 'img/<nombre>.png' del avatar
+        const filNombre = avatar.portada.match(/\/(.+?)\.png/)
         // Si excede el maximo el boton se genera con "display: none;"
         const mostrar = i <= maximo_botones - 1 ? true : false
 
