@@ -401,7 +401,7 @@ const esbirros2 = {
     },
 }
 
-const personajes = {
+const avatares = {
 
     // "bienvenida": {
     //     nombre: "BEINVENIDO",
@@ -825,7 +825,7 @@ const personajes = {
     },
 }
 
-const personajesOcultos = {
+const avataresOcultos = {
 
     "nigromante": {
         nombre: "nigromante",
@@ -934,7 +934,7 @@ const personajesOcultos = {
 
 }
 
-const nombrePersonajes = Object.keys(personajes).filter(nombre => {
+const nombreAvatares = Object.keys(avatares).filter(nombre => {
     if (
         nombre !== 'bienvenida'
         // && nombre !== 'nuevopj'

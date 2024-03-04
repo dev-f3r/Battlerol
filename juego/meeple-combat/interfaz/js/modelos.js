@@ -77,7 +77,7 @@ class Modal {
      * @param {string[]} clases - Las clases CSS del modal.
      * @param {string[]} estilos - Los estilos CSS adicionales del modal.
      * @param {Boton[]} botones - Los botones del modal.
-     * @param {number} maximo_botones - El número máximo de botones permitidos en el modal.
+     * @param {number} maximo_botones - El número máximo de botones permitidos en el modal (por defecto 13).
      */
     constructor(
         nombre = "",
