@@ -1,16 +1,14 @@
-class BotonModal {
+class Boton {
     constructor(
         nombre = "nada",
-        // icono = "img/nada",
-        // id = "",
         clases = [],
-        estilos = [],
+        mostrar = false,
+        contenido = ""
     ) {
-        // this.icono = `img/${icono}ico.png`
-        // this.id = `${id}BTN`
         this.nombre = nombre
         this.clases = clases
-        this.estilos = estilos
+        this.mostrar = mostrar
+        this.contenido = contenido
 
         this.html = ""
 
@@ -19,14 +17,24 @@ class BotonModal {
 
     armar() {
         const clases = this.clases.join(" ")
-        const estilos = this.estilos.join(";")
+        const mostrar = this.mostrar ? "display: flex;" : "display: none;"
         const id = `${this.nombre}_btn`
-        const icono = `img/${this.nombre}ico.png`
 
-        this.html =
-            `<button class="${clases}" id="${id}" style="${estilos}">
-                <img src="${icono}" alt="${this.nombre}" />
-            </button>`
+        this.html = `<button class="${clases}" id="${id}" style="${mostrar}">${this.contenido}</button>`
+    }
+}
+
+class BotonModal extends Boton {
+    constructor(
+        nombre = "nada",
+        clases = [],
+        mostrar = false,
+    ) {
+        const icono = `img/${nombre}ico.png`
+
+        super(nombre, clases, mostrar, `<img src="${icono}" alt="${nombre}" />`)
+
+        this.armar()
     }
 }
 
@@ -36,11 +44,13 @@ class Modal {
         clases = [],
         estilos = [],
         botones = [],
+        maximo_botones = 13,
     ) {
         this.nombre = nombre
         this.clases = clases
         this.estilos = estilos
         this.botones = botones
+        this.maximo_botones = maximo_botones
 
         this.html = ""
 
@@ -55,19 +65,23 @@ class Modal {
         let contenido = ""
 
         // ? Titulo
-        contenido += `<div class="item-modal"><span class="texto">${this.nombre.toUpperCase()}</span></div>\n`
+        contenido += `<div class="item-modal"><span class="texto">${this.nombre.toUpperCase()}</span></div>`
         // ? Boton cerrar modal
-        contenido += `<button class="item-modal" id="cerrar_modal_${this.nombre}"><img src="img/cerrar.png"></button>\n`
+        const boton_cerrar = new Boton(`cerrar_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/cerrar.png">`)
+        contenido += boton_cerrar.html
 
         // ? Lista de botones
         for (let i = 0; i < this.botones.length; i++) {
             const boton = this.botones[i]
-            if (i === this.botones.length - 1) {
-                contenido += `<button class="item-modal"><img src="img/atras.png"></button>\n`
-                contenido += `${boton.html}\n`
-                contenido += `<button class="item-modal"><img src="img/adelante.png"></button>\n`
+            if (i === this.maximo_botones - 1) {
+                const boton_atras = new Boton(`atras_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/atras.png">`)
+                const boton_adelante = new Boton(`adelante_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/adelante.png">`)
+
+                contenido += boton_atras.html
+                contenido += boton.html
+                contenido += boton_adelante.html
             } else {
-                contenido += `${boton.html}\n`
+                contenido += `${boton.html}`
             }
         }
 
