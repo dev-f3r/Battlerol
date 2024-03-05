@@ -57,7 +57,11 @@ class BotonModal extends Boton {
         mostrar = false,
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
-        const icono = `img/${nombre}ico.png`
+        let icono = `img/${nombre}ico.png`
+
+        if(armas1[nombre]) {
+            icono = `img/${nombre}.png`
+        }
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
         super(nombre, clases, mostrar, `<img src="${icono}" alt="${nombre}" />`)
@@ -76,7 +80,8 @@ class Modal {
      * @param {string} nombre - El nombre del modal.
      * @param {string[]} clases - Las clases CSS del modal.
      * @param {string[]} estilos - Los estilos CSS adicionales del modal.
-     * @param {Boton[]} botones - Los botones del modal.
+     * @param {BotonModal[]} botones - Los botones del modal.
+     * @param {Boton} boton_especial - Botón con accion especial del modal.
      * @param {number} maximo_botones - El número máximo de botones permitidos en el modal (por defecto 13).
      */
     constructor(
@@ -84,12 +89,14 @@ class Modal {
         clases = [],
         estilos = [],
         botones = [],
+        boton_especial = new BotonModal(),
         maximo_botones = 13,
     ) {
         this.nombre = nombre
         this.clases = clases
         this.estilos = estilos
         this.botones = botones
+        this.boton_especial = boton_especial
         this.maximo_botones = maximo_botones
 
         this.html = ""
@@ -119,13 +126,18 @@ class Modal {
         for (let i = 0; i < this.botones.length; i++) {
             const boton = this.botones[i]
             if (i === this.maximo_botones - 1) {
-                // Si se alcanza el máximo de botones permitidos, se agregan botones de navegación
+                // Si se alcanza el máximo de botones permitidos, se agregan botones de navegación.
 
+                // Añade el boton actual.
+                contenido += boton.html
+
+                // Crea los botones de navegación.
                 const boton_atras = new Boton(`atras_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/atras.png">`)
                 const boton_adelante = new Boton(`adelante_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/adelante.png">`)
 
                 contenido += boton_atras.html
-                contenido += boton.html
+                // Se inserta el boton especial entre los de navegación.
+                contenido += this.boton_especial.html
                 contenido += boton_adelante.html
             } else {
                 contenido += `${boton.html}`
