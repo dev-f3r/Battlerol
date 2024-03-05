@@ -934,10 +934,12 @@ const avataresOcultos = {
 
 }
 
-const nombreAvatares = Object.keys(avatares).filter(nombre => {
+// Contiene los nombres de todos los avatares dentro de la colleción.
+const nombre_avatares = Object.keys(avatares).filter(nombre => {
     if (
+        // Avatares excluidos.
         nombre !== 'bienvenida'
-        // && nombre !== 'nuevopj'
+        && nombre !== 'nuevopj'
         && nombre !== 'nuevoesbirro'
     ) {
         return true
