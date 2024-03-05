@@ -1,4 +1,5 @@
-const armas = {
+const armas1 = {
+    // ? Comunes
     "nada": {
         nombre: "nada",
         icono: "img/nada.png",
@@ -111,6 +112,8 @@ const armas = {
         tipo: "",
         descripcion: "Arma mixta <br> 1 casillero x ataque / 2 Acciones / 100% de ataque como daño físico o mágico"
     },
+
+    // ? Naturales 1
     "mordisco": {
         nombre: "mordisco",
         icono: "img/mordisco.png",
@@ -255,6 +258,8 @@ const armas = {
         tipo: "",
         descripcion: "AGUIJON <br> Arma mixta cuerpo a cuerpo / 3 Acciones <br> 275% de ataque como daño mágico o físico"
     },
+
+    // ? Naturales 2
     "aleta": {
         nombre: "aleta",
         icono: "img/aleta.png",
@@ -270,8 +275,7 @@ const armas = {
         coste: 1,
         tipo: "",
         descripcion: "ANTENAS <br> Arma a distancia / 2 Acciones <br> 125% de ataque como daño mágico o físico <br> distancia máxima 1 casillero x punto de ataque"
-    }
-    ,
+    },
     "glandula": {
         nombre: "glandula",
         icono: "img/glandula.png",
@@ -312,6 +316,8 @@ const armas = {
         tipo: "mecanomagica",
         descripcion: "FUSIL <br> Arma Tecnomágica / 2 Acciones <br> 200% de ataque como daño físico (poder por disparo 3) <br> distancia máxima 3 casillero x punto de ataque"
     },
+
+    // ? Qsyo
     "granada": {
         nombre: "granada",
         icono: "img/granada.png",
@@ -321,3 +327,13 @@ const armas = {
         descripcion: "GRANADA <br> Arma Tecnomágica  / 3 Acciones <br> 300% de ataque como daño físico en el lugar de impacto y la mitad de este en los casilleros adyacentes (poder por lanzamiento 6) <br> distancia máxima 3 casillero x punto de ataque"
     }
 }
+
+// Contiene los nombres de todas las armas dentro de la colleción.
+const nombre_armas = Object.keys(armas1).filter(nombre => {
+    if (
+        // Armas excluidas.
+        nombre !== "nada"
+    ) {
+        return true
+    } else return false
+})
