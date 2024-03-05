@@ -99,6 +99,11 @@ class Modal {
         this.boton_especial = boton_especial
         this.maximo_botones = maximo_botones
 
+        // Creación de botones para navegación
+        this.boton_atras = new Boton(`atras_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/atras.png">`)
+        this.boton_adelante = new Boton(`adelante_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/adelante.png">`)
+
+        // Contenido HTML del modal
         this.html = ""
 
         // Se llama al método armar() para generar el HTML del modal.
@@ -131,14 +136,10 @@ class Modal {
                 // Añade el boton actual.
                 contenido += boton.html
 
-                // Crea los botones de navegación.
-                const boton_atras = new Boton(`atras_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/atras.png">`)
-                const boton_adelante = new Boton(`adelante_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/adelante.png">`)
-
-                contenido += boton_atras.html
+                contenido += this.boton_atras.html
                 // Se inserta el boton especial entre los de navegación.
                 contenido += this.boton_especial.html
-                contenido += boton_adelante.html
+                contenido += this.boton_adelante.html
             } else {
                 contenido += `${boton.html}`
             }
