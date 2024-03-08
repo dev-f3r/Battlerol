@@ -4,6 +4,14 @@
  * Clase que representa un botón HTML.
  */
 class Boton {
+
+    #nombre
+    #clases
+    #mostrar
+    #hijo
+    #id
+    #elemento
+
     /**
      * Constructor de la clase Boton.
      * @param {string} nombre - El nombre del botón (id: nombre_btn).
@@ -17,13 +25,13 @@ class Boton {
         mostrar = false,
         hijo = document.createElement('span')
     ) {
-        this.nombre = nombre;
-        this.clases = clases;
-        this.mostrar = mostrar ? "flex" : "none"; // Establece el valor inicial de mostrar basado en el parámetro booleano
-        this.hijo = hijo; // El elemento HTML que se insertará dentro del botón
-        this.id = `${nombre}_btn`; // ID del botón
+        this.#nombre = nombre;
+        this.#clases = clases;
+        this.#mostrar = mostrar ? "flex" : "none"; // Establece el valor inicial de mostrar basado en el parámetro booleano
+        this.#hijo = hijo; // El elemento HTML que se insertará dentro del botón
+        this.#id = `${nombre}_btn`; // ID del botón
 
-        this.elemento = document.createElement("button"); // Crea el elemento HTML <button>
+        this.#elemento = document.createElement("button"); // Crea el elemento HTML <button>
 
         this.armar() // Arma el botón en cada instancia nueva
     }
@@ -32,41 +40,41 @@ class Boton {
      * Arma el botón HTML con sus propiedades y contenido.
      */
     armar() {
-        const el = this.elemento
-
-        el.classList.add(...this.clases); // Agrega las clases CSS al botón
-        el.id = this.id; // Establece el ID del botón
-        el.appendChild(this.hijo); // Inserta el elemento hijo dentro del botón
-        el.style.display = this.mostrar; // Establece el estilo de visualización del botón
+        this.#elemento.classList.add(...this.#clases); // Agrega las clases CSS al botón
+        this.#elemento.id = this.#id; // Establece el ID del botón
+        this.#elemento.appendChild(this.#hijo); // Inserta el elemento hijo dentro del botón
+        this.#elemento.style.display = this.#mostrar; // Establece el estilo de visualización del botón
     }
 
     /**
      * Muestra el botón estableciendo su estilo de visualización a "flex".
      */
     mostrarBoton() {
-        this.mostrar = "flex";
-        this.elemento.style.display = this.mostrar;
+        this.#mostrar = "flex";
+        this.#elemento.style.display = this.#mostrar;
     }
 
     /**
      * Oculta el botón estableciendo su estilo de visualización a "none".
      */
     ocultarBoton() {
-        this.mostrar = "none";
-        this.elemento.style.display = this.mostrar;
+        this.#mostrar = "none";
+        this.#elemento.style.display = this.#mostrar;
     }
 }
 
 /**
- * ? Clase que representa un botón HTML.
+ * ? Clase que representa un botón HTML con icono.
  */
 class BotonModal extends Boton {
+
+    #icono
+
     /**
      * ? Constructor de la clase Boton (id: "nombre"_btn, imgsrc: img/"nombre"ico.png).
      * @param {string} nombre - El nombre del botón.
      * @param {string[]} clases - Las clases CSS del botón.
      * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
-     * @param {string} contenido - El contenido dentro del botón.
      */
     constructor(
         nombre = "nada",
@@ -74,13 +82,13 @@ class BotonModal extends Boton {
         mostrar = false,
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
-        const icono = document.createElement("img")
+        this.#icono = document.createElement("img")
 
         // Dependiendo de si es un arma o un personaje el patron de ruta va a ser diferente
-        icono.src = armas1[nombre] ? `img/${nombre}.png` : `img/${nombre}ico.png`
+        this.#icono.src = armas1[nombre] ? `img/${nombre}.png` : `img/${nombre}ico.png`
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
-        super(nombre, clases, mostrar, icono)
+        super(nombre, clases, mostrar, this.#icono)
     }
 }
 
@@ -103,7 +111,7 @@ class Modal {
         estilos = [],
         botones = [],
         boton_especial = new BotonModal(),
-        maximo_botones = 13,
+        maximo_botones = 12,
     ) {
         this.nombre = nombre
         this.clases = clases
