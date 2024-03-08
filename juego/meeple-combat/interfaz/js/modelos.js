@@ -1,4 +1,4 @@
-// * ESTE ARCHIVO CONTIENE LAS CLASES PARA GENERAR EL HTML DE ALGUNOS ELEMENTOS DEL UI
+// * ESTE ARCHIVO CONTIENE LAS CLASES PARA GENERAR ELEMENTOS HTML DEL UI
 
 /**
  * Clase que representa un botón HTML.
@@ -32,10 +32,12 @@ class Boton {
      * Arma el botón HTML con sus propiedades y contenido.
      */
     armar() {
-        this.elemento.classList.add(...this.clases); // Agrega las clases CSS al botón
-        this.elemento.id = this.id; // Establece el ID del botón
-        this.elemento.appendChild(this.hijo); // Inserta el elemento hijo dentro del botón
-        this.elemento.style.display = this.mostrar; // Establece el estilo de visualización del botón
+        const el = this.elemento
+
+        el.classList.add(...this.clases); // Agrega las clases CSS al botón
+        el.id = this.id; // Establece el ID del botón
+        el.appendChild(this.hijo); // Inserta el elemento hijo dentro del botón
+        el.style.display = this.mostrar; // Establece el estilo de visualización del botón
     }
 
     /**
@@ -73,11 +75,9 @@ class BotonModal extends Boton {
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
         const icono = document.createElement("img")
-        icono.src = `img/${nombre}ico.png`
 
-        if (armas1[nombre]) {
-            icono.src = `img/${nombre}.png`
-        }
+        // Dependiendo de si es un arma o un personaje el patron de ruta va a ser diferente
+        icono.src = armas1[nombre] ? `img/${nombre}.png` : `img/${nombre}ico.png`
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
         super(nombre, clases, mostrar, icono)
