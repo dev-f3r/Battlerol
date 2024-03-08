@@ -1,42 +1,57 @@
 // * ESTE ARCHIVO CONTIENE LAS CLASES PARA GENERAR EL HTML DE ALGUNOS ELEMENTOS DEL UI
 
 /**
- * ? Clase que representa un botón HTML.
+ * Clase que representa un botón HTML.
  */
 class Boton {
     /**
-     * ? Constructor de la clase Boton.
+     * Constructor de la clase Boton.
      * @param {string} nombre - El nombre del botón (id: nombre_btn).
      * @param {string[]} clases - Las clases CSS del botón.
      * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
-     * @param {string} contenido - El contenido dentro del botón.
+     * @param {HTMLElement} hijo - El elemento HTML que se insertará dentro del botón.
      */
     constructor(
         nombre = "nada",
         clases = [],
         mostrar = false,
-        contenido = ""
+        hijo = document.createElement('span')
     ) {
-        this.nombre = nombre
-        this.clases = clases
-        this.mostrar = mostrar
-        this.contenido = contenido
+        this.nombre = nombre;
+        this.clases = clases;
+        this.mostrar = mostrar ? "flex" : "none"; // Establece el valor inicial de mostrar basado en el parámetro booleano
+        this.hijo = hijo; // El elemento HTML que se insertará dentro del botón
+        this.id = `${nombre}_btn`; // ID del botón
 
-        this.html = ""
+        this.elemento = document.createElement("button"); // Crea el elemento HTML <button>
 
-        // Se llama al método armar() para generar el HTML del botón.
-        this.armar()
+        this.armar() // Arma el botón en cada instancia nueva
     }
 
     /**
-     * ? Arma el HTML del boton
+     * Arma el botón HTML con sus propiedades y contenido.
      */
     armar() {
-        const clases = this.clases.join(" ")
-        const mostrar = this.mostrar ? "display: flex;" : "display: none;"
-        const id = `${this.nombre}_btn`
+        this.elemento.classList.add(...this.clases); // Agrega las clases CSS al botón
+        this.elemento.id = this.id; // Establece el ID del botón
+        this.elemento.appendChild(this.hijo); // Inserta el elemento hijo dentro del botón
+        this.elemento.style.display = this.mostrar; // Establece el estilo de visualización del botón
+    }
 
-        this.html = `<button class="${clases}" id="${id}" style="${mostrar}">${this.contenido}</button>`
+    /**
+     * Muestra el botón estableciendo su estilo de visualización a "flex".
+     */
+    mostrarBoton() {
+        this.mostrar = "flex";
+        this.elemento.style.display = this.mostrar;
+    }
+
+    /**
+     * Oculta el botón estableciendo su estilo de visualización a "none".
+     */
+    ocultarBoton() {
+        this.mostrar = "none";
+        this.elemento.style.display = this.mostrar;
     }
 }
 
@@ -57,17 +72,15 @@ class BotonModal extends Boton {
         mostrar = false,
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
-        let icono = `img/${nombre}ico.png`
+        const icono = document.createElement("img")
+        icono.src = `img/${nombre}ico.png`
 
-        if(armas1[nombre]) {
-            icono = `img/${nombre}.png`
+        if (armas1[nombre]) {
+            icono.src = `img/${nombre}.png`
         }
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
-        super(nombre, clases, mostrar, `<img src="${icono}" alt="${nombre}" />`)
-
-        // Se llama al método armar() para generar el HTML del botón.
-        this.armar()
+        super(nombre, clases, mostrar, icono)
     }
 }
 
@@ -99,12 +112,33 @@ class Modal {
         this.boton_especial = boton_especial
         this.maximo_botones = maximo_botones
 
-        // Creación de botones para navegación
+        // Creación de botones para navegación, cerrar, etc.
         this.boton_atras = new Boton(`atras_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/atras.png">`)
         this.boton_adelante = new Boton(`adelante_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/adelante.png">`)
+        this.boton_cerrar = new Boton(`cerrar_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/cerrar.png">`)
+
+        // Modal ids
+        this.id = `modal_${this.nombre}`
+        this.id_boton_cerrar = this.boton_cerrar.id
+        this.id_boton_adelante = this.boton_adelante.id
+        this.id_boton_atras = this.boton_atras.id
 
         // Contenido HTML del modal
         this.html = ""
+
+
+        // Si la cantidad de botones es menor a la maxima, se añaden botones para completar
+        for (let i = this.botones.length; i < maximo_botones; i++) {
+            this.botones.push(new BotonModal())
+        }
+
+        this.vistas = []
+        for (let i = 0; i < this.botones.length; i += this.maximo_botones) {
+            const parte = this.botones.slice(i, i + this.maximo_botones)
+            this.vistas.push(parte)
+        }
+
+        this.index_vista = 0
 
         // Se llama al método armar() para generar el HTML del modal.
         this.armar()
@@ -116,16 +150,14 @@ class Modal {
     armar() {
         const clases = this.clases.join(" ")
         const estilos = this.estilos.join(";")
-        const id = `modal_${this.nombre}`
 
         let contenido = ""
 
         // Se agrega el título del modal
         contenido += `<div class="item-modal"><span class="texto">${this.nombre.toUpperCase()}</span></div>`
 
-        // Se crea el botón para cerrar el modal
-        const boton_cerrar = new Boton(`cerrar_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/cerrar.png">`)
-        contenido += boton_cerrar.html
+        // Botón cerrar
+        contenido += this.boton_cerrar.html
 
         // Se agregan los botones al contenido del modal
         for (let i = 0; i < this.botones.length; i++) {
@@ -147,9 +179,59 @@ class Modal {
 
         // Se genera el HTML completo del modal
         this.html =
-            `<div class="${clases}" id="${id}" style="${estilos}">
+            `<div class="${clases}" id="${this.id}" style="${estilos}">
                 ${contenido}
             </div>`
+    }
 
+    atras() {
+        console.log("atras", this.nombre)
+        if (this.botones.length > this.maximo_botones) {
+            if (this.index_vista > 0) {
+                this.index_vista--
+            } else {
+                this.index_vista = this.vistas.length - 1
+            }
+
+            this.mostrar_vista()
+        }
+    }
+
+    adelante() {
+        console.log("adelante", this.nombre)
+        if (this.botones.length > this.maximo_botones) {
+            if (this.index_vista < this.vistas.length - 1) {
+                this.index_vista++
+            } else {
+                this.index_vista = 0
+            }
+
+            this.ocultar_vistas(this.index_vista)
+            this.mostrar_vista(this.index_vista)
+        }
+    }
+
+    mostrar_vista(index_vista) {
+        const vista = this.vistas[index_vista]
+        for (let i = 0; i < vista.length; i++) {
+            const boton = vista[i]
+            boton.mostrar_boton()
+        }
+    }
+
+    ocultar_vistas(index_excluir) {
+        for (let i = 0; i < this.vistas.length; i++) {
+            const vista = this.vistas[i]
+            if (i != index_excluir) {
+                this.ocultar_vista(vista)
+            }
+        }
+    }
+
+    ocultar_vista(vista) {
+        for (let i = 0; i < vista.length; i++) {
+            const boton = vista[i]
+            boton.ocultar_boton()
+        }
     }
 }
