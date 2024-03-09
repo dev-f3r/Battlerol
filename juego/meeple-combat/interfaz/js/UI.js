@@ -11,13 +11,13 @@ const botones = {
             // Extrae el avatar determinado de la colleción de avatares.
             const avatar = avatares[nombre]
             // El nombre se extrae de la portada 'img/<nombre>.png' del avatar
-            const filNombre = avatar.portada.match(/\/(.+?)\.png/)
+            const filNombre = avatar.portada.match(/\/(.+?)\.png/)[1]
             // Si excede el maximo el boton se genera con "display: none;"
             const mostrar = i <= maximo_botones - 1 ? true : false
 
-            return new BotonModal(filNombre[1], ["item-modal"], mostrar)
+            return new BotonModal(filNombre, ["item-modal"], mostrar, `${filNombre}ico`)
         }),
-        "especial": new BotonModal("nuevopj", ["item-modal"], true)
+        "especial": new BotonModal("nuevopj", ["item-modal"], true, "nuevopjico")
     },
     // ? Lista de botones para modal armas
     "armas": {
@@ -25,30 +25,27 @@ const botones = {
             // Extrae el arma determinada de la colleción de armas.
             const arma = armas1[nombre]
             // El nombre se extrae del icono 'img/<nombre>.png' del arma
-            const filNombre = arma.icono.match(/\/(.+?)\.png/)
+            const filNombre = arma.icono.match(/\/(.+?)\.png/)[1]
             // Si excede el maximo el boton se genera con "display: none;"
             const mostrar = i <= maximo_botones - 1 ? true : false
 
-            return new BotonModal(filNombre[1], ["item-modal"], mostrar)
+            return new BotonModal(filNombre, ["item-modal"], mostrar, filNombre)
         }),
-        "especial": new BotonModal("salvajes", ["item-modal"], true)
+        "especial": new BotonModal("salvajes", ["item-modal"], true, "salvajes")
     },
     // ? Lista de botones para modal equipo
-    "equipo": [],
+    // "equipo": [],
+    // "esbirros": [],
 }
 
-// Lista de modales
-const modales = Object.keys(botones).map(nombre => {
-    // Se trae la lista de botones y se pasa a la clase
-    const botones_normales = botones[nombre].normales
-    // Se trae el botón especial
-    const boton_especial = botones[nombre].especial
+const modales = {}
 
-    return new Modal(nombre, ["modal"], ["display:none"], botones_normales, boton_especial, maximo_botones)
+Object.keys(botones).forEach(nombre => {
+    modales[nombre] = new Modal(nombre, ["modal"], false, maximo_botones, botones[nombre].normales, botones[nombre].especial)
 })
 
 // Elemento contenedor de los modales
 const main = document.getElementById("main")
-// * Insertar los modales al final de #main
-main.insertAdjacentHTML("beforeend", modales[0].html)
-main.insertAdjacentHTML("beforeend", modales[1].html)
+for(const modal in modales) {
+    main.appendChild(modales[modal].el())
+}
