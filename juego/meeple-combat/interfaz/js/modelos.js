@@ -1,7 +1,7 @@
 // * ESTE ARCHIVO CONTIENE LAS CLASES PARA GENERAR ELEMENTOS HTML DEL UI
 
 /**
- * Clase que representa un botón HTML.
+ * ? Clase que representa un botón HTML.
  */
 class Boton {
 
@@ -46,6 +46,10 @@ class Boton {
         this.#elemento.style.display = this.#mostrar; // Establece el estilo de visualización del botón
     }
 
+    el() {
+        return this.#elemento
+    }
+
     /**
      * Muestra el botón estableciendo su estilo de visualización a "flex".
      */
@@ -75,20 +79,24 @@ class BotonModal extends Boton {
      * @param {string} nombre - El nombre del botón.
      * @param {string[]} clases - Las clases CSS del botón.
      * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
+     * @param {string} src - El nombre del icono.
      */
     constructor(
         nombre = "nada",
         clases = [],
         mostrar = false,
+        src = ""
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
-        this.#icono = document.createElement("img")
+        const icono = document.createElement("img")
 
         // Dependiendo de si es un arma o un personaje el patron de ruta va a ser diferente
-        this.#icono.src = armas1[nombre] ? `img/${nombre}.png` : `img/${nombre}ico.png`
+        icono.src = src ? `img/${src}.png` : "img/nada.png"
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
-        super(nombre, clases, mostrar, this.#icono)
+        super(nombre, clases, mostrar, icono)
+
+        this.#icono = icono
     }
 }
 
@@ -96,6 +104,22 @@ class BotonModal extends Boton {
  * ? Clase que representa un modal (menu de opciones emergente).
  */
 class Modal {
+
+    #nombre
+    #id
+    #clases
+    #mostrar
+    #maximo_botones
+
+
+    #elemento
+
+    #botones_gral
+    #boton_cerrar
+    #boton_especial
+    #boton_atras
+    #boton_adelante
+
     /**
      * ? Constructor de la clase Modal (id: modal_"nombre", ).
      * @param {string} nombre - El nombre del modal.
@@ -108,47 +132,24 @@ class Modal {
     constructor(
         nombre = "",
         clases = [],
-        estilos = [],
-        botones = [],
-        boton_especial = new BotonModal(),
+        mostrar = false,
         maximo_botones = 12,
+
+        botones_gral = [],
+        boton_especial = new BotonModal(),
     ) {
-        this.nombre = nombre
-        this.clases = clases
-        this.estilos = estilos
-        this.botones = botones
-        this.boton_especial = boton_especial
-        this.maximo_botones = maximo_botones
+        this.#nombre = nombre
+        this.#id = `modal_${nombre}`
+        this.#clases = clases
+        this.#mostrar = mostrar ? "grid" : "none"
+        this.#maximo_botones = maximo_botones
 
-        // Creación de botones para navegación, cerrar, etc.
-        this.boton_atras = new Boton(`atras_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/atras.png">`)
-        this.boton_adelante = new Boton(`adelante_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/adelante.png">`)
-        this.boton_cerrar = new Boton(`cerrar_modal_${this.nombre}`, ["item-modal"], true, `<img src="img/cerrar.png">`)
+        this.#elemento = document.createElement("div")
 
-        // Modal ids
-        this.id = `modal_${this.nombre}`
-        this.id_boton_cerrar = this.boton_cerrar.id
-        this.id_boton_adelante = this.boton_adelante.id
-        this.id_boton_atras = this.boton_atras.id
+        this.#botones_gral = botones_gral
+        this.#boton_especial = boton_especial
 
-        // Contenido HTML del modal
-        this.html = ""
-
-
-        // Si la cantidad de botones es menor a la maxima, se añaden botones para completar
-        for (let i = this.botones.length; i < maximo_botones; i++) {
-            this.botones.push(new BotonModal())
-        }
-
-        this.vistas = []
-        for (let i = 0; i < this.botones.length; i += this.maximo_botones) {
-            const parte = this.botones.slice(i, i + this.maximo_botones)
-            this.vistas.push(parte)
-        }
-
-        this.index_vista = 0
-
-        // Se llama al método armar() para generar el HTML del modal.
+        // Se llama al método armar().
         this.armar()
     }
 
@@ -156,90 +157,78 @@ class Modal {
      * ? Arma el HTML del modal
      */
     armar() {
-        const clases = this.clases.join(" ")
-        const estilos = this.estilos.join(";")
+        // Titulo
+        const titulo = this._titulo()
 
-        let contenido = ""
+        // Navegación
+        const botonesNavegacion = this._botonesNavegacion()
+        this.#boton_atras = botonesNavegacion[0]
+        this.#boton_adelante = botonesNavegacion[1]
+        console.log(this.#boton_adelante, this.#boton_atras)
 
-        // Se agrega el título del modal
-        contenido += `<div class="item-modal"><span class="texto">${this.nombre.toUpperCase()}</span></div>`
-
-        // Botón cerrar
-        contenido += this.boton_cerrar.html
-
-        // Se agregan los botones al contenido del modal
-        for (let i = 0; i < this.botones.length; i++) {
-            const boton = this.botones[i]
-            if (i === this.maximo_botones - 1) {
-                // Si se alcanza el máximo de botones permitidos, se agregan botones de navegación.
-
-                // Añade el boton actual.
-                contenido += boton.html
-
-                contenido += this.boton_atras.html
-                // Se inserta el boton especial entre los de navegación.
-                contenido += this.boton_especial.html
-                contenido += this.boton_adelante.html
-            } else {
-                contenido += `${boton.html}`
-            }
+        // Cierre de modal
+        this.#boton_cerrar = this._botonCerrar()
+        // Botones generales
+        if (this.#botones_gral.length > this.#maximo_botones) {
+            this._botonesGenerales()
         }
 
-        // Se genera el HTML completo del modal
-        this.html =
-            `<div class="${clases}" id="${this.id}" style="${estilos}">
-                ${contenido}
-            </div>`
+        // Agrega los elementos al modal
+        this.#elemento.appendChild(titulo)
+
+        this.#elemento.appendChild(this.#boton_cerrar.el())
+
+        this.#botones_gral.forEach(boton => {
+            this.#elemento.appendChild(boton.el())
+        })
+
+        // Navegacion y especial
+        this.#elemento.appendChild(this.#boton_atras.el())
+        this.#elemento.appendChild(this.#boton_especial.el())
+        this.#elemento.appendChild(this.#boton_adelante.el())
+
+        // Estilos, id y clases
+        this.#elemento.classList.add(...this.#clases)
+        this.#elemento.id = this.#id
+        this.#elemento.style.display = this.#mostrar
     }
 
-    atras() {
-        console.log("atras", this.nombre)
-        if (this.botones.length > this.maximo_botones) {
-            if (this.index_vista > 0) {
-                this.index_vista--
-            } else {
-                this.index_vista = this.vistas.length - 1
-            }
+    _titulo() {
+        const div_titulo = document.createElement('div')
+        const span_titulo = document.createElement('span')
 
-            this.mostrar_vista()
-        }
+        div_titulo.classList.add('item-modal')
+        span_titulo.classList.add('texto')
+
+        span_titulo.textContent = 'ARMAS'
+
+        div_titulo.appendChild(span_titulo)
+
+        return div_titulo
     }
 
-    adelante() {
-        console.log("adelante", this.nombre)
-        if (this.botones.length > this.maximo_botones) {
-            if (this.index_vista < this.vistas.length - 1) {
-                this.index_vista++
-            } else {
-                this.index_vista = 0
-            }
+    _botonesGenerales() {
+        const restantes = this.#maximo_botones - (this.#maximo_botones % this.#botones_gral)
 
-            this.ocultar_vistas(this.index_vista)
-            this.mostrar_vista(this.index_vista)
+        for(let i = 0; i < restantes; i++) {
+            this.#botones_gral.push(new BotonModal())
         }
     }
 
-    mostrar_vista(index_vista) {
-        const vista = this.vistas[index_vista]
-        for (let i = 0; i < vista.length; i++) {
-            const boton = vista[i]
-            boton.mostrar_boton()
-        }
+    _botonesNavegacion() {
+        const boton_atras = new BotonModal(`atras_modal_${this.#nombre}`, ["item-modal"], true, "atras")
+        const boton_adelante = new BotonModal(`adelante_modal_${this.#nombre}`, ["item-modal"], true, "adelante")
+
+        return [boton_atras, boton_adelante]
     }
 
-    ocultar_vistas(index_excluir) {
-        for (let i = 0; i < this.vistas.length; i++) {
-            const vista = this.vistas[i]
-            if (i != index_excluir) {
-                this.ocultar_vista(vista)
-            }
-        }
+    _botonCerrar() {
+        const boton_cerrar = new BotonModal(`cerrar_modal_${this.#nombre}`, ["item-modal"], true, "cerrar")
+
+        return boton_cerrar
     }
 
-    ocultar_vista(vista) {
-        for (let i = 0; i < vista.length; i++) {
-            const boton = vista[i]
-            boton.ocultar_boton()
-        }
+    el() {
+        return this.#elemento
     }
 }
