@@ -101,7 +101,7 @@ class BotonModal extends Boton {
 }
 
 /**
- * ? Clase que representa un modal (menu de opciones emergente).
+ * ? Clase que representa un modal (ventana emergente con un menú de opciones).
  */
 class Modal {
 
@@ -121,13 +121,13 @@ class Modal {
     #boton_adelante
 
     /**
-     * ? Constructor de la clase Modal (id: modal_"nombre", ).
-     * @param {string} nombre - El nombre del modal.
-     * @param {string[]} clases - Las clases CSS del modal.
-     * @param {string[]} estilos - Los estilos CSS adicionales del modal.
-     * @param {BotonModal[]} botones - Los botones del modal.
-     * @param {Boton} boton_especial - Botón con accion especial del modal.
-     * @param {number} maximo_botones - El número máximo de botones permitidos en el modal (por defecto 13).
+     * Constructor de la clase Modal. Crea un modal con la estructura básica.
+     * @param {string} nombre - Nombre que identifica al modal.
+     * @param {string[]} clases - Clases CSS para aplicar estilos al modal.
+     * @param {boolean} mostrar - Indica si el modal debe mostrarse inicialmente (true: visible, false: oculto).
+     * @param {number} maximo_botones - Número máximo de botones generales permitidos (sin contar navegación ni botón especial).
+     * @param {BotonModal[]} botones_gral - Arreglo con los botones generales del modal.
+     * @param {Boton} boton_especial - Botón con una acción especial dentro del modal.
      */
     constructor(
         nombre = "",
@@ -139,60 +139,58 @@ class Modal {
         boton_especial = new BotonModal(),
     ) {
         this.#nombre = nombre
-        this.#id = `modal_${nombre}`
+        this.#id = `modal_${nombre}` // ID del modal: Se genera un ID único a partir del nombre del modal.
         this.#clases = clases
-        this.#mostrar = mostrar ? "grid" : "none"
+        this.#mostrar = mostrar ? "grid" : "none" // Visibilidad inicial: Se establece la propiedad #mostrar según el valor del parámetro mostrar.
         this.#maximo_botones = maximo_botones
 
+        // Elemento HTML principal: Se crea un elemento div como contenedor del modal.
         this.#elemento = document.createElement("div")
 
         this.#botones_gral = botones_gral
-        this.#boton_especial = boton_especial
+        this.#boton_especial = boton_especial // Botón especial: Se define el botón con una acción especial.
 
-        // Se llama al método armar().
+        // Construcción del modal: Se llama al método armar() para construir la estructura HTML del modal.
         this.armar()
     }
 
     /**
-     * ? Arma el HTML del modal
+     * Construye la estructura HTML del modal y sus elementos.
      */
     armar() {
-        // Titulo
+        // * Creación de los elementos principales
         const titulo = this._titulo()
-
-        // Navegación
         const botonesNavegacion = this._botonesNavegacion()
         this.#boton_atras = botonesNavegacion[0]
         this.#boton_adelante = botonesNavegacion[1]
-        console.log(this.#boton_adelante, this.#boton_atras)
-
-        // Cierre de modal
-        this.#boton_cerrar = this._botonCerrar()
-        // Botones generales
+        this.#boton_cerrar = this._botonCerrar()   
+    
+        // * Lógica de botones generales 
         if (this.#botones_gral.length > this.#maximo_botones) {
             this._botonesGenerales()
         }
-
-        // Agrega los elementos al modal
+    
+        // * Agregar elementos al modal
         this.#elemento.appendChild(titulo)
-
         this.#elemento.appendChild(this.#boton_cerrar.el())
-
         this.#botones_gral.forEach(boton => {
             this.#elemento.appendChild(boton.el())
         })
-
-        // Navegacion y especial
         this.#elemento.appendChild(this.#boton_atras.el())
         this.#elemento.appendChild(this.#boton_especial.el())
         this.#elemento.appendChild(this.#boton_adelante.el())
-
-        // Estilos, id y clases
+    
+        // * Configuración final del modal
         this.#elemento.classList.add(...this.#clases)
         this.#elemento.id = this.#id
         this.#elemento.style.display = this.#mostrar
     }
+    
 
+    /**
+     * Genera el elemento HTML para el título del modal.
+     * @returns {HTMLDivElement} El elemento div que contiene el título.
+     */
     _titulo() {
         const div_titulo = document.createElement('div')
         const span_titulo = document.createElement('span')
@@ -207,14 +205,21 @@ class Modal {
         return div_titulo
     }
 
+    /**
+     * Crea botones generales adicionales en caso de ser necesario para mantener un diseño equilibrado.
+     */
     _botonesGenerales() {
         const restantes = this.#maximo_botones - (this.#maximo_botones % this.#botones_gral)
 
-        for(let i = 0; i < restantes; i++) {
+        for (let i = 0; i < restantes; i++) {
             this.#botones_gral.push(new BotonModal())
         }
     }
 
+    /**
+     * Crea los botones de navegación del modal (atrás y adelante).
+     * @returns {BotonModal[]} Arreglo con los botones de navegación.
+     */
     _botonesNavegacion() {
         const boton_atras = new BotonModal(`atras_modal_${this.#nombre}`, ["item-modal"], true, "atras")
         const boton_adelante = new BotonModal(`adelante_modal_${this.#nombre}`, ["item-modal"], true, "adelante")
@@ -222,12 +227,20 @@ class Modal {
         return [boton_atras, boton_adelante]
     }
 
+    /**
+     * Crea el botón para cerrar el modal.
+     * @returns {BotonModal} El botón de cierre.
+     */
     _botonCerrar() {
         const boton_cerrar = new BotonModal(`cerrar_modal_${this.#nombre}`, ["item-modal"], true, "cerrar")
 
         return boton_cerrar
     }
 
+    /**
+     * Devuelve el elemento principal del modal (el contenedor div).
+     * @returns {HTMLDivElement} 
+     */
     el() {
         return this.#elemento
     }
