@@ -31,7 +31,7 @@ const botones = {
         }),
         "especial": new BotonModal("salvajes", ["item-modal"], true, "salvajes"),
     },
-    // * Botones para otros modales (pendientes):
+    // TODO: configurar los botones de los modales restantes
     // "equipo": [],
     // "esbirros": [],
 }
@@ -56,5 +56,5 @@ const main = document.getElementById("main")
 
 // * Agrega cada modal al contenedor:
 for (const modal in modales) {
-    main.appendChild(modales[modal].el())
+    main.appendChild(modales[modal].getElementoModal())
 }
