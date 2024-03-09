@@ -56,5 +56,5 @@ const main = document.getElementById("main")
 
 // * Agrega cada modal al contenedor:
 for (const modal in modales) {
-    main.appendChild(modales[modal].getElementoModal())
+    main.appendChild(modales[modal].ElementoModal)
 }

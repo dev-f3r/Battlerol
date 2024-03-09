@@ -177,13 +177,13 @@ class Modal {
     
         // * Agregar elementos al modal
         this.#elemento.appendChild(titulo)
-        this.#elemento.appendChild(this.#boton_cerrar.ElementoModal())
+        this.#elemento.appendChild(this.#boton_cerrar.ElementoModal)
         this.#botones_gral.forEach(boton => {
-            this.#elemento.appendChild(boton.ElementoModal())
+            this.#elemento.appendChild(boton.ElementoModal)
         })
-        this.#elemento.appendChild(this.#boton_atras.ElementoModal())
-        this.#elemento.appendChild(this.#boton_especial.ElementoModal())
-        this.#elemento.appendChild(this.#boton_adelante.ElementoModal())
+        this.#elemento.appendChild(this.#boton_atras.ElementoModal)
+        this.#elemento.appendChild(this.#boton_especial.ElementoModal)
+        this.#elemento.appendChild(this.#boton_adelante.ElementoModal)
     
         // * Configuración final del modal
         this.#elemento.classList.add(...this.#clases)
@@ -248,5 +248,13 @@ class Modal {
      */
     get ElementoModal() {
         return this.#elemento
+    }
+
+    CambiarVistaAdelante() {
+        console.log("adelante")
+    }
+
+    CambiarVistaAtras() {
+        console.log("")
     }
 }
