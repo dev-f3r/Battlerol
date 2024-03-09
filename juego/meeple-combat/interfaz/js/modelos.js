@@ -46,7 +46,11 @@ class Boton {
         this.#elemento.style.display = this.#mostrar; // Establece el estilo de visualización del botón
     }
 
-    getElementoModal() {
+    /**
+     * Devuelve el elemento principal del botón.
+     * @returns {HTMLDivElement} 
+     */
+    get ElementoModal() {
         return this.#elemento
     }
 
@@ -173,13 +177,13 @@ class Modal {
     
         // * Agregar elementos al modal
         this.#elemento.appendChild(titulo)
-        this.#elemento.appendChild(this.#boton_cerrar.getElementoModal())
+        this.#elemento.appendChild(this.#boton_cerrar.ElementoModal())
         this.#botones_gral.forEach(boton => {
-            this.#elemento.appendChild(boton.getElementoModal())
+            this.#elemento.appendChild(boton.ElementoModal())
         })
-        this.#elemento.appendChild(this.#boton_atras.getElementoModal())
-        this.#elemento.appendChild(this.#boton_especial.getElementoModal())
-        this.#elemento.appendChild(this.#boton_adelante.getElementoModal())
+        this.#elemento.appendChild(this.#boton_atras.ElementoModal())
+        this.#elemento.appendChild(this.#boton_especial.ElementoModal())
+        this.#elemento.appendChild(this.#boton_adelante.ElementoModal())
     
         // * Configuración final del modal
         this.#elemento.classList.add(...this.#clases)
@@ -242,7 +246,7 @@ class Modal {
      * Devuelve el elemento principal del modal (el contenedor div).
      * @returns {HTMLDivElement} 
      */
-    getElementoModal() {
+    get ElementoModal() {
         return this.#elemento
     }
 }
