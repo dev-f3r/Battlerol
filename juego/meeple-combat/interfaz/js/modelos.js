@@ -234,15 +234,15 @@ class Modal {
     }
 
     /**
-     * ? 
-     * @param {}  - 
-    * @param {BotonModal[]} arr - Arreglo con los botones generales del modal.
-     * @returns {[BotonModal[]]}
+     * Crea las vistas a partir de los botones generales.
+     * @param {BotonModal[]} arr - Arreglo con los botones generales del modal.
+     * @param {number} tamaño - Número de botones por vista.
+     * @returns {[BotonModal[]]} Arreglo de vistas.
      */
-    #CrearVista(arr, n) {
+    #CrearVista(arr, tamaño) {
         let salida = []
-        for (let i = 0; i < arr.length; i += n) {
-            salida.push(arr.slice(i, i + n))
+        for (let i = 0; i < arr.length; i += tamaño) {
+            salida.push(arr.slice(i, i + tamaño))
         }
 
         return salida
@@ -277,6 +277,9 @@ class Modal {
         return this.#elemento
     }
 
+    /**
+     * Cambia a la vista siguiente
+     */
     CambiarVistaAdelante = () => {
         if (this.#index_vista < this.#vistas.length - 1) {
             this.#index_vista++
@@ -289,7 +292,10 @@ class Modal {
         this.#OcultarVistas(this.#index_vista)
     }
 
-    CambiarVistaAtras = () => {
+    /**
+     * Cambia a la vista anterior.
+     */
+    CambiarVistaAtras() {
         if (this.#index_vista > 0) {
             this.#index_vista--
         } else {
@@ -297,29 +303,36 @@ class Modal {
         }
         const vista = this.#vistas[this.#index_vista]
 
-        console.log(this.#index_vista, vista)
+        this.#MostrarVista(vista)
+        this.#OcultarVistas(this.#index_vista)
     }
 
     /**
-     * ? -
-     * @param {BotonModal[]} vista - Arreglo con los botones generales del modal.
+     * Muestra los botones de una vista.
+     * @param {BotonModal[]} vista - Vista a mostrar.
      */
-    #MostrarVista = (vista) => {
+    #MostrarVista(vista) {
         vista.forEach(boton => boton.mostrarBoton())
     }
 
-    #OcultarVistas = (mostrar) => {
-        for(let i = 0; i < this.#vistas.length;i++) {
+    /**
+     * Oculta las vistas que no sean la actual.
+     * @param {number} ignorar - Índice de la vista que se debe ignorar.
+     */
+    #OcultarVistas(ignorar) {
+        for (let i = 0; i < this.#vistas.length; i++) {
             const vista = this.#vistas[i]
-            if(i != mostrar) this.#OcultarVista(vista)
+            if (i != ignorar) {
+                this.#OcultarVista(vista)
+            }
         }
     }
 
     /**
-     * ? Oculta los botones de una vista
-     * @param {BotonModal[]} vista - Vista a ocultar
+     * Oculta los botones de una vista.
+     * @param {BotonModal[]} vista - Vista a ocultar.
      */
-    #OcultarVista = (vista) => {
+    #OcultarVista(vista) {
         vista.forEach(boton => boton.ocultarBoton())
     }
 }
