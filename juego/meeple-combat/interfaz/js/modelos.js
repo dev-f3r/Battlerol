@@ -253,8 +253,20 @@ class Modal {
      * @returns {BotonModal[]} Arreglo con los botones de navegación.
      */
     CrearBotonesNavegacion() {
-        const boton_atras = new BotonModal(`atras_modal_${this.#nombre}`, ["item-modal"], true, "atras", this.CambiarVistaAtras)
-        const boton_adelante = new BotonModal(`adelante_modal_${this.#nombre}`, ["item-modal"], true, "adelante", this.CambiarVistaAdelante)
+        const boton_atras = new BotonModal(
+            `atras_modal_${this.#nombre}`,
+            ["item-modal"],
+            true,
+            "atras",
+            () => this.CambiarVista("atras"),
+        )
+        const boton_adelante = new BotonModal(
+            `adelante_modal_${this.#nombre}`,
+            ["item-modal"],
+            true,
+            "adelante",
+            () => this.CambiarVista("adelante"),
+        )
 
         return [boton_atras, boton_adelante]
     }
@@ -277,30 +289,45 @@ class Modal {
         return this.#elemento
     }
 
+    // TODO: Refactorizar metodo CambiarVistaAdelante y CambiarVistaAtras
     /**
-     * Cambia a la vista siguiente
+     * Incrementa la propiedad #index_vista
      */
-    CambiarVistaAdelante = () => {
+    #IncrementarIndexVista = () => {
         if (this.#index_vista < this.#vistas.length - 1) {
             this.#index_vista++
         } else {
             this.#index_vista = 0
         }
-        const vista = this.#vistas[this.#index_vista]
-
-        this.#MostrarVista(vista)
-        this.#OcultarVistas(this.#index_vista)
     }
-
     /**
-     * Cambia a la vista anterior.
+     * Decrementa la propiedad #index_vista
      */
-    CambiarVistaAtras = () => {
+    #DecrementarIndexVista = () => {
         if (this.#index_vista > 0) {
             this.#index_vista--
         } else {
             this.#index_vista = this.#vistas.length - 1
         }
+    }
+
+    /**
+     * Cambia a la vista siguiente o anterior.
+     * @param {String} accion - La direccion a donde cambiar.
+     */
+    CambiarVista = (accion) => {
+        switch (accion) {
+            case "adelante":
+                this.#IncrementarIndexVista()
+                break
+            case "atras":
+                this.#DecrementarIndexVista()
+                break
+            default:
+                console.error("CambiarVista: Accion no reconocida", accion)
+                break;
+        }
+
         const vista = this.#vistas[this.#index_vista]
 
         this.#MostrarVista(vista)
