@@ -132,7 +132,7 @@ class Modal {
     #boton_adelante
 
     #vistas = []
-    #index_vista
+    #index_vista = 0
 
     /**
      * Constructor de la clase Modal. Crea un modal con la estructura básica.
@@ -185,6 +185,8 @@ class Modal {
             this.CrearBotonesGenerales()
         }
 
+        this.#vistas = this.#CrearVista(this.#botones_gral, this.#maximo_botones) // Crea las vistas
+
         // * Agregar elementos al modal
         this.#elemento.appendChild(titulo) // Titulo
         this.#elemento.appendChild(this.#boton_cerrar.ElementoModal) // Boton cerrar
@@ -226,9 +228,24 @@ class Modal {
     CrearBotonesGenerales() {
         const restantes = this.#maximo_botones - (this.#botones_gral.length % this.#maximo_botones)
 
-        for (let i = 0; i <= restantes; i++) {
+        for (let i = 0; i < restantes; i++) {
             this.#botones_gral.push(new BotonModal())
         }
+    }
+
+    /**
+     * ? 
+     * @param {}  - 
+    * @param {BotonModal[]} arr - Arreglo con los botones generales del modal.
+     * @returns {[BotonModal[]]}
+     */
+    #CrearVista(arr, n) {
+        let salida = []
+        for (let i = 0; i < arr.length; i += n) {
+            salida.push(arr.slice(i, i + n))
+        }
+
+        return salida
     }
 
     /**
@@ -261,10 +278,48 @@ class Modal {
     }
 
     CambiarVistaAdelante = () => {
-        console.log("adelante")
+        if (this.#index_vista < this.#vistas.length - 1) {
+            this.#index_vista++
+        } else {
+            this.#index_vista = 0
+        }
+        const vista = this.#vistas[this.#index_vista]
+
+        this.#MostrarVista(vista)
+        this.#OcultarVistas(this.#index_vista)
     }
 
-    CambiarVistaAtras() {
-        console.log("atras")
+    CambiarVistaAtras = () => {
+        if (this.#index_vista > 0) {
+            this.#index_vista--
+        } else {
+            this.#index_vista = this.#vistas.length - 1
+        }
+        const vista = this.#vistas[this.#index_vista]
+
+        console.log(this.#index_vista, vista)
+    }
+
+    /**
+     * ? -
+     * @param {BotonModal[]} vista - Arreglo con los botones generales del modal.
+     */
+    #MostrarVista = (vista) => {
+        vista.forEach(boton => boton.mostrarBoton())
+    }
+
+    #OcultarVistas = (mostrar) => {
+        for(let i = 0; i < this.#vistas.length;i++) {
+            const vista = this.#vistas[i]
+            if(i != mostrar) this.#OcultarVista(vista)
+        }
+    }
+
+    /**
+     * ? Oculta los botones de una vista
+     * @param {BotonModal[]} vista - Vista a ocultar
+     */
+    #OcultarVista = (vista) => {
+        vista.forEach(boton => boton.ocultarBoton())
     }
 }

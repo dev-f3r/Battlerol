@@ -823,6 +823,32 @@ const avatares = {
         habilidad2: "habilidad 2",
         habilidad3: "habilidad 3",
     },
+    "test2": {
+        nombre: "test2",
+        portada: "img/nada.png",
+        icono: "",
+        descripcion: "Sin descripción.",
+
+        ataque: 0,
+        esquiva: 0,
+        bloqueo: 0,
+        velocidad: 0,
+        vida: 0,
+        vidaMaxima: 0,
+        poder: 0,
+        poderMaximo: 0,
+
+        arma1: "nada",
+        arma2: "nada",
+
+        equipo1: "nada",
+        equipo2: "nada",
+        equipo3: "nada",
+
+        habilidad1: "habilidad 1",
+        habilidad2: "habilidad 2",
+        habilidad3: "habilidad 3",
+    },
 }
 
 const avataresOcultos = {
