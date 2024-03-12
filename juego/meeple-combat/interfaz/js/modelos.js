@@ -295,7 +295,7 @@ class Modal {
     /**
      * Cambia a la vista anterior.
      */
-    CambiarVistaAtras() {
+    CambiarVistaAtras = () => {
         if (this.#index_vista > 0) {
             this.#index_vista--
         } else {
