@@ -1,14 +1,14 @@
 // * ESTE ARCHIVO CONTIENE LAS CLASES PARA GENERAR ELEMENTOS HTML DEL UI
 class ElementoHTML {
-    #nombre
-    #clases
-    #mostrar
-    #tipo_display
-    #id
-    #funcionClick
+    nombre
+    clases
+    mostrar
+    tipo_display
+    id
+    funcionClick
 
-    #elemento
-    #hijo
+    hijo
+    elemento
 
     constructor(
         nombre = "nada",
@@ -16,95 +16,75 @@ class ElementoHTML {
         mostrar = false,
         tipo_display = "block",
         hijo = document.createElement('span'),
+        elemento = document.createElement("div"),
         funcionClick = () => console.log("click")
     ) {
-        this.#nombre = nombre;
-        this.#clases = clases;
-        this.#mostrar = mostrar;
-        this.#tipo_display = tipo_display
-        this.#id = `${nombre}_elemento`;
-        this.#funcionClick = funcionClick;
+        this.nombre = nombre;
+        this.clases = clases;
+        this.mostrar = mostrar;
+        this.tipo_display = tipo_display
+        this.funcionClick = funcionClick;
 
-        this.#elemento = this.ConstruirElemento();
-        this.#hijo = hijo;
+        this.hijo = hijo;
+        this.elemento = elemento
     }
 
     ConstruirElemento() {
         // throw new Error('ConstruirElemento method must be implemented');
-        this.#elemento.classList.add(...this.#clases);
-        this.#elemento.id = this.#id;
-        this.#elemento.style.display = this.#mostrar ? this.#tipo_display : "none";
-        this.#elemento.addEventListener("click", this.#funcionClick);
+        this.elemento.classList.add(...this.clases)
+        this.elemento.id = this.id;
+        this.elemento.style.display = this.mostrar ? this.tipo_display : "none";
+        this.elemento.addEventListener("click", this.funcionClick);
     }
 
     // Getter methods for accessing private properties
     get Nombre() {
-        return this.#nombre;
+        return this.nombre;
     }
     get Clases() {
-        return this.#clases;
+        return this.clases;
     }
     get Mostrar() {
-        return this.#mostrar;
+        return this.mostrar;
     }
     get Hijo() {
-        return this.#hijo;
+        return this.hijo;
     }
     get Id() {
-        return this.#id;
+        return this.id;
     }
     get Elemento() {
-        return this.#elemento;
+        return this.elemento;
     }
     get FuncionClick() {
-        return this.#funcionClick;
+        return this.funcionClick;
     }
 
     // Setter methods for private properties
     set Nombre(nombre) {
-        this.#nombre = nombre;
+        this.nombre = nombre;
     }
     set Clases(clases) {
-        this.#clases = clases;
+        this.clases = clases;
     }
     set Mostrar(mostrar) {
-        this.#mostrar = mostrar;
+        this.mostrar = mostrar;
     }
     set Hijo(hijo) {
-        this.#hijo = hijo;
+        this.hijo = hijo;
     }
     set Id(id) {
-        this.#id = id;
+        this.id = id;
     }
     set FuncionClick(funcionClick) {
-        this.#funcionClick = funcionClick;
-    }
-
-    // Method to update the element
-    ActualizarElemento() {
-        this.#elemento.innerHTML = '';
-        this.#elemento.classList.add(...this.#clases);
-        this.#elemento.id = this.#id;
-        this.#elemento.style.display = this.#mostrar ? "block" : "none";
-        this.#elemento.appendChild(this.#hijo);
-        this.#elemento.addEventListener("click", this.#funcionClick);
+        this.funcionClick = funcionClick;
     }
 }
 
 /**
  * ? Clase que representa un botón HTML.
  */
-class Boton {
-
-    #nombre
-    #clases
-    #mostrar
-    #hijo
-    #id
-    #elemento
-
-    #funcionClick
-
+class Boton extends ElementoHTML {
     /**
      * Constructor de la clase Boton.
      * @param {string} nombre - El nombre del botón (id: nombre_btn).
@@ -116,55 +96,32 @@ class Boton {
         nombre = "nada",
         clases = [],
         mostrar = false,
+        tipo_display = "flex",
         hijo = document.createElement('span'),
         funcionClick = () => console.log("click")
     ) {
-        this.#nombre = nombre;
-        this.#clases = clases;
-        this.#mostrar = mostrar ? "flex" : "none"; // Establece el valor inicial de mostrar basado en el parámetro booleano
-        this.#hijo = hijo; // El elemento HTML que se insertará dentro del botón
-        this.#id = `${nombre}_btn`; // ID del botón
+        const elemento = document.createElement("button")
+        super(nombre, clases, mostrar, tipo_display, hijo, elemento, funcionClick)
+        this.id = `${this.nombre}_btn`
 
-        this.#elemento = document.createElement("button"); // Crea el elemento HTML <button>
-
-        this.#funcionClick = funcionClick
-
-        this.ConstruirModal() // Arma el botón en cada instancia nueva
+        this.ConstruirElemento()
     }
 
     /**
      * Arma el botón HTML con sus propiedades y contenido.
      */
-    ConstruirModal() {
-        this.#elemento.classList.add(...this.#clases); // Agrega las clases CSS al botón
-        this.#elemento.id = this.#id; // Establece el ID del botón
-        this.#elemento.appendChild(this.#hijo); // Inserta el elemento hijo dentro del botón
-        this.#elemento.style.display = this.#mostrar; // Establece el estilo de visualización del botón
-        this.#elemento.addEventListener("click", this.#funcionClick) // Asigna la función que se ejecuta al clickear el botón.
+    ConstruirElemento = () => {
+        super.ConstruirElemento()
+        this.elemento.appendChild(this.hijo)
+        this.elemento.id = this.id
     }
 
     /**
-     * Devuelve el elemento principal del botón.
-     * @returns {HTMLDivElement} 
+     * Muestra u oculta el botón estableciendo su estilo de visualización a "flex".
      */
-    get ElementoModal() {
-        return this.#elemento
-    }
-
-    /**
-     * Muestra el botón estableciendo su estilo de visualización a "flex".
-     */
-    mostrarBoton() {
-        this.#mostrar = "flex";
-        this.#elemento.style.display = this.#mostrar;
-    }
-
-    /**
-     * Oculta el botón estableciendo su estilo de visualización a "none".
-     */
-    ocultarBoton() {
-        this.#mostrar = "none";
-        this.#elemento.style.display = this.#mostrar;
+    MostrarOcultarBoton() {
+        if (this.mostrar) this.elemento.style.display = this.tipo_display
+        else this.elemento.style.display = "none"
     }
 }
 
@@ -172,7 +129,7 @@ class Boton {
  * ? Clase que representa un botón HTML con icono.
  */
 class BotonModal extends Boton {
-
+    // TODO: Adatar la clase a los cambios en la clase Boton
     #icono
 
     /**
@@ -295,7 +252,7 @@ class Modal {
     }
 
     MostrarOcultarModal = () => {
-        if(this.#mostrar) {
+        if (this.#mostrar) {
             this.#mostrar = false
             this.#elemento.style.display = "none"
         } else {
