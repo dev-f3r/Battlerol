@@ -1,4 +1,95 @@
 // * ESTE ARCHIVO CONTIENE LAS CLASES PARA GENERAR ELEMENTOS HTML DEL UI
+class ElementoHTML {
+    #nombre
+    #clases
+    #mostrar
+    #tipo_display
+    #id
+    #funcionClick
+
+    #elemento
+    #hijo
+
+    constructor(
+        nombre = "nada",
+        clases = [],
+        mostrar = false,
+        tipo_display = "block",
+        hijo = document.createElement('span'),
+        funcionClick = () => console.log("click")
+    ) {
+        this.#nombre = nombre;
+        this.#clases = clases;
+        this.#mostrar = mostrar;
+        this.#tipo_display = tipo_display
+        this.#id = `${nombre}_elemento`;
+        this.#funcionClick = funcionClick;
+
+        this.#elemento = this.ConstruirElemento();
+        this.#hijo = hijo;
+    }
+
+    ConstruirElemento() {
+        // throw new Error('ConstruirElemento method must be implemented');
+        this.#elemento.classList.add(...this.#clases);
+        this.#elemento.id = this.#id;
+        this.#elemento.style.display = this.#mostrar ? this.#tipo_display : "none";
+        this.#elemento.addEventListener("click", this.#funcionClick);
+    }
+
+    // Getter methods for accessing private properties
+    get Nombre() {
+        return this.#nombre;
+    }
+    get Clases() {
+        return this.#clases;
+    }
+    get Mostrar() {
+        return this.#mostrar;
+    }
+    get Hijo() {
+        return this.#hijo;
+    }
+    get Id() {
+        return this.#id;
+    }
+    get Elemento() {
+        return this.#elemento;
+    }
+    get FuncionClick() {
+        return this.#funcionClick;
+    }
+
+    // Setter methods for private properties
+    set Nombre(nombre) {
+        this.#nombre = nombre;
+    }
+    set Clases(clases) {
+        this.#clases = clases;
+    }
+    set Mostrar(mostrar) {
+        this.#mostrar = mostrar;
+    }
+    set Hijo(hijo) {
+        this.#hijo = hijo;
+    }
+    set Id(id) {
+        this.#id = id;
+    }
+    set FuncionClick(funcionClick) {
+        this.#funcionClick = funcionClick;
+    }
+
+    // Method to update the element
+    ActualizarElemento() {
+        this.#elemento.innerHTML = '';
+        this.#elemento.classList.add(...this.#clases);
+        this.#elemento.id = this.#id;
+        this.#elemento.style.display = this.#mostrar ? "block" : "none";
+        this.#elemento.appendChild(this.#hijo);
+        this.#elemento.addEventListener("click", this.#funcionClick);
+    }
+}
 
 /**
  * ? Clase que representa un botón HTML.
@@ -155,7 +246,7 @@ class Modal {
         this.#nombre = nombre
         this.#id = `modal_${nombre}` // ID del modal: Se genera un ID único a partir del nombre del modal.
         this.#clases = clases
-        this.#mostrar = mostrar ? "grid" : "none" // Visibilidad inicial: Se establece la propiedad #mostrar según el valor del parámetro mostrar.
+        this.#mostrar = mostrar // Visibilidad inicial: Se establece la propiedad #mostrar según el valor del parámetro mostrar.
         this.#maximo_botones = maximo_botones
 
         // Elemento HTML principal: Se crea un elemento div como contenedor del modal.
@@ -200,9 +291,18 @@ class Modal {
         // * Configuración final del modal
         this.#elemento.classList.add(...this.#clases) // Clases del modal
         this.#elemento.id = this.#id // Id del modal
-        this.#elemento.style.display = this.#mostrar // Visibilidad del modal
+        this.#elemento.style.display = this.#mostrar ? "grid" : "none" // Visibilidad del modal
     }
 
+    MostrarOcultarModal = () => {
+        if(this.#mostrar) {
+            this.#mostrar = false
+            this.#elemento.style.display = "none"
+        } else {
+            this.#mostrar = true
+            this.#elemento.style.display = "grid"
+        }
+    }
 
     /**
      * Genera el elemento HTML para el título del modal.
@@ -215,7 +315,7 @@ class Modal {
         div_titulo.classList.add('item-modal')
         span_titulo.classList.add('texto')
 
-        span_titulo.textContent = 'ARMAS'
+        span_titulo.textContent = this.#nombre.toUpperCase()
 
         div_titulo.appendChild(span_titulo)
 
@@ -276,7 +376,7 @@ class Modal {
      * @returns {BotonModal} El botón de cierre.
      */
     CrearBotonCerrar() {
-        const boton_cerrar = new BotonModal(`cerrar_modal_${this.#nombre}`, ["item-modal"], true, "cerrar")
+        const boton_cerrar = new BotonModal(`cerrar_modal_${this.#nombre}`, ["item-modal"], true, "cerrar", this.MostrarOcultarModal)
 
         return boton_cerrar
     }
@@ -289,7 +389,6 @@ class Modal {
         return this.#elemento
     }
 
-    // TODO: Refactorizar metodo CambiarVistaAdelante y CambiarVistaAtras
     /**
      * Incrementa la propiedad #index_vista
      */
