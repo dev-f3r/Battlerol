@@ -1,4 +1,8 @@
 // * ESTE ARCHIVO CONTIENE LAS CLASES PARA GENERAR ELEMENTOS HTML DEL UI
+
+/**
+ * ? Superclase que representa un elemento HTML.
+ */
 class ElementoHTML {
     nombre
     clases
@@ -10,6 +14,16 @@ class ElementoHTML {
     hijo
     elemento
 
+    /**
+     * Constructor de la clase ElementoHTML.
+     * @param {string} nombre - El nombre del elemento.
+     * @param {string[]} clases - Las clases CSS del elmento.
+     * @param {boolean} mostrar - Indica si el elemento debe mostrarse.
+     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
+     * @param {HTMLElement} hijo - El elemento HTML que se insertará dentro del botón.
+     * @param {HTMLElement} elemento - El elemento HTML principal.
+     * @param {Function} funcionClick - La función que se ejecutara cuando se clickee el elemento.
+     */
     constructor(
         nombre = "nada",
         clases = [],
@@ -29,6 +43,9 @@ class ElementoHTML {
         this.elemento = elemento
     }
 
+    /**
+     * Arma el botón HTML con sus propiedades y contenido.
+     */
     ConstruirElemento() {
         // throw new Error('ConstruirElemento method must be implemented');
         this.elemento.classList.add(...this.clases)
@@ -37,7 +54,15 @@ class ElementoHTML {
         this.elemento.addEventListener("click", this.funcionClick);
     }
 
-    // Getter methods for accessing private properties
+    /**
+     * Muestra u oculta el elemento estableciendo su estilo de visualización a `this.tipo_display`.
+     */
+    MostrarOcultarBoton() {
+        if (this.mostrar) this.elemento.style.display = this.tipo_display
+        else this.elemento.style.display = "none"
+    }
+
+    // Metodos getter para acceder a campos privados
     get Nombre() {
         return this.nombre;
     }
@@ -60,7 +85,7 @@ class ElementoHTML {
         return this.funcionClick;
     }
 
-    // Setter methods for private properties
+    // Metodos setter para campos privados
     set Nombre(nombre) {
         this.nombre = nombre;
     }
@@ -114,14 +139,6 @@ class Boton extends ElementoHTML {
         super.ConstruirElemento()
         this.elemento.appendChild(this.hijo)
         this.elemento.id = this.id
-    }
-
-    /**
-     * Muestra u oculta el botón estableciendo su estilo de visualización a "flex".
-     */
-    MostrarOcultarBoton() {
-        if (this.mostrar) this.elemento.style.display = this.tipo_display
-        else this.elemento.style.display = "none"
     }
 }
 
