@@ -225,7 +225,7 @@ class Modal extends ElementoHTML {
     ) {
         const elemento = document.createElement("div")
 
-        super(nombre, clases, mostrar, tipo_display, "", elemento, () => console.log(`modal ${nombre}`))
+        super(nombre, clases, mostrar, tipo_display, "", elemento, () => { })
 
         this.maximo_botones = maximo_botones
         this.botones_gral = botones_gral
@@ -344,7 +344,21 @@ class Modal extends ElementoHTML {
      * @returns {BotonModal} El botón de cierre.
      */
     CrearBotonCerrar() {
-        const boton_cerrar = new BotonModal(`cerrar_modal_${this.nombre}`, ["item-modal"], true, "cerrar", "flex", () => this.MostrarOcultarElemento())
+        // Funcion del boton
+        const cerrar_modal = () => {
+            this.MostrarOcultarElemento()
+            modo = "jugar"
+        }
+
+        // Creacion del boton
+        const boton_cerrar = new BotonModal(
+            `cerrar_modal_${this.nombre}`,
+            ["item-modal"],
+            true,
+            "cerrar",
+            "flex",
+            cerrar_modal
+        )
 
         return boton_cerrar
     }
