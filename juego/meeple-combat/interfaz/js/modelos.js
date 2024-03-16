@@ -292,19 +292,27 @@ class Modal extends ElementoHTML {
      * Crea botones generales adicionales en caso de ser necesario para mantener un diseño equilibrado.
      */
     CrearBotonesGenerales() {
+        const maximo = this.maximo_botones
+        const longitud = this.botones_gral.length
+
         let restantes = 0
         // Si la longitud de los botones es menor al maximo por vista
         // Ej: 9 < 12: restantes = 3
-        if(this.botones_gral.length < this.maximo_botones) {
-            restantes = this.maximo_botones - this.botones_gral.length
+        if(longitud < maximo) {
+            restantes = maximo - longitud
 
         } 
         // Si la longitud de los botones es mayor y no es multiplo del maximo por vista
         // Ej: 13 > 12 && 13 % 12 = 1: restantes = 11
-        else if (this.botones_gral.length > this.maximo_botones && this.botones_gral.length % this.maximo_botones) {
-            restantes = this.maximo_botones - Math.round(this.botones_gral.length / this.maximo_botones)
+        else if (longitud > maximo && longitud % maximo !== 0) {
+            const resto = longitud % maximo
+            restantes = maximo - resto
         }
 
+        if (this.nombre === "avatares") {
+            console.log(this.botones_gral)
+            console.log(maximo)
+        }
         for (let i = 0; i < restantes; i++) {
             this.botones_gral.push(new BotonModal())
         }
