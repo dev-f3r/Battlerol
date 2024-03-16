@@ -47,9 +47,7 @@ class ElementoHTML {
      * Arma el botón HTML con sus propiedades y contenido.
      */
     ConstruirElemento() {
-        // throw new Error('ConstruirElemento method must be implemented');
         this.elemento.classList.add(...this.clases)
-        this.elemento.id = this.id;
         this.elemento.style.display = this.mostrar ? this.tipo_display : "none";
         this.elemento.addEventListener("click", this.funcionClick);
     }
@@ -57,9 +55,17 @@ class ElementoHTML {
     /**
      * Muestra u oculta el elemento estableciendo su estilo de visualización a `this.tipo_display`.
      */
-    MostrarOcultarBoton() {
-        if (this.mostrar) this.elemento.style.display = this.tipo_display
-        else this.elemento.style.display = "none"
+    MostrarOcultarElemento() {
+        // * Lo muestra
+        if (this.mostrar) {
+            this.mostrar = false
+            this.elemento.style.display = "none"
+        } 
+        // * Lo oculta
+        else {
+            this.mostrar = true
+            this.elemento.style.display = this.tipo_display
+        }
     }
 
     // Metodos getter para acceder a campos privados
@@ -185,16 +191,9 @@ class BotonModal extends Boton {
 /**
  * ? Clase que representa un modal (ventana emergente con un menú de opciones).
  */
-class Modal extends ElementoHTML{
+class Modal extends ElementoHTML {
 
-    nombre
-    id
-    clases
-    mostrar
     maximo_botones
-
-
-    elemento
 
     botones_gral
     boton_cerrar
@@ -218,32 +217,30 @@ class Modal extends ElementoHTML{
         nombre = "",
         clases = [],
         mostrar = false,
+        tipo_display = "grid",
         maximo_botones = 12,
 
         botones_gral = [],
         boton_especial = new BotonModal(),
     ) {
-        this.nombre = nombre
-        this.id = `modal_${nombre}` // ID del modal: Se genera un ID único a partir del nombre del modal.
-        this.clases = clases
-        this.mostrar = mostrar // Visibilidad inicial: Se establece la propiedad mostrar según el valor del parámetro mostrar.
+        const elemento = document.createElement("div")
+
+        super(nombre, clases, mostrar, tipo_display, "", elemento, () => console.log(`modal ${nombre}`))
+
         this.maximo_botones = maximo_botones
-
-        // Elemento HTML principal: Se crea un elemento div como contenedor del modal.
-        this.elemento = document.createElement("div")
-
         this.botones_gral = botones_gral
         this.boton_especial = boton_especial
 
-        // Construcción del modal: Se llama al método ConstruirModal() para construir la estructura HTML del modal.
-        this.ConstruirModal()
+        this.id = `modal_${nombre}`
+
+        this.ConstruirElemento()
     }
 
     /**
      * Construye la estructura HTML del modal y sus elementos.
      */
     // TODO: Refactorizar el codigo de este metodo
-    ConstruirModal() {
+    ConstruirElemento() {
         // * Creación de los elementos principales
         const titulo = this.GenerarTituloModal()
         const botonesNavegacion = this.CrearBotonesNavegacion()
@@ -260,28 +257,17 @@ class Modal extends ElementoHTML{
 
         // * Agregar elementos al modal
         this.elemento.appendChild(titulo) // Titulo
-        this.elemento.appendChild(this.boton_cerrar.ElementoModal) // Boton cerrar
+        this.elemento.appendChild(this.boton_cerrar.Elemento) // Boton cerrar
         this.botones_gral.forEach(boton => {
-            this.elemento.appendChild(boton.ElementoModal) // Botones generales
+            this.elemento.appendChild(boton.Elemento) // Botones generales
         })
-        this.elemento.appendChild(this.boton_atras.ElementoModal) // Boton atras
-        this.elemento.appendChild(this.boton_especial.ElementoModal) // Boton especial
-        this.elemento.appendChild(this.boton_adelante.ElementoModal) // Botone adelante
+        this.elemento.appendChild(this.boton_atras.Elemento) // Boton atras
+        this.elemento.appendChild(this.boton_especial.Elemento) // Boton especial
+        this.elemento.appendChild(this.boton_adelante.Elemento) // Botone adelante
 
         // * Configuración final del modal
-        this.elemento.classList.add(...this.clases) // Clases del modal
+        super.ConstruirElemento()
         this.elemento.id = this.id // Id del modal
-        this.elemento.style.display = this.mostrar ? "grid" : "none" // Visibilidad del modal
-    }
-
-    MostrarOcultarModal = () => {
-        if (this.mostrar) {
-            this.mostrar = false
-            this.elemento.style.display = "none"
-        } else {
-            this.mostrar = true
-            this.elemento.style.display = "grid"
-        }
     }
 
     /**
@@ -338,6 +324,7 @@ class Modal extends ElementoHTML{
             ["item-modal"],
             true,
             "atras",
+            "flex",
             () => this.CambiarVista("atras"),
         )
         const boton_adelante = new BotonModal(
@@ -345,6 +332,7 @@ class Modal extends ElementoHTML{
             ["item-modal"],
             true,
             "adelante",
+            "flex",
             () => this.CambiarVista("adelante"),
         )
 
@@ -356,17 +344,9 @@ class Modal extends ElementoHTML{
      * @returns {BotonModal} El botón de cierre.
      */
     CrearBotonCerrar() {
-        const boton_cerrar = new BotonModal(`cerrar_modal_${this.nombre}`, ["item-modal"], true, "cerrar", this.MostrarOcultarModal)
+        const boton_cerrar = new BotonModal(`cerrar_modal_${this.nombre}`, ["item-modal"], true, "cerrar", "flex", this.MostrarOcultarModal)
 
         return boton_cerrar
-    }
-
-    /**
-     * Devuelve el elemento principal del modal (el contenedor div).
-     * @returns {HTMLDivElement} 
-     */
-    get ElementoModal() {
-        return this.elemento
     }
 
     /**
@@ -418,7 +398,7 @@ class Modal extends ElementoHTML{
      * @param {BotonModal[]} vista - Vista a mostrar.
      */
     MostrarVista(vista) {
-        vista.forEach(boton => boton.mostrarBoton())
+        vista.forEach(boton => boton.MostrarOcultarElemento())
     }
 
     /**
@@ -439,6 +419,6 @@ class Modal extends ElementoHTML{
      * @param {BotonModal[]} vista - Vista a ocultar.
      */
     OcultarVista(vista) {
-        vista.forEach(boton => boton.ocultarBoton())
+        vista.forEach(boton => boton.MostrarOcultarElemento())
     }
 }

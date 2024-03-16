@@ -50,7 +50,9 @@ Object.keys(botones).forEach(nombre => {
         nombre_modal,
         ["modal"],
         false,
+        "grid",
         maximo_botones,
+
         botones[nombre].normales,
         botones[nombre].especial,
     )
@@ -61,5 +63,5 @@ const main = document.getElementById("main")
 
 // * Agrega cada modal al contenedor:
 for (const modal in modales) {
-    main.appendChild(modales[modal].ElementoModal)
+    main.appendChild(modales[modal].Elemento)
 }
