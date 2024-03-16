@@ -18,6 +18,6 @@ const botones_modales_armas = ["arma1ImgBtn", "arma1TxtBtn", "arma2ImgBtn", "arm
 botones_modales_armas.forEach(id => {
     const el = document.getElementById(id)
     el.addEventListener("click", () => {
-        if(modo === "edicion") modales.armas_comunes.MostrarOcultarElemento()
+        if(modo === "edicion") modales.armas_marciales.MostrarOcultarElemento()
     })
 })

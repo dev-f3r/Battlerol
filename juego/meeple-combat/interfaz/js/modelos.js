@@ -161,8 +161,8 @@ class BotonModal extends Boton {
      * @param {string} nombre - El nombre del botón.
      * @param {string[]} clases - Las clases CSS del botón.
      * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
-     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
      * @param {string} src - El nombre del icono.
+     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
      * @param {Function} funcionClick - La función que se ejecutara cuando se clickee el botón.
      */
     constructor(

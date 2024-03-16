@@ -18,10 +18,10 @@ const botones = {
         "especial": new BotonModal("nuevopj", ["item-modal"], true, "nuevopjico", "flex"),
     },
     // * Botones para modal armas:
-    "armas_comunes": {
-        "normales": nombre_armas_comunes.map((nombre, i) => {
+    "armas_marciales": {
+        "normales": nombre_armas_marciales.map((nombre, i) => {
             // Extrae el arma de la colección.
-            const arma = armas_comunes[nombre]
+            const arma = armas_marciales[nombre]
             // Obtiene el nombre del archivo.
             const filNombre = arma.icono.match(/\/(.+?)\.png/)[1]
             // Visibilidad según el límite de botones.
@@ -29,8 +29,34 @@ const botones = {
 
             return new BotonModal(filNombre, ["item-modal"], mostrar, filNombre, "flex")
         }),
-        "especial": new BotonModal("salvajes", ["item-modal"], true, "salvajes", "flex"),
+        "especial": new BotonModal(
+            "salvajes",
+            ["item-modal"],
+            true,
+            "salvajes",
+            "flex",
+            () => { modales.armas_naturales.MostrarOcultarElemento(); modales.armas_marciales.MostrarOcultarElemento() }
+        ),
     },
+    "armas_naturales": {
+        "normales": nombre_armas_naturales.map((nombre, i) => {
+            // Extrae el arma de la colección.
+            const arma = armas_naturales[nombre]
+            // Obtiene el nombre del archivo.
+            const filNombre = arma.icono.match(/\/(.+?)\.png/)[1]
+            // Visibilidad según el límite de botones.
+            const mostrar = i <= maximo_botones - 1 ? true : false
+
+            return new BotonModal(filNombre, ["item-modal"], mostrar, filNombre, "flex")
+        }),
+        "especial": new BotonModal(
+            "salvajes",
+            ["item-modal"],
+            true,
+            "marciales",
+            "flex",
+            () => { modales.armas_marciales.MostrarOcultarElemento(); modales.armas_naturales.MostrarOcultarElemento() }),
+    }
     // TODO: configurar los botones de los modales restantes
     // "equipo": [],
     // "esbirros": [],
@@ -43,7 +69,8 @@ const modales = {}
 Object.keys(botones).forEach(nombre => {
     let nombre_modal = ""
 
-    if (nombre === "armas_comunes") nombre_modal = "armas comunes"
+    if (nombre === "armas_marciales") nombre_modal = "armas marciales"
+    else if (nombre === "armas_naturales") nombre_modal = "armas naturales"
     else nombre_modal = nombre
 
     modales[nombre] = new Modal(
