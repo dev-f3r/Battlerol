@@ -1,16 +1,23 @@
 let modo = "jugar"
-
 const boton_editar = document.getElementById("editarBtn")
-boton_editar.addEventListener("click", () => {
-    if(modo === "jugar") modo = "edicion"
-    else modo = "jugar"
-})
+
+function cambiarModo() {
+    if (modo === "jugar") {
+        modo = "edicion"
+        boton_editar.children[0].src = "img/guardar.png"
+    } else {
+        modo = "jugar"
+        boton_editar.children[0].src = "img/editar.png"
+    }
+}
+
+boton_editar.addEventListener("click", cambiarModo)
 
 const botones_modales_personajes = ["portadaBtn"]
 botones_modales_personajes.forEach(id => {
     const el = document.getElementById(id)
     el.addEventListener("click", () => {
-        if(modo === "edicion") modales.avatares.MostrarOcultarElemento()
+        if (modo === "edicion") modales.avatares.MostrarOcultarElemento()
     })
 })
 
@@ -18,6 +25,6 @@ const botones_modales_armas = ["arma1ImgBtn", "arma1TxtBtn", "arma2ImgBtn", "arm
 botones_modales_armas.forEach(id => {
     const el = document.getElementById(id)
     el.addEventListener("click", () => {
-        if(modo === "edicion") modales.armas_marciales.MostrarOcultarElemento()
+        if (modo === "edicion") modales.armas_marciales.MostrarOcultarElemento()
     })
 })
