@@ -60,7 +60,7 @@ class ElementoHTML {
         if (this.mostrar) {
             this.mostrar = false
             this.elemento.style.display = "none"
-        } 
+        }
         // * Lo oculta
         else {
             this.mostrar = true
@@ -344,7 +344,7 @@ class Modal extends ElementoHTML {
      * @returns {BotonModal} El botón de cierre.
      */
     CrearBotonCerrar() {
-        const boton_cerrar = new BotonModal(`cerrar_modal_${this.nombre}`, ["item-modal"], true, "cerrar", "flex", this.MostrarOcultarModal)
+        const boton_cerrar = new BotonModal(`cerrar_modal_${this.nombre}`, ["item-modal"], true, "cerrar", "flex", () => this.MostrarOcultarElemento())
 
         return boton_cerrar
     }
