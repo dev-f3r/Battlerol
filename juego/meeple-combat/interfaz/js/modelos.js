@@ -148,7 +148,7 @@ class Boton extends ElementoHTML {
  * ? Clase que representa un botón HTML con icono.
  */
 class BotonModal extends Boton {
-    #icono
+    icono
 
     /**
      * Constructor de la clase Boton (id: "nombre"_btn, imgsrc: img/"nombre"ico.png).
@@ -176,7 +176,7 @@ class BotonModal extends Boton {
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
         super(nombre, clases, mostrar, tipo_display, icono, funcionClick)
 
-        this.#icono = icono
+        this.icono = icono
     }
 }
 
@@ -185,25 +185,25 @@ class BotonModal extends Boton {
 /**
  * ? Clase que representa un modal (ventana emergente con un menú de opciones).
  */
-class Modal {
+class Modal extends ElementoHTML{
 
-    #nombre
-    #id
-    #clases
-    #mostrar
-    #maximo_botones
+    nombre
+    id
+    clases
+    mostrar
+    maximo_botones
 
 
-    #elemento
+    elemento
 
-    #botones_gral
-    #boton_cerrar
-    #boton_especial
-    #boton_atras
-    #boton_adelante
+    botones_gral
+    boton_cerrar
+    boton_especial
+    boton_atras
+    boton_adelante
 
-    #vistas = []
-    #index_vista = 0
+    vistas = []
+    index_vista = 0
 
     /**
      * Constructor de la clase Modal. Crea un modal con la estructura básica.
@@ -223,17 +223,17 @@ class Modal {
         botones_gral = [],
         boton_especial = new BotonModal(),
     ) {
-        this.#nombre = nombre
-        this.#id = `modal_${nombre}` // ID del modal: Se genera un ID único a partir del nombre del modal.
-        this.#clases = clases
-        this.#mostrar = mostrar // Visibilidad inicial: Se establece la propiedad #mostrar según el valor del parámetro mostrar.
-        this.#maximo_botones = maximo_botones
+        this.nombre = nombre
+        this.id = `modal_${nombre}` // ID del modal: Se genera un ID único a partir del nombre del modal.
+        this.clases = clases
+        this.mostrar = mostrar // Visibilidad inicial: Se establece la propiedad mostrar según el valor del parámetro mostrar.
+        this.maximo_botones = maximo_botones
 
         // Elemento HTML principal: Se crea un elemento div como contenedor del modal.
-        this.#elemento = document.createElement("div")
+        this.elemento = document.createElement("div")
 
-        this.#botones_gral = botones_gral
-        this.#boton_especial = boton_especial
+        this.botones_gral = botones_gral
+        this.boton_especial = boton_especial
 
         // Construcción del modal: Se llama al método ConstruirModal() para construir la estructura HTML del modal.
         this.ConstruirModal()
@@ -247,40 +247,40 @@ class Modal {
         // * Creación de los elementos principales
         const titulo = this.GenerarTituloModal()
         const botonesNavegacion = this.CrearBotonesNavegacion()
-        this.#boton_atras = botonesNavegacion[0]
-        this.#boton_adelante = botonesNavegacion[1]
-        this.#boton_cerrar = this.CrearBotonCerrar()
+        this.boton_atras = botonesNavegacion[0]
+        this.boton_adelante = botonesNavegacion[1]
+        this.boton_cerrar = this.CrearBotonCerrar()
 
         // * Lógica de botones generales 
-        if (this.#botones_gral.length > this.#maximo_botones) {
+        if (this.botones_gral.length > this.maximo_botones) {
             this.CrearBotonesGenerales()
         }
 
-        this.#vistas = this.#CrearVista(this.#botones_gral, this.#maximo_botones) // Crea las vistas
+        this.vistas = this.CrearVista(this.botones_gral, this.maximo_botones) // Crea las vistas
 
         // * Agregar elementos al modal
-        this.#elemento.appendChild(titulo) // Titulo
-        this.#elemento.appendChild(this.#boton_cerrar.ElementoModal) // Boton cerrar
-        this.#botones_gral.forEach(boton => {
-            this.#elemento.appendChild(boton.ElementoModal) // Botones generales
+        this.elemento.appendChild(titulo) // Titulo
+        this.elemento.appendChild(this.boton_cerrar.ElementoModal) // Boton cerrar
+        this.botones_gral.forEach(boton => {
+            this.elemento.appendChild(boton.ElementoModal) // Botones generales
         })
-        this.#elemento.appendChild(this.#boton_atras.ElementoModal) // Boton atras
-        this.#elemento.appendChild(this.#boton_especial.ElementoModal) // Boton especial
-        this.#elemento.appendChild(this.#boton_adelante.ElementoModal) // Botone adelante
+        this.elemento.appendChild(this.boton_atras.ElementoModal) // Boton atras
+        this.elemento.appendChild(this.boton_especial.ElementoModal) // Boton especial
+        this.elemento.appendChild(this.boton_adelante.ElementoModal) // Botone adelante
 
         // * Configuración final del modal
-        this.#elemento.classList.add(...this.#clases) // Clases del modal
-        this.#elemento.id = this.#id // Id del modal
-        this.#elemento.style.display = this.#mostrar ? "grid" : "none" // Visibilidad del modal
+        this.elemento.classList.add(...this.clases) // Clases del modal
+        this.elemento.id = this.id // Id del modal
+        this.elemento.style.display = this.mostrar ? "grid" : "none" // Visibilidad del modal
     }
 
     MostrarOcultarModal = () => {
-        if (this.#mostrar) {
-            this.#mostrar = false
-            this.#elemento.style.display = "none"
+        if (this.mostrar) {
+            this.mostrar = false
+            this.elemento.style.display = "none"
         } else {
-            this.#mostrar = true
-            this.#elemento.style.display = "grid"
+            this.mostrar = true
+            this.elemento.style.display = "grid"
         }
     }
 
@@ -295,7 +295,7 @@ class Modal {
         div_titulo.classList.add('item-modal')
         span_titulo.classList.add('texto')
 
-        span_titulo.textContent = this.#nombre.toUpperCase()
+        span_titulo.textContent = this.nombre.toUpperCase()
 
         div_titulo.appendChild(span_titulo)
 
@@ -306,10 +306,10 @@ class Modal {
      * Crea botones generales adicionales en caso de ser necesario para mantener un diseño equilibrado.
      */
     CrearBotonesGenerales() {
-        const restantes = this.#maximo_botones - (this.#botones_gral.length % this.#maximo_botones)
+        const restantes = this.maximo_botones - (this.botones_gral.length % this.maximo_botones)
 
         for (let i = 0; i < restantes; i++) {
-            this.#botones_gral.push(new BotonModal())
+            this.botones_gral.push(new BotonModal())
         }
     }
 
@@ -319,7 +319,7 @@ class Modal {
      * @param {number} tamaño - Número de botones por vista.
      * @returns {[BotonModal[]]} Arreglo de vistas.
      */
-    #CrearVista(arr, tamaño) {
+    CrearVista(arr, tamaño) {
         let salida = []
         for (let i = 0; i < arr.length; i += tamaño) {
             salida.push(arr.slice(i, i + tamaño))
@@ -334,14 +334,14 @@ class Modal {
      */
     CrearBotonesNavegacion() {
         const boton_atras = new BotonModal(
-            `atras_modal_${this.#nombre}`,
+            `atras_modal_${this.nombre}`,
             ["item-modal"],
             true,
             "atras",
             () => this.CambiarVista("atras"),
         )
         const boton_adelante = new BotonModal(
-            `adelante_modal_${this.#nombre}`,
+            `adelante_modal_${this.nombre}`,
             ["item-modal"],
             true,
             "adelante",
@@ -356,7 +356,7 @@ class Modal {
      * @returns {BotonModal} El botón de cierre.
      */
     CrearBotonCerrar() {
-        const boton_cerrar = new BotonModal(`cerrar_modal_${this.#nombre}`, ["item-modal"], true, "cerrar", this.MostrarOcultarModal)
+        const boton_cerrar = new BotonModal(`cerrar_modal_${this.nombre}`, ["item-modal"], true, "cerrar", this.MostrarOcultarModal)
 
         return boton_cerrar
     }
@@ -366,27 +366,27 @@ class Modal {
      * @returns {HTMLDivElement} 
      */
     get ElementoModal() {
-        return this.#elemento
+        return this.elemento
     }
 
     /**
-     * Incrementa la propiedad #index_vista
+     * Incrementa la propiedad index_vista
      */
-    #IncrementarIndexVista = () => {
-        if (this.#index_vista < this.#vistas.length - 1) {
-            this.#index_vista++
+    IncrementarIndexVista = () => {
+        if (this.index_vista < this.vistas.length - 1) {
+            this.index_vista++
         } else {
-            this.#index_vista = 0
+            this.index_vista = 0
         }
     }
     /**
-     * Decrementa la propiedad #index_vista
+     * Decrementa la propiedad index_vista
      */
-    #DecrementarIndexVista = () => {
-        if (this.#index_vista > 0) {
-            this.#index_vista--
+    DecrementarIndexVista = () => {
+        if (this.index_vista > 0) {
+            this.index_vista--
         } else {
-            this.#index_vista = this.#vistas.length - 1
+            this.index_vista = this.vistas.length - 1
         }
     }
 
@@ -397,27 +397,27 @@ class Modal {
     CambiarVista = (accion) => {
         switch (accion) {
             case "adelante":
-                this.#IncrementarIndexVista()
+                this.IncrementarIndexVista()
                 break
             case "atras":
-                this.#DecrementarIndexVista()
+                this.DecrementarIndexVista()
                 break
             default:
                 console.error("CambiarVista: Accion no reconocida", accion)
                 break;
         }
 
-        const vista = this.#vistas[this.#index_vista]
+        const vista = this.vistas[this.index_vista]
 
-        this.#MostrarVista(vista)
-        this.#OcultarVistas(this.#index_vista)
+        this.MostrarVista(vista)
+        this.OcultarVistas(this.index_vista)
     }
 
     /**
      * Muestra los botones de una vista.
      * @param {BotonModal[]} vista - Vista a mostrar.
      */
-    #MostrarVista(vista) {
+    MostrarVista(vista) {
         vista.forEach(boton => boton.mostrarBoton())
     }
 
@@ -425,11 +425,11 @@ class Modal {
      * Oculta las vistas que no sean la actual.
      * @param {number} ignorar - Índice de la vista que se debe ignorar.
      */
-    #OcultarVistas(ignorar) {
-        for (let i = 0; i < this.#vistas.length; i++) {
-            const vista = this.#vistas[i]
+    OcultarVistas(ignorar) {
+        for (let i = 0; i < this.vistas.length; i++) {
+            const vista = this.vistas[i]
             if (i != ignorar) {
-                this.#OcultarVista(vista)
+                this.OcultarVista(vista)
             }
         }
     }
@@ -438,7 +438,7 @@ class Modal {
      * Oculta los botones de una vista.
      * @param {BotonModal[]} vista - Vista a ocultar.
      */
-    #OcultarVista(vista) {
+    OcultarVista(vista) {
         vista.forEach(boton => boton.ocultarBoton())
     }
 }
