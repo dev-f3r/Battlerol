@@ -13,23 +13,23 @@ const botones = {
             // Visibilidad según el límite de botones.
             const mostrar = i <= maximo_botones - 1 ? true : false
 
-            return new BotonModal(filNombre, ["item-modal"], mostrar, `${filNombre}ico`)
+            return new BotonModal(filNombre, ["item-modal"], mostrar, `${filNombre}ico`, "flex")
         }),
-        "especial": new BotonModal("nuevopj", ["item-modal"], true, "nuevopjico"),
+        "especial": new BotonModal("nuevopj", ["item-modal"], true, "nuevopjico", "flex"),
     },
     // * Botones para modal armas:
-    "armas": {
-        "normales": nombre_armas.map((nombre, i) => {
+    "armas_comunes": {
+        "normales": nombre_armas_comunes.map((nombre, i) => {
             // Extrae el arma de la colección.
-            const arma = armas1[nombre]
+            const arma = armas_comunes[nombre]
             // Obtiene el nombre del archivo.
             const filNombre = arma.icono.match(/\/(.+?)\.png/)[1]
             // Visibilidad según el límite de botones.
             const mostrar = i <= maximo_botones - 1 ? true : false
 
-            return new BotonModal(filNombre, ["item-modal"], mostrar, filNombre)
+            return new BotonModal(filNombre, ["item-modal"], mostrar, filNombre, "flex")
         }),
-        "especial": new BotonModal("salvajes", ["item-modal"], true, "salvajes"),
+        "especial": new BotonModal("salvajes", ["item-modal"], true, "salvajes", "flex"),
     },
     // TODO: configurar los botones de los modales restantes
     // "equipo": [],
@@ -41,8 +41,13 @@ const modales = {}
 
 // * Crea un modal para cada tipo de botón:
 Object.keys(botones).forEach(nombre => {
+    let nombre_modal = ""
+
+    if (nombre === "armas_comunes") nombre_modal = "armas comunes"
+    else nombre_modal = nombre
+
     modales[nombre] = new Modal(
-        nombre,
+        nombre_modal,
         ["modal"],
         false,
         maximo_botones,

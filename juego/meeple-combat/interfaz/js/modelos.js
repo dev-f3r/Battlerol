@@ -115,7 +115,9 @@ class Boton extends ElementoHTML {
      * @param {string} nombre - El nombre del botón (id: nombre_btn).
      * @param {string[]} clases - Las clases CSS del botón.
      * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
+     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
      * @param {HTMLElement} hijo - El elemento HTML que se insertará dentro del botón.
+     * @param {Function} funcionClick - La función que se ejecutara cuando se clickee el botón.
      */
     constructor(
         nombre = "nada",
@@ -146,21 +148,23 @@ class Boton extends ElementoHTML {
  * ? Clase que representa un botón HTML con icono.
  */
 class BotonModal extends Boton {
-    // TODO: Adatar la clase a los cambios en la clase Boton
     #icono
 
     /**
-     * ? Constructor de la clase Boton (id: "nombre"_btn, imgsrc: img/"nombre"ico.png).
+     * Constructor de la clase Boton (id: "nombre"_btn, imgsrc: img/"nombre"ico.png).
      * @param {string} nombre - El nombre del botón.
      * @param {string[]} clases - Las clases CSS del botón.
      * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
+     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
      * @param {string} src - El nombre del icono.
+     * @param {Function} funcionClick - La función que se ejecutara cuando se clickee el botón.
      */
     constructor(
         nombre = "nada",
         clases = [],
         mostrar = false,
         src = "",
+        tipo_display = "flex",
         funcionClick = () => console.log("click")
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
@@ -170,12 +174,14 @@ class BotonModal extends Boton {
         icono.src = src ? `img/${src}.png` : "img/nada.png"
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
-        super(nombre, clases, mostrar, icono, funcionClick)
+        super(nombre, clases, mostrar, tipo_display, icono, funcionClick)
 
         this.#icono = icono
     }
 }
 
+
+// TODO: Adaptar Modal a ElementoHTML
 /**
  * ? Clase que representa un modal (ventana emergente con un menú de opciones).
  */
