@@ -1,4 +1,4 @@
-const armas_comunes = {
+const armas_marciales = {
     "nada": {
         nombre: "nada",
         icono: "img/nada.png",
@@ -638,8 +638,8 @@ const armas1 = {
     }
 }
 
-// Contiene los nombres de todas las armas dentro de la colleción armas_comunes.
-const nombre_armas_comunes = Object.keys(armas_comunes).filter(nombre => {
+// Contiene los nombres de todas las armas dentro de la colleción armas_marciales.
+const nombre_armas_marciales = Object.keys(armas_marciales).filter(nombre => {
     if (
         // Armas excluidas.
         nombre !== "nada"
