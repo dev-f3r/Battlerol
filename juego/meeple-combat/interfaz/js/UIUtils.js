@@ -1,5 +1,8 @@
 // ! VARIABLES PRINCIPALES
 let modo = "jugar"
+let avatar_seleccionado = new Personaje()
+let esbirros = []
+let esbirro_seleccionado = esbirros[0]
 
 
 
@@ -34,6 +37,11 @@ botones_modales_personajes.forEach(id => {
         if (modo === "edicion") modales.avatares.MostrarOcultarElemento() // Muestra el modal correspondiente.
     })
 })
+
+// TODO: Función para mostrar el estado actual del personaje seleccionado
+// TODO: Lógica para cambiar de avatar a esbirro
+// TODO: Lógica para navegar entre esbirros
+
 // ! PERSONAJES
 
 
