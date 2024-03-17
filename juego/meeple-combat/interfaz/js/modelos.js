@@ -187,7 +187,6 @@ class BotonModal extends Boton {
 }
 
 
-// TODO: Adaptar Modal a ElementoHTML
 /**
  * ? Clase que representa un modal (ventana emergente con un menú de opciones).
  */
@@ -298,10 +297,9 @@ class Modal extends ElementoHTML {
         let restantes = 0
         // Si la longitud de los botones es menor al maximo por vista
         // Ej: 9 < 12: restantes = 3
-        if(longitud < maximo) {
+        if (longitud < maximo) {
             restantes = maximo - longitud
-
-        } 
+        }
         // Si la longitud de los botones es mayor y no es multiplo del maximo por vista
         // Ej: 13 > 12 && 13 % 12 = 1: restantes = 11
         else if (longitud > maximo && longitud % maximo !== 0) {
@@ -309,27 +307,25 @@ class Modal extends ElementoHTML {
             restantes = maximo - resto
         }
 
-        if (this.nombre === "avatares") {
-            console.log(this.botones_gral)
-            console.log(maximo)
-        }
-        for (let i = 0; i < restantes; i++) {
-            this.botones_gral.push(new BotonModal())
+        if (longitud !== maximo) {
+            for (let i = 0; i < restantes; i++) {
+                this.botones_gral.push(new BotonModal())
+            }
         }
     }
 
     /**
      * Crea las vistas a partir de los botones generales.
-     * @param {BotonModal[]} arr - Arreglo con los botones generales del modal.
+     * @param {BotonModal[]} botones - Arreglo con los botones generales del modal.
      * @param {number} tamaño - Número de botones por vista.
      * @returns {[BotonModal[]]} Arreglo de vistas.
      */
-    CrearVista(arr, tamaño) {
+    CrearVista(botones, tamaño) {
         let salida = []
 
         // Divide el arreglo con los botones de partes de longitud `tamaño`
-        for (let i = 0; i < arr.length; i += tamaño) {
-            salida.push(arr.slice(i, i + tamaño))
+        for (let i = 0; i < botones.length; i += tamaño) {
+            salida.push(botones.slice(i, i + tamaño))
         }
 
         return salida
@@ -367,11 +363,8 @@ class Modal extends ElementoHTML {
     CrearBotonCerrar() {
         // Funcion del boton
         const cerrar_modal = () => {
-            this.MostrarOcultarElemento()
-            modo = "jugar"
-            this.index_vista = 0
-            this.MostrarVista(0)
-            this.OcultarVistas(0)
+            this.MostrarOcultarElemento() // Oculta el modal.
+            cambiarModo() // Cambia a modo jugar.
         }
 
         // Creacion del boton
@@ -413,6 +406,9 @@ class Modal extends ElementoHTML {
      * @param {String} accion - La direccion a donde cambiar.
      */
     CambiarVista = (accion) => {
+        // No hace nada si solo hay una vista.
+        if(this.vistas.length <= 1) return
+
         switch (accion) {
             case "adelante":
                 this.IncrementarIndexVista()
@@ -425,10 +421,8 @@ class Modal extends ElementoHTML {
                 break;
         }
 
-        // const vista = this.vistas[this.index_vista]
-
-        this.MostrarVista(this.index_vista)
-        this.OcultarVistas(this.index_vista)
+        this.MostrarVista(this.index_vista) // Muestra la vista requerida.
+        this.OcultarVistas(this.index_vista) // Oculta las demas.
     }
 
     /**
@@ -436,6 +430,7 @@ class Modal extends ElementoHTML {
      * @param {BotonModal[]} vista - Vista a mostrar.
      */
     MostrarVista(index) {
+        // Recorre la vista y oculta cada botón.
         this.vistas[index].forEach(boton => boton.MostrarOcultarElemento())
     }
 
@@ -458,5 +453,16 @@ class Modal extends ElementoHTML {
      */
     OcultarVista(vista) {
         vista.forEach(boton => boton.MostrarOcultarElemento())
+    }
+
+    MostrarOcultarElemento() {
+        super.MostrarOcultarElemento()
+
+        // Reestablece la vista mostrada a la primera.
+        if(!this.vistas[0][0].mostrar) {
+            this.index_vista = 0
+            this.MostrarVista(this.index_vista)
+            this.OcultarVistas(this.index_vista)
+        }
     }
 }
