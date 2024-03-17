@@ -1,4 +1,4 @@
-// * Máximo de botones generales por modal (excluye navegación):
+// * Máximo de botones generales por modal (excluye navegación y especial):
 const maximo_botones = 12
 
 // * Botones para cada modal:
@@ -69,6 +69,7 @@ const modales = {}
 Object.keys(botones).forEach(nombre => {
     let nombre_modal = ""
 
+    // Personalización de nombre para modal
     if (nombre === "armas_marciales") nombre_modal = "armas marciales"
     else if (nombre === "armas_naturales") nombre_modal = "armas naturales"
     else nombre_modal = nombre
