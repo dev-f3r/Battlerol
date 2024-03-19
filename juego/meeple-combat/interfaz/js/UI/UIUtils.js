@@ -30,7 +30,6 @@ boton_editar.addEventListener("click", cambiarModo) // Cambia de modo cada que s
 
 
 // ! PERSONAJES
-const botones_modales_personajes = ["portadaBtn"] // Id de los botones que activan los modales.
 botones_modales_personajes.forEach(id => {
     const el = document.getElementById(id) // El botón en cuestion.
     el.addEventListener("click", () => {
