@@ -1,10 +1,4 @@
 // ! VARIABLES PRINCIPALES
-let modo = "jugar"
-let avatar_seleccionado = new Personaje()
-let esbirros = []
-let esbirro_seleccionado = esbirros[0]
-
-
 
 
 
@@ -30,6 +24,7 @@ boton_editar.addEventListener("click", cambiarModo) // Cambia de modo cada que s
 
 
 // ! PERSONAJES
+const botones_modales_personajes = ["portadaBtn"]
 botones_modales_personajes.forEach(id => {
     const el = document.getElementById(id) // El botón en cuestion.
     el.addEventListener("click", () => {

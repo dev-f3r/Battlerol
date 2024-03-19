@@ -12,3 +12,5 @@ const personajes = [
     new Personaje("esbirro 4"),
     new Personaje("esbirro 5"),
 ]
+
+let modo = "jugar"
