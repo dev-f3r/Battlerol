@@ -1,34 +1,38 @@
 // * Máximo de botones generales por modal (excluye navegación y especial):
 const maximo_botones = 12
 
+// * Helpers
+/**
+ * ? Crea una lista con los botones a partir de una lista con nombres de objetos.
+ * ? Estos botones pueden estar mostrados u ocultos.
+ * @param {string[]} lista - La lista con nombres de objetos.
+ * @param {Object.<string, Object>} coleccion - La colección en la que se basa la lista de nombres.
+ * @param {string} propiedad - La propiedad de los objetos de la colección donde esta el nombre.
+ * @param {number} maximo - El máximo de botones visibles.
+ * @param {string} terminacion - La expresión en la que termina el icono.
+ * @returns {BotonModal[]} Una lista con los botones creados.
+ */
+function armar_lista_botones(lista, coleccion, propiedad, maximo, terminacion = "") {
+    return lista.map((nombre, i) => {
+        const objeto = coleccion[nombre] // Extrae el objeto de la colección.
+        const nombre_obj = objeto[propiedad].match(/\/([a-z]+?)\.png/)[1] + terminacion // Obtiene el nombre del icono.
+
+        const mostrar = i <= maximo - 1 ? true : false // Visivilidad según el maximo.
+
+        return new BotonModal(nombre_obj, ["item-modal"], mostrar, nombre_obj, "flex") // Creación de la intancia
+    })
+}
+
 // * Botones para cada modal:
 const botones = {
     // * Botones para modal avatares:
     "avatares": {
-        "normales": nombre_avatares.map((nombre, i) => {
-            // Extrae el avatar de la colección.
-            const avatar = avatares[nombre]
-            // Obtiene el nombre del archivo.
-            const filNombre = avatar.portada.match(/\/(.+?)\.png/)[1]
-            // Visibilidad según el límite de botones.
-            const mostrar = i <= maximo_botones - 1 ? true : false
-
-            return new BotonModal(filNombre, ["item-modal"], mostrar, `${filNombre}ico`, "flex")
-        }),
+        "normales": armar_lista_botones(nombre_avatares, avatares, "portada", maximo_botones, "ico"),
         "especial": new BotonModal("nuevopj", ["item-modal"], true, "nuevopjico", "flex"),
     },
     // * Botones para modal armas:
     "armas_marciales": {
-        "normales": nombre_armas_marciales.map((nombre, i) => {
-            // Extrae el arma de la colección.
-            const arma = armas_marciales[nombre]
-            // Obtiene el nombre del archivo.
-            const filNombre = arma.icono.match(/\/(.+?)\.png/)[1]
-            // Visibilidad según el límite de botones.
-            const mostrar = i <= maximo_botones - 1 ? true : false
-
-            return new BotonModal(filNombre, ["item-modal"], mostrar, filNombre, "flex")
-        }),
+        "normales": armar_lista_botones(nombre_armas_marciales, armas_marciales, "icono", maximo_botones),
         "especial": new BotonModal(
             "salvajes",
             ["item-modal"],
@@ -39,16 +43,7 @@ const botones = {
         ),
     },
     "armas_naturales": {
-        "normales": nombre_armas_naturales.map((nombre, i) => {
-            // Extrae el arma de la colección.
-            const arma = armas_naturales[nombre]
-            // Obtiene el nombre del archivo.
-            const filNombre = arma.icono.match(/\/(.+?)\.png/)[1]
-            // Visibilidad según el límite de botones.
-            const mostrar = i <= maximo_botones - 1 ? true : false
-
-            return new BotonModal(filNombre, ["item-modal"], mostrar, filNombre, "flex")
-        }),
+        "normales": armar_lista_botones(nombre_armas_naturales, armas_naturales, "icono", maximo_botones),
         "especial": new BotonModal(
             "salvajes",
             ["item-modal"],
