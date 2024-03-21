@@ -39,7 +39,7 @@ const botones = {
             true,
             "salvajes",
             "flex",
-            () => { modales.armas_naturales.MostrarOcultarElemento(); modales.armas_marciales.MostrarOcultarElemento() }
+            () => { ocultar_modales(); mostrar_modal(modales.armas_naturales) }
         ),
     },
     "armas_naturales": {
@@ -50,7 +50,7 @@ const botones = {
             true,
             "marciales",
             "flex",
-            () => { modales.armas_marciales.MostrarOcultarElemento(); modales.armas_naturales.MostrarOcultarElemento() }),
+            () => { ocultar_modales; mostrar_modal(modales.armas_marciales) }),
     }
     // TODO: configurar los botones de los modales restantes
     // "equipo": [],

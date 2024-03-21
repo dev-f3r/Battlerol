@@ -80,7 +80,7 @@ function ocultar_modales(lista = modales_mostrados) {
  * @param {Modal[]} lista - La lista a la cual agregar `modal`.
  * @param {Boolean} ocultar_demas - Oculta los demas modales.
 */
-function mostrar_modal(modal, lista = modales_mostrados, ocultar_demas = false) {
+function mostrar_modal(modal, lista = modales_mostrados, ocultar_demas = true) {
     if (ocultar_demas) ocultar_modales(lista) // Oculta todos los modales mostrados
 
     lista.push(modal); modal.MostrarOcultarElemento() // Lo agrega a `lista` y lo muestra
@@ -130,7 +130,7 @@ const modal_avatares = modales.avatares
 // Evento click
 boton_portada.addEventListener("click", () => {
     if (modo === "edicion") {
-        mostrar_modal(modal_avatares, modales_mostrados, true)
+        mostrar_modal(modal_avatares, modales_mostrados)
     }
 })
 
@@ -182,7 +182,7 @@ id_botones_armas.forEach(id => {
     // Evento click
     el.addEventListener("click", () => {
         if (modo === "edicion") {
-            mostrar_modal(modal_armas_marciales, modales_mostrados, true)
+            mostrar_modal(modal_armas_marciales, modales_mostrados)
         }
     })
 })
