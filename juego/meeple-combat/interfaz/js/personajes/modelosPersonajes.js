@@ -1,10 +1,47 @@
+const atributos_default = {
+    ataque: 0,
+    esquiva: 0,
+    bloqueo: 0,
+    velocidad: 0,
+    vida: 0,
+    poder: 0,
+}
+
+const personaje_prueba = {
+    nombre: "guerrero",
+    portada: "img/guerrero.png",
+    icono: "",
+    descripcion: "combatiente cuerpo a cuerpo, con mucha resistencia pero muy poco daño base.",
+
+    ataque: 4,
+    esquiva: 2,
+    bloqueo: 5,
+    velocidad: 3,
+    vida: 40,
+    vidaMaxima: 40,
+    poder: 40,
+    poderMaximo: 40,
+
+    arma1: "espada",
+    arma2: "escudo",
+
+    equipo1: "nada",
+    equipo2: "nada",
+    equipo3: "nada",
+
+    habilidad1: "embestida con escudo",
+    habilidad2: "cobertura",
+    habilidad3: "ataque poderoso",
+}
+
 class Personaje {
     constructor({
         nombre = "",
         portada = "img/nada.png",
         icono = "img/nada.png",
+        descripcion = "sin descripción.",
 
-        atributos = {},
+        atributos = atributos_default,
 
         arma1 = new Arma(),
         arma2 = new Arma(),
@@ -20,6 +57,7 @@ class Personaje {
         this.nombre = nombre
         this.portada = portada
         this.icono = icono
+        this.descripcion = descripcion
 
         this.atributos = atributos
 
@@ -36,7 +74,7 @@ class Personaje {
     }
 
     ActulizarAtributos = (props) => {
-
+        Object.assign(this.atributos, props)
     }
 
     ConfigurarArma = (ranura, nombre) => {
