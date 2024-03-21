@@ -363,7 +363,6 @@ class Modal extends ElementoHTML {
     CrearBotonCerrar() {
         // Funcion del boton
         const cerrar_modal = () => {
-            this.MostrarOcultarElemento() // Oculta el modal.
             cambiarModo() // Cambia a modo jugar.
         }
 
