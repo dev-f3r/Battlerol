@@ -52,3 +52,16 @@ botones_modales_armas.forEach(id => {
     })
 })
 // ! ARMAS
+
+
+
+
+
+// ! EQUIPAMIENTO
+// ! EQUIPAMIENTO
+
+
+
+
+// ! HABILIDADES
+// ! HABILIDADES
