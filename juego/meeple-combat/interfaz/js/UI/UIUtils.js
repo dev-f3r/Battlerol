@@ -4,6 +4,60 @@
  * @var {Modal[]}
  */
 let modales_mostrados = []
+
+
+/**
+ * ? Contiene los ids de los botones para los atributos del personaje.
+ * @const {string[]}
+ */
+const id_botones_atributos = ["ataqueBtn", "esquivaBtn", "bloqueoBtn", "velocidadBtn", "vidaBtn", "poderBtn"]
+/**
+ * ? Contiene los id de todos los botones relacionados con las armas.
+ * @var {string[]}
+ */
+const id_botones_armas = ["arma1ImgBtn", "arma1TxtBtn", "arma2ImgBtn", "arma2TxtBtn"]
+/**
+ * ? Contiene los id de los botones relacionados al equipamiento.
+ * @const {string[]}
+ */
+const id_botones_equipamiento = ["equipo1Btn", "equipo2Btn", "equipo3Btn"]
+
+
+/**
+ * Contiene el botón de la portada.
+ * @const {HTMLButtonElement}
+ */
+const boton_portada = document.getElementById("portadaBtn")
+/**
+ * Contiene el botón de la experiencia.
+ * @const {HTMLButtonElement}
+ */
+const boton_exp = document.getElementById("experienciaBtn")
+/**
+ * Contiene el botón que abre la mochila.
+ * @const {HTMLButtonElement}
+ */
+const boton_mochila = document.getElementById("mochilaBtn")
+/**
+ * Contiene el botón que muestra la lista de esbirros.
+ * @const {HTMLButtonElement}
+ */
+const boton_esbirros = document.getElementById("esbirrosBtn")
+/**
+ * Contiene el botón que manipula el modo de juego.
+ * @const {HTMLButtonElement}
+ */
+const boton_editar = document.getElementById("editarBtn")
+/**
+ * Contiene el botón de la consola.
+ * @const {HTMLButtonElement}
+ */
+const boton_consola = document.getElementById("consolaBtn")
+/**
+ * Contiene el botón que realiza la acción del turno actual.
+ * @const {HTMLButtonElement}
+ */
+const boton_accion = document.getElementById("accionBtn")
 // ! VARIABLES PRINCIPALES
 
 
@@ -31,16 +85,18 @@ function mostrar_modal(modal, lista = modales_mostrados, ocultar_demas = false) 
 
     lista.push(modal); modal.MostrarOcultarElemento() // Lo agrega a `lista` y lo muestra
 }
+/**
+ * ? Cambia el contenido de la consola.
+ * @param {string} texto - El nuevo texto.
+ */
+function contenido_consola(texto) {
+    boton_consola.textContent = texto
+}
 // ! HELPERS
 
 
 
 // ! EDICION
-/**
- * ? Contiene el boton que manipula el modo de juego
- * @const {HTMLElement}
- */
-const boton_editar = document.getElementById("editarBtn")
 /**
  * ? Cambia el modo de juego a "jugar" o "edicion"
  */
@@ -67,27 +123,43 @@ boton_editar.addEventListener("click", cambiarModo) // Cambia de modo cada que s
 
 // ! PERSONAJES
 /**
- * ? Contiene los id de los botones relacionados a personajes
- * @const {String[]}
- */
-const botones_modales_personajes = ["portadaBtn"]
-/**
  * ? Contiene el modal de avatares
  * @const {Modal}
  */
 const modal_avatares = modales.avatares
-botones_modales_personajes.forEach(id => {
-    const el = document.getElementById(id) // El botón en cuestion.
-
-    // Evento click
-    el.addEventListener("click", () => {
-        if (modo === "edicion") {
-            mostrar_modal(modal_avatares, modales_mostrados, true)
-        }
-    })
+// Evento click
+boton_portada.addEventListener("click", () => {
+    if (modo === "edicion") {
+        mostrar_modal(modal_avatares, modales_mostrados, true)
+    }
 })
 
 // TODO: Función para mostrar el estado actual del personaje seleccionado
+/**
+ * ? Cambia el contenido de la pagina para reflejar los cambios en el personaje seleccionado.
+ * @param {Personaje} personaje - El personaje a mostrar.
+ */
+function mostrar_personaje(personaje) {
+    // Atributos
+    id_botones_atributos.forEach(atributo => {
+        const nombre_atributo = atributo.slice(0, -3)
+        const boton = document.getElementById(atributo)
+
+        const span = boton.childNodes[3].childNodes[1]
+        span.textContent = personaje.atributos[nombre_atributo]
+    })
+
+    // Portada
+    const portada = boton_portada.childNodes[0]
+    portada.src = personaje.portada
+
+    // Descripción
+    contenido_consola(personaje.descripcion)
+
+    // TODO: Armas
+    // TODO: Equipamiento
+    // TODO: Habilidades
+}
 // TODO: Lógica para cambiar de avatar a esbirro
 // TODO: Lógica para navegar entre esbirros
 
@@ -99,17 +171,12 @@ botones_modales_personajes.forEach(id => {
 
 // ! ARMAS
 /**
- * ? Contiene los id de todos los botones relacionados con las armas
- * @var {String[]}
- */
-const botones_modales_armas = ["arma1ImgBtn", "arma1TxtBtn", "arma2ImgBtn", "arma2TxtBtn"]
-/**
  * ? Contiene el modal de armas marciales
  * @var {Modal}
  */
 const modal_armas_marciales = modales.armas_marciales
-
-botones_modales_armas.forEach(id => {
+// Eventos para botones relacionados con las armas
+id_botones_armas.forEach(id => {
     const el = document.getElementById(id) // El boton en cuestion.
 
     // Evento click
