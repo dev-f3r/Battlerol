@@ -35,3 +35,15 @@ let personaje_seleccionado = 0
  * @var {string}
  */
 let modo = "jugar"
+
+/**
+ * Contiene todos los botones de los avatares y esbirros
+ * @const {BotonModal[]}
+ */
+const botones_personajes = botones.avatares.normales.concat(/* TODO: Agregar esbirros*/)
+botones_avatares.forEach(boton => {
+    const personaje_actual = personajes[personaje_seleccionado]
+    const personaje_nuevo = avatares[boton.nombre]
+
+    boton.FuncionClick = () => cambiar_personaje(personaje_actual, personaje_nuevo) // Estable la función click.
+})

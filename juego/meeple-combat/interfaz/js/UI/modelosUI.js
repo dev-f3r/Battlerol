@@ -31,7 +31,7 @@ class ElementoHTML {
         tipo_display = "block",
         hijo = document.createElement('span'),
         elemento = document.createElement("div"),
-        funcionClick = () => console.log("click")
+        funcionClick = () => {}
     ) {
         this.nombre = nombre;
         this.clases = clases;
@@ -109,6 +109,7 @@ class ElementoHTML {
     }
     set FuncionClick(funcionClick) {
         this.funcionClick = funcionClick;
+        this.elemento.addEventListener("click", funcionClick)
     }
 }
 
@@ -131,7 +132,7 @@ class Boton extends ElementoHTML {
         mostrar = false,
         tipo_display = "flex",
         hijo = document.createElement('span'),
-        funcionClick = () => console.log("click")
+        funcionClick = () => {}
     ) {
         const elemento = document.createElement("button")
         super(nombre, clases, mostrar, tipo_display, hijo, elemento, funcionClick)
@@ -171,7 +172,7 @@ class BotonModal extends Boton {
         mostrar = false,
         src = "",
         tipo_display = "flex",
-        funcionClick = () => console.log("click")
+        funcionClick = () => {}
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
         const icono = document.createElement("img")

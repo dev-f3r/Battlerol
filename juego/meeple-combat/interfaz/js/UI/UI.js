@@ -15,7 +15,7 @@ const maximo_botones = 12
 function armar_lista_botones(lista, coleccion, propiedad, maximo, terminacion = "") {
     return lista.map((nombre, i) => {
         const objeto = coleccion[nombre] // Extrae el objeto de la colección.
-        const nombre_obj = objeto[propiedad].match(/\/([a-z]+?)\.png/)[1] + terminacion // Obtiene el nombre del icono.
+        const nombre_obj = objeto[propiedad].match(/\/([a-z]+?)\.png/)[1] // Obtiene el nombre del icono.
 
         const mostrar = i <= maximo - 1 ? true : false // Visivilidad según el maximo.
 
@@ -23,7 +23,7 @@ function armar_lista_botones(lista, coleccion, propiedad, maximo, terminacion = 
             nombre_obj,
             ["item-modal"],
             mostrar,
-            nombre_obj,
+            nombre_obj + terminacion,
             "flex",
         ) // Creación de la intancia
     })
