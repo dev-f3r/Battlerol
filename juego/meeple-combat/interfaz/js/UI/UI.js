@@ -19,7 +19,13 @@ function armar_lista_botones(lista, coleccion, propiedad, maximo, terminacion = 
 
         const mostrar = i <= maximo - 1 ? true : false // Visivilidad según el maximo.
 
-        return new BotonModal(nombre_obj, ["item-modal"], mostrar, nombre_obj, "flex") // Creación de la intancia
+        return new BotonModal(
+            nombre_obj,
+            ["item-modal"],
+            mostrar,
+            nombre_obj,
+            "flex",
+        ) // Creación de la intancia
     })
 }
 
