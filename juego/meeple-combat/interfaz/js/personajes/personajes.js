@@ -1,4 +1,4 @@
-const esbirros2 = {
+const esbirros = {
     "esbirro1": {
         nombre: "Esbirro 1",
         portada: "img/e1.png",
@@ -915,6 +915,20 @@ const nombre_avatares = Object.keys(avatares).filter(nombre => {
         nombre !== 'bienvenida'
         && nombre !== 'nuevopj'
         && nombre !== 'nuevoesbirro'
+    ) {
+        return true
+    } else return false
+})
+
+// Contiene los nombres de todos los esbirros dentro de la colleción.
+const nombre_esbirros = Object.keys(esbirros).filter(nombre => {
+    if (
+        // Avatares excluidos.
+        nombre !== 'esbirro1'
+        && nombre !== 'esbirro2'
+        && nombre !== 'esbirro3'
+        && nombre !== 'esbirro4'
+        && nombre !== 'esbirro5'
     ) {
         return true
     } else return false
