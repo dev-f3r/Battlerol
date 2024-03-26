@@ -159,7 +159,18 @@ function mostrar_personaje(personaje) {
     const nombre = document.getElementById("nombreTxt") // Elemento que muestra el nombre.
     nombre.textContent = personaje.nombre.toUpperCase() // En mayusculas.
 
-    // TODO: Armas
+    // Arma 1
+    const arma1_img = document.getElementById("arma1Img") // Icóno
+    arma1_img.src = personaje.arma1.icono
+    const arma1_txt = document.getElementById("arma1Txt") // Nombre
+    arma1_txt.textContent = personaje.arma1.nombre.toUpperCase()
+    // Arma 2
+    const arma2_img = document.getElementById("arma2Img") // Icóno
+    arma2_img.src = personaje.arma2.icono
+    const arma2_txt = document.getElementById("arma2Txt") // Nombre
+    arma2_txt.textContent = personaje.arma2.nombre.toUpperCase()
+
+
     // TODO: Equipamiento
     // TODO: Habilidades
 }

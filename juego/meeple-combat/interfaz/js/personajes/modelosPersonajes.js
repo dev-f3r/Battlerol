@@ -45,16 +45,16 @@ class Personaje {
 
         atributos = atributos_default,
 
-        arma1 = new Arma(),
-        arma2 = new Arma(),
+        arma1 = new Arma({}),
+        arma2 = new Arma({}),
 
-        equipo1 = new Equipo(),
-        equipo2 = new Equipo(),
-        equipo3 = new Equipo(),
+        equipo1 = new Equipo({}),
+        equipo2 = new Equipo({}),
+        equipo3 = new Equipo({}),
 
-        habilidad1 = new Habilidad(),
-        habilidad2 = new Habilidad(),
-        habilidad3 = new Habilidad(),
+        habilidad1 = new Habilidad({}),
+        habilidad2 = new Habilidad({}),
+        habilidad3 = new Habilidad({}),
     }) {
         this.nombre = nombre
         this.portada = portada
@@ -81,7 +81,7 @@ class Personaje {
         this.descripcion = props.descripcion
         this.portada = props.portada
 
-        for(const nombre in atributos_default) {
+        for (const nombre in atributos_default) {
             this.atributos[nombre] = props[nombre]
         }
 
@@ -94,7 +94,9 @@ class Personaje {
     }
 
     ConfigurarArma = (ranura, nombre) => {
-        console.log(ranura, nombre)
+        const nueva = armas_naturales[nombre] ? armas_naturales[nombre] : armas_marciales[nombre]
+
+        this[`arma${ranura}`].Actualizar(nueva)
     }
 
     ConfigurarEquipamiento = (ranura, nombre) => {
@@ -104,4 +106,7 @@ class Personaje {
     ConfigurarHabilidad = (ranura, nombre) => {
         console.log(ranura, nombre)
     }
+
+    // TODO: Metodo para entregar el total de un atributo
+    // TODO: Metodo para ataquar
 }
