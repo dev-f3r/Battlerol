@@ -41,7 +41,7 @@ let modo = "jugar"
  * @const {BotonModal[]}
  */
 const botones_personajes = botones.avatares.normales.concat(/* TODO: Agregar esbirros*/)
-botones_avatares.forEach(boton => {
+botones_personajes.forEach(boton => {
     const personaje_actual = personajes[personaje_seleccionado]
     const personaje_nuevo = avatares[boton.nombre]
 

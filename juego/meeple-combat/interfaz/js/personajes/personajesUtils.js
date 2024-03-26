@@ -5,8 +5,10 @@
  * @param {Object} nuevo - El objeto con la información del nuevo personaje.
  */
 function cambiar_personaje(actual, nuevo) {
-    console.log(actual)
-    console.log(nuevo)
+    actual.Actualizar(nuevo) // Actualiza
+
+    mostrar_personaje(actual) // Muestra los cambios
+    cambiarModo() // Cierra el modo edición
 }
 
 // TODO: Lógica para reemplazar el esbirro seleccionado por otro

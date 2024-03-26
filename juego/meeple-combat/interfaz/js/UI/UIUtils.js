@@ -134,7 +134,6 @@ boton_portada.addEventListener("click", () => {
     }
 })
 
-// TODO: Función para mostrar el estado actual del personaje seleccionado
 /**
  * ? Cambia el contenido de la pagina para reflejar los cambios en el personaje seleccionado.
  * @param {Personaje} personaje - El personaje a mostrar.
@@ -150,11 +149,15 @@ function mostrar_personaje(personaje) {
     })
 
     // Portada
-    const portada = boton_portada.childNodes[0]
+    const portada = boton_portada.childNodes[0] // Elemento que muestra la portada
     portada.src = personaje.portada
 
     // Descripción
     contenido_consola(personaje.descripcion)
+
+    // Nombre
+    const nombre = document.getElementById("nombreTxt") // Elemento que muestra el nombre.
+    nombre.textContent = personaje.nombre.toUpperCase() // En mayusculas.
 
     // TODO: Armas
     // TODO: Equipamiento

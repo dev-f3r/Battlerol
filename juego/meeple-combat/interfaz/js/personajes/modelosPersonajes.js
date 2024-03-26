@@ -1,3 +1,5 @@
+// TODO: Documentar
+
 const atributos_default = {
     ataque: 0,
     esquiva: 0,
@@ -73,19 +75,33 @@ class Personaje {
         this.habilidad3 = habilidad3
     }
 
-    ActulizarAtributos = (props) => {
-        Object.assign(this.atributos, props)
+    Actualizar = (props) => {
+        console.log(props)
+        this.nombre = props.nombre
+        this.descripcion = props.descripcion
+        this.portada = props.portada
+
+        for(const nombre in atributos_default) {
+            this.atributos[nombre] = props[nombre]
+        }
+
+        this.ConfigurarHabilidad(1, props.habilidad1)
+        this.ConfigurarHabilidad(2, props.habilidad2)
+        this.ConfigurarHabilidad(3, props.habilidad3)
+
+        this.ConfigurarArma(1, props.arma1)
+        this.ConfigurarArma(2, props.arma2)
     }
 
     ConfigurarArma = (ranura, nombre) => {
-
+        console.log(ranura, nombre)
     }
 
     ConfigurarEquipamiento = (ranura, nombre) => {
-
+        console.log(ranura, nombre)
     }
 
     ConfigurarHabilidad = (ranura, nombre) => {
-
+        console.log(ranura, nombre)
     }
 }
