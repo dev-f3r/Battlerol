@@ -40,13 +40,12 @@ const personaje_prueba = {
  * ? Clase que representa un personaje (avatar o esbirro).
  * @class
  */
-class Personaje {
+class Personaje extends EntidadBase {
     /**
      * ? Constructor de la clase Personaje.
      * @constructor
      * @param {string} nombre - El nombre del personaje
      * @param {string} portada - La ruta de la portada del personaje.
-     * @param {string} icono - La ruta del icono del personaje.
      * @param {string} descripcion - La descripción del personaje.
      * @param {Object.<string,number>} atributos - Los atributos del personaje.
      * @param {Arma} arma1 - El arma en el slot 1 del personaje.
@@ -61,7 +60,6 @@ class Personaje {
     constructor({
         nombre = "",
         portada = "img/nada.png",
-        icono = "img/nada.png",
         descripcion = "sin descripción.",
 
         atributos = atributos_default,
@@ -77,10 +75,7 @@ class Personaje {
         habilidad2 = new Habilidad({}),
         habilidad3 = new Habilidad({}),
     }) {
-        this.nombre = nombre
-        this.portada = portada
-        this.icono = icono
-        this.descripcion = descripcion
+        super({ nombre, descripcion, portada })
 
         this.atributos = atributos
 

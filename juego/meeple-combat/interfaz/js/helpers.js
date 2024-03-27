@@ -35,3 +35,35 @@ function quitarEspacios(texto) {
         .split(" ") // Crea un arreglo usando como separador los espacios.
         .join("") // Une el arreglo en un string.
 }
+
+/**
+ * ? Clase con propiedades basicas de uso general.
+ * @class
+ */
+class EntidadBase {
+    /**
+     * @constructor
+     * @param {string} nombre - El nombre
+     * @param {string} descripcion - La descripción.
+     * @param {string} icono - La ruta del iconó.
+     * @param {string} portada - La ruta de la portada.
+     */
+    constructor({
+        nombre = "nada",
+        descripcion = "Sin descripción.",
+        icono = "img/nada.png",
+        portada = "img/nada.png",
+    }) {
+        this.nombre = nombre
+        this.descripcion = descripcion
+        this.icono = icono
+        this.portada = portada
+    }
+
+    /**
+     * ? Cambia las propiedades actuales por otras.
+     */
+    Actualizar = (nuevo) => {
+        Object.assign(this, nuevo)
+    }
+}

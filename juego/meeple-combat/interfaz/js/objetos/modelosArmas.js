@@ -2,7 +2,7 @@
  * ? Clase que representa un arma.
  * @class
  */
-class Arma {
+class Arma extends EntidadBase {
     /**
      * ? Constructor de la clase Arma.
      * @constructor
@@ -16,18 +16,9 @@ class Arma {
         icono = "img/nada.png",
         danno = 0,
         descripcion = "sin descripción."
-    }){
-        this.nombre = nombre
-        this.icono = icono
+    }) {
+        super({ nombre, icono, descripcion })
         this.danno = danno
-        this.descripcion = descripcion
-    }
-
-    /**
-     * Cambia las propiedades del arma actual por otras.
-     */
-    Actualizar = (nueva) => {
-        Object.assign(this, nueva)
     }
 
     Ataquar = () => console.log("Ataque con arma")
