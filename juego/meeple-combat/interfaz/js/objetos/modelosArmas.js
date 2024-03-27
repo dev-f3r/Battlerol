@@ -1,6 +1,16 @@
-// TODO: Crear una clase para armas
-// - Cada instancia debe lucir asi: { nombre: "wp 1", icono: "img/nada.png", danno: 0, descripcion: "dc wp 1" }
+/**
+ * ? Clase que representa un arma.
+ * @class
+ */
 class Arma {
+    /**
+     * ? Constructor de la clase Arma.
+     * @constructor
+     * @param {string} nombre - El nombre del arma.
+     * @param {string} icono - La ruta del icono.
+     * @param {number} danno - El multiplicador de daño del arma.
+     * @param {string} descripcion - La descripción del arma.
+     */
     constructor({
         nombre = "",
         icono = "img/nada.png",
@@ -13,6 +23,9 @@ class Arma {
         this.descripcion = descripcion
     }
 
+    /**
+     * Cambia las propiedades del arma actual por otras.
+     */
     Actualizar = (nueva) => {
         Object.assign(this, nueva)
     }

@@ -1,4 +1,3 @@
-// TODO: Lógica para reemplazar el avatar actual por otro
 /**
  * ? Cambia determinado personaje por otro.
  * @param {Personaje} actual - La instancia del personaje actual.
@@ -10,8 +9,6 @@ function cambiar_personaje(actual, nuevo) {
     mostrar_personaje(actual) // Muestra los cambios
     cambiarModo() // Cierra el modo edición
 }
-
-// TODO: Lógica para reemplazar el esbirro seleccionado por otro
 
 // TODO: Lógica para modificar los atributos del personaje actual
 

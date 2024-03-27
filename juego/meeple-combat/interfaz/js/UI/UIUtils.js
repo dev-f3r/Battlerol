@@ -90,7 +90,7 @@ function mostrar_modal(modal, lista = modales_mostrados, ocultar_demas = true) {
  * @param {string} texto - El nuevo texto.
  */
 function contenido_consola(texto) {
-    boton_consola.textContent = texto
+    boton_consola.textContent = capitalizarPrimeraLetra(texto)
 }
 // ! HELPERS
 
@@ -139,7 +139,7 @@ boton_portada.addEventListener("click", () => {
  * @param {Personaje} personaje - El personaje a mostrar.
  */
 function mostrar_personaje(personaje) {
-    // Atributos
+    // * Atributos
     id_botones_atributos.forEach(atributo => {
         const nombre_atributo = atributo.slice(0, -3)
         const boton = document.getElementById(atributo)
@@ -148,23 +148,23 @@ function mostrar_personaje(personaje) {
         span.textContent = personaje.atributos[nombre_atributo]
     })
 
-    // Portada
+    // * Portada
     const portada = boton_portada.childNodes[0] // Elemento que muestra la portada
     portada.src = personaje.portada
 
-    // Descripción
+    // * Descripción
     contenido_consola(personaje.descripcion)
 
-    // Nombre
+    // * Nombre
     const nombre = document.getElementById("nombreTxt") // Elemento que muestra el nombre.
     nombre.textContent = personaje.nombre.toUpperCase() // En mayusculas.
 
-    // Arma 1
+    // * Arma 1
     const arma1_img = document.getElementById("arma1Img") // Icóno
     arma1_img.src = personaje.arma1.icono
     const arma1_txt = document.getElementById("arma1Txt") // Nombre
     arma1_txt.textContent = personaje.arma1.nombre.toUpperCase()
-    // Arma 2
+    // * Arma 2
     const arma2_img = document.getElementById("arma2Img") // Icóno
     arma2_img.src = personaje.arma2.icono
     const arma2_txt = document.getElementById("arma2Txt") // Nombre
