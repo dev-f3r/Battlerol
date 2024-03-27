@@ -18,7 +18,7 @@ function quitarAcentos(text) {
 function capitalizarPrimeraLetra(texto) {
     // Verifica si el texto está vacío o es nulo y devuelve el mismo texto sin cambios
     if (!texto) {
-        return texto;
+        return texto
     }
 
     // Capitaliza la primera letra del texto y la concatena con el resto del texto en minúsculas

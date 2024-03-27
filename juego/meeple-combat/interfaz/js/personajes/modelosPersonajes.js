@@ -118,27 +118,28 @@ class Personaje extends EntidadBase {
     /**
      * Cambia el arma de un determinado slot.
      */
-    ConfigurarArma = (ranura, nombre) => {
+    ConfigurarArma = (slot, nombre) => {
         // Verifica si el arma esta en la colección de naturales o marciales
         const nueva = armas_naturales[nombre] ? armas_naturales[nombre] : armas_marciales[nombre]
 
-        this[`arma${ranura}`].Actualizar(nueva) // La actualiza por la nueva
+        this[`arma${slot}`].Actualizar(nueva) // La actualiza por la nueva
     }
 
     /**
      * Cambia el equipo de un determinado slot.
      */
-    ConfigurarEquipamiento = (ranura, nombre) => {
-        console.log(ranura, nombre)
+    ConfigurarEquipamiento = (slot, nombre) => {
+        console.log(slot, nombre)
         // TODO: Completar
     }
 
     /**
      * Cambia la habilidad de un determinado slot.
      */
-    ConfigurarHabilidad = (ranura, nombre) => {
-        console.log(ranura, nombre)
-        // TODO: Completar
+    ConfigurarHabilidad = (slot, nombre) => {
+        const nueva = habilidades[quitarAcentos(nombre)]
+
+        this[`habilidad${slot}`].Actualizar(nueva)
     }
 
     // TODO: Metodo para entregar el total de un atributo

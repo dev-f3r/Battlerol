@@ -134,6 +134,7 @@ boton_portada.addEventListener("click", () => {
     }
 })
 
+// TODO: Refactorizar
 /**
  * ? Cambia el contenido de la pagina para reflejar los cambios en el personaje seleccionado.
  * @param {Personaje} personaje - El personaje a mostrar.
@@ -171,8 +172,13 @@ function mostrar_personaje(personaje) {
     arma2_txt.textContent = personaje.arma2.nombre.toUpperCase()
 
 
-    // TODO: Equipamiento
-    // TODO: Habilidades
+    for(let i = 1; i <= 3; i++) {
+        // * Habilidades
+        const habilidad = document.getElementById(`habilidad${i}Txt`)
+        habilidad.textContent = personaje[`habilidad${i}`].nombre.toUpperCase()
+        
+        // TODO: Equipamiento
+    }
 }
 // TODO: Lógica para cambiar de avatar a esbirro
 // TODO: Lógica para navegar entre esbirros
