@@ -12,7 +12,7 @@ class Arma extends EntidadBase {
      * @param {string} descripcion - La descripción del arma.
      */
     constructor({
-        nombre = "",
+        nombre = "nada",
         icono = "img/nada.png",
         danno = 0,
         descripcion = "sin descripción."

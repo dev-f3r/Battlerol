@@ -71,9 +71,9 @@ class Personaje extends EntidadBase {
         equipo2 = new Equipo({}),
         equipo3 = new Equipo({}),
 
-        habilidad1 = new Habilidad({}),
-        habilidad2 = new Habilidad({}),
-        habilidad3 = new Habilidad({}),
+        habilidad1 = new Habilidad({ nombre: "habilidad 1" }),
+        habilidad2 = new Habilidad({ nombre: "habilidad 2" }),
+        habilidad3 = new Habilidad({ nombre: "habilidad 3" }),
     }) {
         super({ nombre, descripcion, portada })
 

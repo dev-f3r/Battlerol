@@ -172,15 +172,39 @@ function mostrar_personaje(personaje) {
     arma2_txt.textContent = personaje.arma2.nombre.toUpperCase()
 
 
-    for(let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 3; i++) {
         // * Habilidades
         const habilidad = document.getElementById(`habilidad${i}Txt`)
         habilidad.textContent = personaje[`habilidad${i}`].nombre.toUpperCase()
-        
+
         // TODO: Equipamiento
     }
 }
-// TODO: Lógica para cambiar de avatar a esbirro
+
+/**
+ * ? Muestra los esbirros o el avatar principal.
+ * @param {Personaje[]} personajes - La lista con todos los personajes.
+ * @param {number} indice_personaje - El indice del personaje actual.
+ * @param {number} indice_esbirro - El indice del ultimo esbirro mostrado.
+ * @returns {number[]} Los cambios en el indice del personaje y el esbirro. 
+ */
+function mostrar_esbirros(personajes, indice_personaje, indice_esbirro) {
+    // Muestra los esbirros
+    if (indice_personaje === 0) {
+        indice_personaje = indice_esbirro
+        boton_esbirros.children[0].src = "img/personajeico.png" // Cambia el icóno
+    } 
+    // Muestra el avatar
+    else {
+        indice_personaje = 0
+        boton_esbirros.children[0].src = "img/esbirrosico.png" // Cambia el icóno
+    }
+
+    const personaje = personajes[indice_personaje] // Accede al personaje
+    mostrar_personaje(personaje) // Lo muestra
+
+    return [indice_personaje, indice_esbirro] // Retorna los indices cambiados
+}
 // TODO: Lógica para navegar entre esbirros
 
 // ! PERSONAJES

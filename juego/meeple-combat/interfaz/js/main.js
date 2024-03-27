@@ -29,7 +29,11 @@ const personajes = [
  * ? Indica el indice del personaje seleccionado
  * @var {number}
  */
-let personaje_seleccionado = 0
+let indice_personaje = 0
+/**
+ * ? Contiene el indice de ultimo esbirro seleccionado
+ */
+let indice_esbirro = 1
 /**
  * ? Indica el modo de juego
  * @var {string}
@@ -42,8 +46,13 @@ let modo = "jugar"
  */
 const botones_personajes = botones.avatares.normales.concat(/* TODO: Agregar esbirros*/)
 botones_personajes.forEach(boton => {
-    const personaje_actual = personajes[personaje_seleccionado]
+    const personaje_actual = personajes[indice_personaje]
     const personaje_nuevo = avatares[boton.nombre]
 
     boton.FuncionClick = () => cambiar_personaje(personaje_actual, personaje_nuevo) // Estable la función click.
+})
+
+// * Boton para cambiar a esbirros
+boton_esbirros.addEventListener("click", () => {
+    [indice_personaje, indice_esbirro] = mostrar_esbirros(personajes, indice_personaje, indice_esbirro)
 })
