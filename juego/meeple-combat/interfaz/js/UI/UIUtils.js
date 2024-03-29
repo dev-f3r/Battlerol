@@ -1,9 +1,9 @@
 // ! VARIABLES PRINCIPALES
 /**
- * ? Contiene los modales que se muestran actualmente
+ * ? Contiene los modales o demas elementos que se muestran actualmente
  * @var {Modal[]}
  */
-let modales_mostrados = []
+let elementos_mostrados = []
 
 
 /**
@@ -21,6 +21,11 @@ const id_botones_armas = ["arma1ImgBtn", "arma1TxtBtn", "arma2ImgBtn", "arma2Txt
  * @const {string[]}
  */
 const id_botones_equipamiento = ["equipo1Btn", "equipo2Btn", "equipo3Btn"]
+/**
+ * Contiene los ids botones direccionales [arriba, abajo] [izquierda, derecha].
+ * @const {HTMLButtonElement}
+ */
+const id_botones_dirreccionales = [["arribaBtn", "abajoBtn"], ["izquierdaBtn", "derechaBtn"]]
 
 
 /**
@@ -58,6 +63,16 @@ const boton_consola = document.getElementById("consolaBtn")
  * @const {HTMLButtonElement}
  */
 const boton_accion = document.getElementById("accionBtn")
+/**
+ * Contiene los botones arriba y abajo usados principalmente para modificar atributos.
+ * @const {HTMLButtonElement}
+ */
+const botones_arriba_abajo = document.getElementById("btnMasMenos").children
+/**
+ * Contiene los botones izquierda y derecha usados principalmente navegar.
+ * @const {HTMLButtonElement}
+ */
+const botones_izquierda_derecha = document.querySelector("#consola_container").querySelectorAll("div")
 // ! VARIABLES PRINCIPALES
 
 
@@ -68,7 +83,7 @@ const boton_accion = document.getElementById("accionBtn")
  * ? Limpia y oculta todos los modales en `lista`.
  * @param {Modal[]} lista - La lista con los modales
  */
-function ocultar_modales(lista = modales_mostrados) {
+function ocultar_modales(lista = elementos_mostrados) {
     while (lista.length) {
         const modal = lista.pop()
         modal.MostrarOcultarElemento()
@@ -80,8 +95,9 @@ function ocultar_modales(lista = modales_mostrados) {
  * @param {Modal[]} lista - La lista a la cual agregar `modal`.
  * @param {Boolean} ocultar_demas - Oculta los demas modales.
 */
-function mostrar_modal(modal, lista = modales_mostrados, ocultar_demas = true) {
-    if (ocultar_demas) ocultar_modales(lista) // Oculta todos los modales mostrados
+function mostrar_modal(modal, lista = elementos_mostrados, ocultar_demas = true) {
+    // if (ocultar_demas) ocultar_modales(lista) // Oculta todos los modales mostrados
+    if (ocultar_demas) ocultar_elementos(elementos_mostrados)
 
     lista.push(modal); modal.MostrarOcultarElemento() // Lo agrega a `lista` y lo muestra
 }
@@ -91,6 +107,65 @@ function mostrar_modal(modal, lista = modales_mostrados, ocultar_demas = true) {
  */
 function contenido_consola(texto) {
     boton_consola.innerHTML = capitalizarPrimeraLetra(texto)
+}
+
+/**
+ * ? Muestra elementos HTML cualquieras.
+ * @param {HTMLElement[]} elementos - La lista de elementos a mostrar.
+ * @param {string} display - El tipo de display.
+ */
+function mostrar_elementos(elementos, display) {
+    // Muestra los elementos
+    elementos.forEach(elemento => {
+        // Si es un simple elementos HTML
+        if (elemento instanceof HTMLElement) elemento.style.display = display
+        // Si es la instancia de una clase. Ej: Modal
+        else elemento.MostrarOcultarElemento()
+    })
+
+    // Los agrega a la lista
+    elementos_mostrados.push(...elementos)
+}
+/**
+ * ? Oculta elementos HTML cualquieras.
+ * @param {HTMLElement[]} elementos - La lista de elementos a ocultar.
+ */
+function ocultar_elementos(elementos) {
+    // Oculta los elementos
+    elementos.forEach(elemento => {
+        // Si es un simple elementos HTML
+        if (elemento instanceof HTMLElement) elemento.style.display = "none"
+        // Si es la instancia de una clase. Ej: Modal
+        else elemento.MostrarOcultarElemento()
+    })
+
+    // Elimina los elementos de la lista
+    for (let i = 0; i < elementos_mostrados.length; i++) {
+        const objetivo = elementos[0]
+        const actual = elementos_mostrados[i]
+        if (actual.id === objetivo.id) {
+            elementos_mostrados = elementos_mostrados.slice(0, i).concat(elementos_mostrados.slice(elementos.length))
+        }
+    }
+}
+/**
+ * ? Muestra los botones direccionales izquierda y derecha.
+ * @param {number} indice_personaje - El indice del personaje actual.
+ */
+function mostrar_ocultar_direccionales(indice_personaje) {
+    const [izquierda, derecha] = botones_izquierda_derecha
+
+    // Si uno esta oculto, y se estan visualizando los esbirros
+    if (
+        (izquierda.style.display === "none" || izquierda.style.display === "")
+        && indice_personaje !== 0
+    ) {
+        mostrar_elementos(botones_izquierda_derecha, "block")
+    }
+    // Si se estan mostrando
+    else {
+        ocultar_elementos(botones_izquierda_derecha)
+    }
 }
 // ! HELPERS
 
@@ -112,7 +187,7 @@ function cambiarModo() {
         boton_editar.children[0].src = "img/editar.png" // Cambia el icono del boton a editar.
     }
 
-    ocultar_modales(modales_mostrados) // Oculta todos los modales mostrados
+    ocultar_elementos(elementos_mostrados) // Oculta todos los modales mostrados
 }
 boton_editar.addEventListener("click", cambiarModo) // Cambia de modo cada que se clickee boton_editar
 // ! EDICION
@@ -137,9 +212,9 @@ boton_portada.addEventListener("click", () => {
     // Si el juego esta en modo edicíon
     if (modo === "edicion") {
         // Si se trata de el avatar pricipal
-        if (indice_personaje === 0) mostrar_modal(modal_avatares, modales_mostrados)
+        if (indice_personaje === 0) mostrar_modal(modal_avatares, elementos_mostrados)
         // Si se trata de algun esbirro
-        else mostrar_modal(modal_esbirros, modales_mostrados)
+        else mostrar_modal(modal_esbirros, elementos_mostrados)
     }
 })
 
@@ -215,7 +290,29 @@ function mostrar_esbirros(personajes, indice_personaje, indice_esbirro) {
     return [indice_personaje, indice_esbirro] // Retorna los indices cambiados
 }
 // TODO: Lógica para navegar entre esbirros
+/**
+ * ? Permite navegar entre los esbirros de forma bidireccional.
+ * @param {Personaje[]} personajes - La lista con todos los personajes (avatar y esbirros).
+ * @param {number} indice_esbirro - El indice del esbirro actual.
+ * @param {string} direccion - La dirección hacia la cual navegar.
+ * @returns {number} El indice nuevo del esbirro.
+ */
+function navegar_esbirros(personajes, indice_esbirro, direccion) {
+    if (direccion === "izquierda") {
+        // Si se trata del primer esbirro
+        if (indice_esbirro === 1) indice_esbirro = personajes.length - 1 // Mueve el selector al ultimo esbirro
+        // Si se trata de otro
+        else indice_esbirro-- // Mueve el selector al esbirro anterior
+    }
+    if (direccion === "derecha") {
+        // Si se trata del ultimo esbirro
+        if (indice_esbirro === personajes.length - 1) indice_esbirro = 1 // Mueve el selector al primero
+        // Si se trata de otro
+        else indice_esbirro++ // Mueve el selector al siguiente
+    }
 
+    return indice_esbirro
+}
 // ! PERSONAJES
 
 
@@ -235,7 +332,7 @@ id_botones_armas.forEach(id => {
     // Evento click
     el.addEventListener("click", () => {
         if (modo === "edicion") {
-            mostrar_modal(modal_armas_marciales, modales_mostrados)
+            mostrar_modal(modal_armas_marciales, elementos_mostrados)
         }
     })
 })

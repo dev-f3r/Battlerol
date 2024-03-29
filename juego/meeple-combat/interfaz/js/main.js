@@ -57,6 +57,19 @@ botones_personajes.forEach(boton => {
 // * Evento click para pasar de avatar a esbirros
 boton_esbirros.addEventListener("click", () => {
     [indice_personaje, indice_esbirro] = mostrar_esbirros(personajes, indice_personaje, indice_esbirro)
+    mostrar_ocultar_direccionales(indice_personaje)
+})
+
+// * Evento click para navegar entre esbirros
+botones_izquierda_derecha.forEach(boton => {
+    boton.addEventListener("click", () => {
+        const direccion = boton.id.slice(0, -3) // Obtiene la acción desde el id descartando "Btn".
+
+        indice_personaje = navegar_esbirros(personajes, indice_esbirro, direccion) // Actualiza el indice de personaje mostrado.
+        indice_esbirro = indice_personaje // Actualiza el indice de esbirro mostrado.
+
+        mostrar_personaje(personajes[indice_personaje]) // Muestra el esbirro dependiendo de la dirección.
+    })
 })
 
 mostrar_personaje(personajes[0]) // Muestra el personaje principal desde inició
