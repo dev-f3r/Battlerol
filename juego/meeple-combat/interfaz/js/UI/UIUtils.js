@@ -12,6 +12,11 @@ let elementos_mostrados = []
  */
 const id_botones_atributos = ["ataqueBtn", "esquivaBtn", "bloqueoBtn", "velocidadBtn", "vidaBtn", "poderBtn"]
 /**
+ * ? Contiene los ids de los botones para las habilidades de un personaje.
+ * @const {string[]}
+ */
+const id_botones_habilidades = ["habilidad1Btn", "habilidad2Btn", "habilidad3Btn"]
+/**
  * ? Contiene los id de todos los botones relacionados con las armas.
  * @var {string[]}
  */
@@ -106,7 +111,8 @@ function mostrar_modal(modal, lista = elementos_mostrados, ocultar_demas = true)
  * @param {string} texto - El nuevo texto.
  */
 function contenido_consola(texto) {
-    boton_consola.innerHTML = capitalizarPrimeraLetra(texto)
+    // Convierte a string y capitaliza la primera letra.
+    boton_consola.innerHTML = capitalizarPrimeraLetra(String(texto))
 }
 
 /**
@@ -218,6 +224,24 @@ boton_portada.addEventListener("click", () => {
     }
 })
 
+/**
+ * ? Muestra un aspecto del personaje pasado (atributos, nombre, descripción, etc.)
+ * @param {Personaje} personaje - El personaje con la aspecto a mostrar.
+ * @param {string} nombre_aspecto - El nombre de la aspecto a mostrar.
+ */
+function mostrar_aspecto_personaje(personaje, nombre_aspecto) {
+    // Se guarda la aspecto, caso especial para los atributos
+    const aspecto = personaje[nombre_aspecto] ? personaje[nombre_aspecto] : personaje.atributos[nombre_aspecto]
+
+    let salida = "" // El texto final
+
+    // Si es un objeto (Ej: arma, habildad), extrae el nombre
+    if (typeof aspecto === "object") salida = aspecto.descripcion
+    // Si es un numero o string comun
+    else salida = aspecto
+
+    contenido_consola(salida) // Muestra por consola la aspecto
+}
 // TODO: Refactorizar
 /**
  * ? Cambia el contenido de la pagina para reflejar los cambios en el personaje seleccionado.
@@ -264,7 +288,6 @@ function mostrar_personaje(personaje) {
         // TODO: Equipamiento
     }
 }
-
 /**
  * ? Muestra los esbirros o el avatar principal.
  * @param {Personaje[]} personajes - La lista con todos los personajes.
@@ -289,7 +312,6 @@ function mostrar_esbirros(personajes, indice_personaje, indice_esbirro) {
 
     return [indice_personaje, indice_esbirro] // Retorna los indices cambiados
 }
-// TODO: Lógica para navegar entre esbirros
 /**
  * ? Permite navegar entre los esbirros de forma bidireccional.
  * @param {Personaje[]} personajes - La lista con todos los personajes (avatar y esbirros).
@@ -313,6 +335,8 @@ function navegar_esbirros(personajes, indice_esbirro, direccion) {
 
     return indice_esbirro
 }
+
+
 // ! PERSONAJES
 
 

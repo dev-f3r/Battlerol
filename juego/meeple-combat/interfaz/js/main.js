@@ -59,7 +59,6 @@ boton_esbirros.addEventListener("click", () => {
     [indice_personaje, indice_esbirro] = mostrar_esbirros(personajes, indice_personaje, indice_esbirro)
     mostrar_ocultar_direccionales(indice_personaje)
 })
-
 // * Evento click para navegar entre esbirros
 botones_izquierda_derecha.forEach(boton => {
     boton.addEventListener("click", () => {
@@ -69,6 +68,24 @@ botones_izquierda_derecha.forEach(boton => {
         indice_esbirro = indice_personaje // Actualiza el indice de esbirro mostrado.
 
         mostrar_personaje(personajes[indice_personaje]) // Muestra el esbirro dependiendo de la dirección.
+    })
+})
+
+
+const aspectos_personaje = [...id_botones_armas, ...id_botones_atributos, ...id_botones_equipamiento, ...id_botones_habilidades, "portadaBtn", "nombreBtn"]
+aspectos_personaje.forEach(id => {
+    const boton = document.getElementById(id) // Trae el boton correspondiente.
+    const final = id.includes("arma") ? -6 : -3 // Caso particular para los id relacionados con armas.
+    let nombre_aspecto = id.slice(0, final) // Filtra el nombre dejando la parte relevante. Ej: nombreBtn => nombre
+
+    if(id === "portadaBtn" || id === "nombreBtn") nombre_aspecto = "descripcion" // Caso particular la portada debe mostrar el nombre
+
+    // Evento click
+    boton.addEventListener("click", () => {
+        // Si el modo de juego es "jugar" muestra la descripción del aspecto
+        if (modo === "jugar") mostrar_aspecto_personaje(personajes[indice_personaje], nombre_aspecto)
+        // Si el modo de juego es "edicion" muestra los controles para editar el aspecto
+        else console.log("Editar", nombre_aspecto)
     })
 })
 
