@@ -47,16 +47,16 @@ let modo = "jugar"
  * @const {BotonModal[]}
  */
 const botones_personajes = botones.avatares.normales.concat(botones.esbirros.normales)
+
+// * Evento click para cambiar personajes
 botones_personajes.forEach(boton => {
-    const personaje_actual = personajes[indice_personaje] // Trae el personaje actual de la lista principal de personajes
     const personaje_nuevo = avatares[boton.nombre] ? avatares[boton.nombre] : esbirros[boton.nombre] // Trae el personaje correcto basandose en si es un esbirro o un avatar
 
-    boton.FuncionClick = () => cambiar_personaje(personaje_actual, personaje_nuevo) // Estable la función click.
+    boton.FuncionClick = () => cambiar_personaje(personajes[indice_personaje], personaje_nuevo) // Estable la función click.
 })
-
 // * Evento click para pasar de avatar a esbirros
 boton_esbirros.addEventListener("click", () => {
     [indice_personaje, indice_esbirro] = mostrar_esbirros(personajes, indice_personaje, indice_esbirro)
 })
 
-mostrar_personaje(personajes[0])
+mostrar_personaje(personajes[0]) // Muestra el personaje principal desde inició
