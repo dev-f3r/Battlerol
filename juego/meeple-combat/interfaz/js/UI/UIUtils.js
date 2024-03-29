@@ -90,7 +90,7 @@ function mostrar_modal(modal, lista = modales_mostrados, ocultar_demas = true) {
  * @param {string} texto - El nuevo texto.
  */
 function contenido_consola(texto) {
-    boton_consola.textContent = capitalizarPrimeraLetra(texto)
+    boton_consola.innerHTML = capitalizarPrimeraLetra(texto)
 }
 // ! HELPERS
 
