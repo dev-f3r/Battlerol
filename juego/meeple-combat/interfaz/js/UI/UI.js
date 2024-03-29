@@ -57,10 +57,13 @@ const botones = {
             "marciales",
             "flex",
             () => { ocultar_modales; mostrar_modal(modales.armas_marciales) }),
-    }
+    },
+    "esbirros": {
+        "normales": armar_lista_botones(nombre_esbirros, esbirros, "portada", maximo_botones, "ico"),
+        "especial": new BotonModal("nuevoesbirro", ["item-modal"], true, "nuevopjico", "flex"),
+    },
     // TODO: configurar los botones de los modales restantes
     // "equipo": [],
-    // "esbirros": [],
 }
 
 // * Diccionario de modales:

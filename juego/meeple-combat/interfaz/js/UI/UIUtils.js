@@ -127,10 +127,19 @@ boton_editar.addEventListener("click", cambiarModo) // Cambia de modo cada que s
  * @const {Modal}
  */
 const modal_avatares = modales.avatares
-// Evento click
+/**
+ * ? Contiene el modal de esbirros
+ * @const {Modal}
+ */
+const modal_esbirros = modales.esbirros
+// * Evento click que muestra el modal de avatares o esbirros
 boton_portada.addEventListener("click", () => {
+    // Si el juego esta en modo edicíon
     if (modo === "edicion") {
-        mostrar_modal(modal_avatares, modales_mostrados)
+        // Si se trata de el avatar pricipal
+        if (indice_personaje === 0) mostrar_modal(modal_avatares, modales_mostrados)
+        // Si se trata de algun esbirro
+        else mostrar_modal(modal_esbirros, modales_mostrados)
     }
 })
 
@@ -164,12 +173,12 @@ function mostrar_personaje(personaje) {
     const arma1_img = document.getElementById("arma1Img") // Icóno
     arma1_img.src = personaje.arma1.icono
     const arma1_txt = document.getElementById("arma1Txt") // Nombre
-    arma1_txt.textContent = personaje.arma1.nombre.toUpperCase()
+    arma1_txt.textContent = capitalizarPrimeraLetra(personaje.arma1.nombre)
     // * Arma 2
     const arma2_img = document.getElementById("arma2Img") // Icóno
     arma2_img.src = personaje.arma2.icono
     const arma2_txt = document.getElementById("arma2Txt") // Nombre
-    arma2_txt.textContent = personaje.arma2.nombre.toUpperCase()
+    arma2_txt.textContent = capitalizarPrimeraLetra(personaje.arma2.nombre)
 
 
     for (let i = 1; i <= 3; i++) {
@@ -193,7 +202,7 @@ function mostrar_esbirros(personajes, indice_personaje, indice_esbirro) {
     if (indice_personaje === 0) {
         indice_personaje = indice_esbirro
         boton_esbirros.children[0].src = "img/personajeico.png" // Cambia el icóno
-    } 
+    }
     // Muestra el avatar
     else {
         indice_personaje = 0

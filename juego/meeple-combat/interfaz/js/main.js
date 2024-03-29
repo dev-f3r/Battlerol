@@ -6,7 +6,9 @@
  */
 const personajes = [
     new Personaje({
-        nombre: "meeple",
+        nombre: "bienvenido",
+        portada: "img/logo-meeple-combat.png",
+        descripcion: "consola",
     }),
     new Personaje({
         nombre: "esbirro 1",
@@ -44,10 +46,10 @@ let modo = "jugar"
  * Contiene todos los botones de los avatares y esbirros
  * @const {BotonModal[]}
  */
-const botones_personajes = botones.avatares.normales.concat(/* TODO: Agregar esbirros*/)
+const botones_personajes = botones.avatares.normales.concat(botones.esbirros.normales)
 botones_personajes.forEach(boton => {
-    const personaje_actual = personajes[indice_personaje]
-    const personaje_nuevo = avatares[boton.nombre]
+    const personaje_actual = personajes[indice_personaje] // Trae el personaje actual de la lista principal de personajes
+    const personaje_nuevo = avatares[boton.nombre] // Trae el personaje nuevo de la colección `personajes`
 
     boton.FuncionClick = () => cambiar_personaje(personaje_actual, personaje_nuevo) // Estable la función click.
 })
@@ -56,3 +58,5 @@ botones_personajes.forEach(boton => {
 boton_esbirros.addEventListener("click", () => {
     [indice_personaje, indice_esbirro] = mostrar_esbirros(personajes, indice_personaje, indice_esbirro)
 })
+
+mostrar_personaje(personajes[0])
