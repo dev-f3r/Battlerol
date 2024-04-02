@@ -117,6 +117,8 @@ class Personaje extends EntidadBase {
 
     /**
      * Cambia el arma de un determinado slot.
+     * @param {number} slot - El slot del arma a cambiar.
+     * @param {string} nombre - El nombre de la nueva arma.
      */
     ConfigurarArma = (slot, nombre) => {
         // Verifica si el arma esta en la colección de naturales o marciales
@@ -127,6 +129,8 @@ class Personaje extends EntidadBase {
 
     /**
      * Cambia el equipo de un determinado slot.
+     * @param {number} slot - El slot del equipo a cambiar.
+     * @param {string} nombre - El nombre de la nueva equipo.
      */
     ConfigurarEquipamiento = (slot, nombre) => {
         console.log(slot, nombre)
@@ -135,6 +139,8 @@ class Personaje extends EntidadBase {
 
     /**
      * Cambia la habilidad de un determinado slot.
+     * @param {number} slot - El slot de la habilidad a cambiar.
+     * @param {string} nombre - El nombre de la nueva habilidad.
      */
     ConfigurarHabilidad = (slot, nombre) => {
         const nueva = habilidades[quitarAcentos(nombre)]
