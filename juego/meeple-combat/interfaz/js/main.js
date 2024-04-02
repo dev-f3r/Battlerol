@@ -72,21 +72,28 @@ botones_izquierda_derecha.forEach(boton => {
 })
 
 
-const aspectos_personaje = [...id_botones_armas, ...id_botones_atributos, ...id_botones_equipamiento, ...id_botones_habilidades, "portadaBtn", "nombreBtn"]
+// * Lógica para mostrar por consola los aspectos de los personajes.
+const aspectos_personaje = [...id_botones_armas, ...id_botones_atributos, ...id_botones_equipamiento, ...id_botones_habilidades, "nombreBtn"]
 aspectos_personaje.forEach(id => {
     const boton = document.getElementById(id) // Trae el boton correspondiente.
     const final = id.includes("arma") ? -6 : -3 // Caso particular para los id relacionados con armas.
     let nombre_aspecto = id.slice(0, final) // Filtra el nombre dejando la parte relevante. Ej: nombreBtn => nombre
 
-    if(id === "portadaBtn" || id === "nombreBtn") nombre_aspecto = "descripcion" // Caso particular la portada debe mostrar el nombre
+    if (id === "portadaBtn" || id === "nombreBtn") nombre_aspecto = "descripcion" // Caso particular la portada debe mostrar el nombre
 
-    // Evento click
+    // Evento click para mostrar un determinado aspecto
     boton.addEventListener("click", () => {
         // Si el modo de juego es "jugar" muestra la descripción del aspecto
         if (modo === "jugar") mostrar_aspecto_personaje(personajes[indice_personaje], nombre_aspecto)
         // Si el modo de juego es "edicion" muestra los controles para editar el aspecto
         else console.log("Editar", nombre_aspecto)
     })
+})
+
+// * Muestra los direccionales izquierda y derecha al clickear la portada.
+boton_portada.addEventListener("click", () => {
+    // Si esta en modo jugar
+    if (modo === "jugar") mostrar_ocultar_direccionales(indice_personaje)
 })
 
 mostrar_personaje(personajes[0]) // Muestra el personaje principal desde inició

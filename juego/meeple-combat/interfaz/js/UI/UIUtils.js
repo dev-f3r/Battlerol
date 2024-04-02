@@ -238,7 +238,13 @@ function mostrar_aspecto_personaje(personaje, nombre_aspecto) {
     // Si es un objeto (Ej: arma, habildad), extrae el nombre
     if (typeof aspecto === "object") salida = aspecto.descripcion
     // Si es un numero o string comun
-    else salida = aspecto
+    else {
+        // Si se trata de las descripción, muestra solamente el texto,
+        // de lo contrario muestra el nombre del aspecto y su valor
+        salida = nombre_aspecto === "descripcion"
+            ? aspecto
+            : `${capitalizarPrimeraLetra(nombre_aspecto)}: ${aspecto}`
+    }
 
     contenido_consola(salida) // Muestra por consola la aspecto
 }
@@ -335,8 +341,6 @@ function navegar_esbirros(personajes, indice_esbirro, direccion) {
 
     return indice_esbirro
 }
-
-
 // ! PERSONAJES
 
 
