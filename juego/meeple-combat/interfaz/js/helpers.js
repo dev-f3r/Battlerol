@@ -36,6 +36,15 @@ function quitarEspacios(texto) {
         .join("") // Une el arreglo en un string.
 }
 
+const atributos_default = {
+    ataque: 0,
+    esquiva: 0,
+    bloqueo: 0,
+    velocidad: 0,
+    vida: 0,
+    poder: 0,
+}
+
 /**
  * ? Clase con propiedades basicas de uso general.
  * @class
@@ -47,23 +56,35 @@ class EntidadBase {
      * @param {string} descripcion - La descripción.
      * @param {string} icono - La ruta del iconó.
      * @param {string} portada - La ruta de la portada.
+     * @param {Object} atributos - Los atributos de la entidad. Ej: Ataque, vida, etc.
      */
     constructor({
         nombre = "nada",
         descripcion = "Sin descripción.",
         icono = "img/nada.png",
         portada = "img/nada.png",
+        atributos = atributos_default,
     }) {
         this.nombre = nombre
         this.descripcion = descripcion
         this.icono = icono
         this.portada = portada
+        this.atributos = atributos
     }
 
     /**
      * ? Cambia las propiedades actuales por otras.
+     * @param {Object} nuevo - El objeto con las nuevas propiedades.
      */
-    Actualizar = (nuevo) => {
-        Object.assign(this, nuevo)
+    Actualizar(nuevo) {
+        // * Propiedades generales
+        this.nombre = nuevo.nombre
+        this.descripcion = nuevo.descripcion
+        this.portada = nuevo.portada
+
+        // * Atributos
+        for (const nombre in atributos_default) {
+            this.atributos[nombre] = nuevo[nombre]
+        }
     }
 }

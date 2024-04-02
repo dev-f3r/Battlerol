@@ -1,18 +1,20 @@
 // TODO: Crear una lista con los nombres de los equipos
+class Equipo extends EntidadBase {
+    constructor({
+        nombre = "",
+        icono = "img/nada.png",
+        descripcion = "sin descripción.",
 
-// TODO: Crear una clase para equipos
-// Debe lucir asi: {
-//   nombre: "Nada",
-//   icono: "img/nada.png",
-//   descripcion: "Sin descripcion",
-//   nivel: 0,
-//   ataque: 0,
-//   esquiva: 0,
-//   bloqueo: 0,
-//   velocidad: 0,
-//   vidaMaxima: 0,
-//   poderMaximo: 0
-// },
-class Equipo {
-    
+        atributos = atributos_default,
+    }) {
+        super({nombre, icono, descripcion, atributos})
+    }
+
+    /**
+     * ? Actualiza las propiedades del equipo por otras.
+     * @param {Object} nuevo - El objeto con las nuevas propiedades
+     */
+    Actualizar = (nuevo) => {
+        super.Actualizar(nuevo)
+    }
 }

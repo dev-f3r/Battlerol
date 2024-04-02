@@ -1,14 +1,5 @@
 // TODO: Documentar
 
-const atributos_default = {
-    ataque: 0,
-    esquiva: 0,
-    bloqueo: 0,
-    velocidad: 0,
-    vida: 0,
-    poder: 0,
-}
-
 const personaje_prueba = {
     nombre: "guerrero",
     portada: "img/guerrero.png",
@@ -96,14 +87,7 @@ class Personaje extends EntidadBase {
      * del personaje por otras
      */
     Actualizar = (props) => {
-        this.nombre = props.nombre
-        this.descripcion = props.descripcion
-        this.portada = props.portada
-
-        // * Atributos
-        for (const nombre in atributos_default) {
-            this.atributos[nombre] = props[nombre]
-        }
+        super.Actualizar(props)
 
         // * Habilidades
         this.ConfigurarHabilidad(1, props.habilidad1)
@@ -149,5 +133,8 @@ class Personaje extends EntidadBase {
     }
 
     // TODO: Metodo para entregar el total de un atributo
+    TotalAtibuto = (nombre) => {
+        return this.atributos[nombre] + this.equipo1.atributos[nombre] + this.equipo2.atributos[nombre] + this.equipo3.atributos[nombre]
+    }
     // TODO: Metodo para ataquar
 }

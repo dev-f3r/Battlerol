@@ -22,4 +22,12 @@ class Habilidad extends EntidadBase {
         super({ nombre, descripcion })
         this.coste = coste
     }
+
+    /**
+     * ? Actualiza las propiedades de una habilidad por las de otra
+     * @param {Object} nueva - El objeto que contiene las nuevas propiedades.
+     */
+    Actualizar = (nueva) => {
+        Object.assign(this, nueva)
+    }
 }
