@@ -4,6 +4,11 @@
  * @var {Modal[]}
  */
 let elementos_mostrados = []
+/**
+ * ? Contiene el slot del arma seleccionada.
+ * @var {number}
+ */
+let slot_arma_seleccionada = 1
 
 
 /**
@@ -359,6 +364,7 @@ id_botones_armas.forEach(id => {
 
     // Evento click
     el.addEventListener("click", () => {
+        slot_arma_seleccionada = id[4] // Extrae el slot del id. Ej: arma1Txt => 1
         if (modo === "edicion") {
             mostrar_modal(modal_armas_marciales, elementos_mostrados)
         }
