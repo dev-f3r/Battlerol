@@ -31,7 +31,7 @@ class ElementoHTML {
         tipo_display = "block",
         hijo = document.createElement('span'),
         elemento = document.createElement("div"),
-        funcionClick = () => {}
+        funcionClick = () => { }
     ) {
         this.nombre = nombre;
         this.clases = clases;
@@ -132,7 +132,7 @@ class Boton extends ElementoHTML {
         mostrar = false,
         tipo_display = "flex",
         hijo = document.createElement('span'),
-        funcionClick = () => {}
+        funcionClick = () => { }
     ) {
         const elemento = document.createElement("button")
         super(nombre, clases, mostrar, tipo_display, hijo, elemento, funcionClick)
@@ -172,7 +172,7 @@ class BotonModal extends Boton {
         mostrar = false,
         src = "",
         tipo_display = "flex",
-        funcionClick = () => {}
+        funcionClick = () => { }
     ) {
         // Se genera la ruta del icono del botón basado en su nombre.
         const icono = document.createElement("img")
@@ -209,6 +209,7 @@ class Modal extends ElementoHTML {
      * @param {string} nombre - Nombre que identifica al modal.
      * @param {string[]} clases - Clases CSS para aplicar estilos al modal.
      * @param {boolean} mostrar - Indica si el modal debe mostrarse inicialmente (true: visible, false: oculto).
+     * @param {string} tipo_display - El tipo de display que tomara en caso de mostrarse.
      * @param {number} maximo_botones - Número máximo de botones generales permitidos (sin contar navegación ni botón especial).
      * @param {BotonModal[]} botones_gral - Arreglo con los botones generales del modal.
      * @param {Boton} boton_especial - Botón con una acción especial dentro del modal.
@@ -407,7 +408,7 @@ class Modal extends ElementoHTML {
      */
     CambiarVista = (accion) => {
         // No hace nada si solo hay una vista.
-        if(this.vistas.length <= 1) return
+        if (this.vistas.length <= 1) return
 
         switch (accion) {
             case "adelante":
@@ -459,10 +460,128 @@ class Modal extends ElementoHTML {
         super.MostrarOcultarElemento()
 
         // Reestablece la vista mostrada a la primera.
-        if(!this.vistas[0][0].mostrar) {
+        if (!this.vistas[0][0].mostrar) {
             this.index_vista = 0
             this.MostrarVista(this.index_vista)
             this.OcultarVistas(this.index_vista)
+        }
+    }
+}
+
+/**
+ * ? Clase que representa un formulario.
+ * @class
+ */
+class Formulario extends ElementoHTML {
+    /**
+     * Constructor de la clase Formulario. Crea un formulario para ingreso de comandos, nombres, habilidades, etc.
+     * @param {string} nombre - Nombre del formulario.
+     * @param {string[]} clases - Clases CSS para aplicar estilos.
+     * @param {boolean} mostrar - Indica si el formulario debe mostrarse inicialmente (true: visible, false: oculto).
+     * @param {string} tipo_display - El tipo de display que tomara en caso de mostrarse.
+     * @param {HTMLElement} hijo - El elemento hijo del formulario.
+     * @param {HTMLElement} elemento - El contenedor del formulario.
+     * @param {Function} funcion_ingreso - La función que se ejecuta al ingresar texto.
+     */
+    constructor(
+        nombre = "nada",
+        clases = ["contenedor-input"],
+        tipo_display = "flex",
+        mostrar = false,
+        hijo = document.createElement("span"),
+        elemento = document.createElement("div"),
+        funcion_ingreso = () => { }
+    ) {
+        super(nombre, clases, mostrar, tipo_display, hijo, elemento)
+        this.funcion_ingreso = funcion_ingreso
+
+        this.encabezado = document.createElement("span")
+        this.input = document.createElement("input")
+        this.boton = document.createElement("button")
+
+        this.id = `ingreso_${nombre}`
+
+        this.ConstruirElemento()
+    }
+
+    /**
+     * ? Construye el formulario
+     */
+    ConstruirElemento() {
+        super.ConstruirElemento()
+        // Contenido de hijos
+        this.encabezado.textContent = `Ingrese ${this.nombre}`
+        this.boton.textContent = "Ingresar"
+
+        // Clases de hijos
+        this.encabezado.classList.add("input-label")
+        this.input.classList.add("comandos-input")
+        this.boton.classList.add("input-button")
+
+        // Ids & nombres de hijos
+        this.input.id = `${this.nombre}_valor`
+        this.input.name = `${this.nombre}_input`
+
+        // Configuraciones generales del elemento principal
+        this.elemento.id = `contenedor_input_${this.nombre}`
+
+        // Añade los elementos
+        this.elemento.appendChild(this.encabezado)
+        this.elemento.appendChild(this.input)
+        this.elemento.appendChild(this.boton)
+    }
+
+    /**
+     * ? Establece el handler para el ingreso de texto.
+     * @param {Function} nueva - La función que se ejecutara a la hora de ingresar texto.
+     */
+    set Funcion_ingreso(nueva) {
+        this.funcion_ingreso = nueva
+        this.input.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                nueva(this.value)
+            }
+        })
+        this.boton.addEventListener("click", () => {
+            console.log("click")
+            nueva(this.input.value)
+        })
+    }
+
+    // TODO: Descartar
+    Accion = () => {
+        function handler(tipoIngreso, input = this.input) {
+            switch (tipoIngreso) {
+                case "comando":
+                    console.log(input.valor)
+                    // ingresarComando(comandosValor.value)
+                    break
+                case "nombre":
+                    console.log(input.valor)
+                    // if (esPersonaje) {
+                    //     personaje.nombre = comandosValor.value
+                    //     imprimirPersonaje()
+                    // } else {
+                    //     esbirroSeleccionado.nombre = comandosValor.value
+                    //     mostrarEsbirroSeleccionado()
+                    // }
+                    break
+                case "habilidad":
+                    // if (esPersonaje) {
+                    //     cambiarHabilidad(comandosValor.value)
+                    // } else {
+                    //     editarHabilidadEsbirro(comandosValor.value)
+                    // }
+                    break
+                case "mochila-item":
+                    // cambiarItemMochila(comandosValor.value)
+                    // actualizarMochila()
+                    break
+                default:
+                    break
+            }
+            // ocultarInputComandos()
+            // cerrarEdicion()
         }
     }
 }

@@ -117,4 +117,11 @@ boton_portada.addEventListener("click", () => {
     if (modo === "jugar") mostrar_ocultar_direccionales(indice_personaje)
 })
 
+
+boton_consola.addEventListener("click", () => {
+    if (modo === "edicion") {
+        mostrar_elementos([formulario])
+    }
+})
+
 mostrar_personaje(personajes[0]) // Muestra el personaje principal desde inició

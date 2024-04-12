@@ -97,3 +97,6 @@ const main = document.getElementById("main")
 for (const modal in modales) {
     main.appendChild(modales[modal].Elemento)
 }
+
+const formulario = new Formulario("comandos", ["contenedor-input"], "flex", false)
+main.appendChild(formulario.Elemento)
