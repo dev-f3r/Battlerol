@@ -548,40 +548,11 @@ class Formulario extends ElementoHTML {
         })
     }
 
-    // TODO: Descartar
-    Accion = () => {
-        function handler(tipoIngreso, input = this.input) {
-            switch (tipoIngreso) {
-                case "comando":
-                    console.log(input.valor)
-                    // ingresarComando(comandosValor.value)
-                    break
-                case "nombre":
-                    console.log(input.valor)
-                    // if (esPersonaje) {
-                    //     personaje.nombre = comandosValor.value
-                    //     imprimirPersonaje()
-                    // } else {
-                    //     esbirroSeleccionado.nombre = comandosValor.value
-                    //     mostrarEsbirroSeleccionado()
-                    // }
-                    break
-                case "habilidad":
-                    // if (esPersonaje) {
-                    //     cambiarHabilidad(comandosValor.value)
-                    // } else {
-                    //     editarHabilidadEsbirro(comandosValor.value)
-                    // }
-                    break
-                case "mochila-item":
-                    // cambiarItemMochila(comandosValor.value)
-                    // actualizarMochila()
-                    break
-                default:
-                    break
-            }
-            // ocultarInputComandos()
-            // cerrarEdicion()
-        }
+    /**
+     * Cambia el encabezado del formulario.
+     * @param {string} nuevo - El nuevo encabezado.
+     */
+    set cambiar_encabezado(nuevo) {
+        this.encabezado.textContent = nuevo
     }
 }

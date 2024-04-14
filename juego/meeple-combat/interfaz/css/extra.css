@@ -101,6 +101,7 @@ span.experiencia-item {
     position: absolute;
     background-color: #fff;
     top: 40%;
+    left: 15%;
     height: 80px;
     width: 300px;
     align-items: center;

@@ -98,5 +98,5 @@ for (const modal in modales) {
     main.appendChild(modales[modal].Elemento)
 }
 
-const formulario = new Formulario("comandos", ["contenedor-input"], "flex", false)
+const formulario = new Formulario("texto", ["contenedor-input"], "flex", false)
 main.appendChild(formulario.Elemento)

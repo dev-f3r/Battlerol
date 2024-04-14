@@ -58,6 +58,35 @@ const aspectos_personaje = [...id_botones_armas, ...id_botones_atributos, ...id_
  */
 const botones_armas = botones.armas_marciales.normales.concat(botones.armas_naturales.normales)
 
+/**
+ * ? Permite el ingreso de comandos.
+ * @param {string} comando - El comando que se quiere ingresar.
+ */
+function ingresar_comandos(comando) {
+    // TODO: Agregar los comandos correspondientes
+}
+
+/**
+ * Condiciona un determinado formulario (cambia su nombre, funcion de ingreso, etc.).
+ * @param {Formulario} formulario - El formulario que se quiere condicionar.
+ * @param {string} modo - El nuevo del formulario (comando, habilidad, nombre).
+ */
+function condicionar_formulario(formulario, modo) {
+    let nueva_funcion = () => { }
+    let nuevo_titulo = "Ingrese "
+    switch (modo) {
+        case "comando":
+            nueva_funcion = ingresar_comandos
+            nuevo_titulo += "el comando"
+            break;
+        // TODO: nombre habilidad, nombre personaje
+        default:
+            break;
+    }
+
+    formulario.Funcion_ingreso = nueva_funcion
+    formulario.cambiar_encabezado = nuevo_titulo
+}
 
 // ! PERSONAJES
 // * Evento click para cambiar personajes
@@ -120,7 +149,8 @@ boton_portada.addEventListener("click", () => {
 
 boton_consola.addEventListener("click", () => {
     if (modo === "edicion") {
-        mostrar_elementos([formulario])
+        mostrar_elementos([formulario]) // Muestra el formulario
+        condicionar_formulario(formulario, "comando") // Lo condiciona para poder ingresar comandos
     }
 })
 
