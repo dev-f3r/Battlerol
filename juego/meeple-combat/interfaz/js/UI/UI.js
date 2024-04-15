@@ -79,14 +79,14 @@ Object.keys(botones).forEach(nombre => {
     else nombre_modal = nombre
 
     modales[nombre] = new Modal(
-        nombre_modal,
-        ["modal"],
-        false,
-        "grid",
-        maximo_botones,
+        nombre_modal, // Nombre
+        ["modal"], // Clases
+        false, // Mostrar
+        "grid", // Tipo display
+        maximo_botones, // Numero de botones grales
 
-        botones[nombre].normales,
-        botones[nombre].especial,
+        botones[nombre].normales, // Botones grales
+        botones[nombre].especial, // Botone especial
     )
 })
 

@@ -253,7 +253,7 @@ function mostrar_aspecto_personaje(personaje, nombre_aspecto) {
 
     contenido_consola(salida) // Muestra por consola la aspecto
 }
-// TODO: Refactorizar
+// TODO: Refactorizar mostrar_personaje
 /**
  * ? Cambia el contenido de la pagina para reflejar los cambios en el personaje seleccionado.
  * @param {Personaje} personaje - El personaje a mostrar.

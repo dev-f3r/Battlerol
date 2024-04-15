@@ -1,19 +1,19 @@
 const habilidades = {
-    "habilidad 1": {
-        nombre: "habilidad 1",
-        coste: 1,
-        descripcion: "Habildad 1 sin descripción"
-    },
-    "habilidad 2": {
-        nombre: "habilidad 2",
-        coste: 1,
-        descripcion: "Habildad 2 sin descripción"
-    },
-    "habilidad 3": {
-        nombre: "habilidad 3",
-        coste: 1,
-        descripcion: "Habildad 3 sin descripción"
-    },
+    // "habilidad 1": {
+    //     nombre: "habilidad 1",
+    //     coste: 1,
+    //     descripcion: "Habildad 1 sin descripción"
+    // },
+    // "habilidad 2": {
+    //     nombre: "habilidad 2",
+    //     coste: 1,
+    //     descripcion: "Habildad 2 sin descripción"
+    // },
+    // "habilidad 3": {
+    //     nombre: "habilidad 3",
+    //     coste: 1,
+    //     descripcion: "Habildad 3 sin descripción"
+    // },
     "machacar": {
         nombre: "machacar",
         coste: 1,
@@ -296,4 +296,10 @@ const habilidades = {
     }
 }
 
-// TODO: Crear una lista con los nombres de las habilidades
+/**
+ * ? Lista con todos los nombres de las habilidades
+ * @const {string[]}
+ */
+const nombre_habilidades = Object.keys(habilidades).map(nombre => {
+    return nombre
+})

@@ -2,7 +2,6 @@
 for (const nombre in personajesDict) {
     const personaje = personajesDict[nombre]
     // Creamos el elemento HTML para el personaje
-    // TODO: Arreglar el src de la imagen
     let divNuevo = `<div class="item-modal" id="${nombre}"><img src="${personaje.imagen}" class="modal-img"></div>`
 
     // Lo insertamos despues del boton de cerrarModalPersonaje

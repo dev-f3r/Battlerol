@@ -240,7 +240,7 @@ class Modal extends ElementoHTML {
     /**
      * Construye la estructura HTML del modal y sus elementos.
      */
-    // TODO: Refactorizar el codigo de este metodo
+    // TODO: Refactorizar el codigo del metodo ConstruirElemento en clase Modal
     ConstruirElemento() {
         // * Creación de los elementos principales
         const titulo = this.GenerarTituloModal()

@@ -1,5 +1,12 @@
-// TODO: Crear una lista con los nombres de los equipos
 class Equipo extends EntidadBase {
+    /**
+     * ? Constructor de la clase Equipo
+     * @constructor
+     * @param {string} nombre - El nombre del equipo.
+     * @param {string} icono - El icono del equipo.
+     * @param {string} descripcion - La descripción.
+     * @param {object} atributos - Los atributos. Ej: ataque, vida, etc.
+     */
     constructor({
         nombre = "",
         icono = "img/nada.png",

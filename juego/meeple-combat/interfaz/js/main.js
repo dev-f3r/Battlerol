@@ -67,7 +67,7 @@ function ingresar_comandos(comando) {
 }
 
 /**
- * Condiciona un determinado formulario (cambia su nombre, funcion de ingreso, etc.).
+ * ? Condiciona un determinado formulario (cambia su nombre, funcion de ingreso, etc.).
  * @param {Formulario} formulario - El formulario que se quiere condicionar.
  * @param {string} modo - El nuevo del formulario (comando, habilidad, nombre).
  */
@@ -146,12 +146,14 @@ boton_portada.addEventListener("click", () => {
     if (modo === "jugar") mostrar_ocultar_direccionales(indice_personaje)
 })
 
-
+// * Evento para mostrar formulario para ingreso de comandos
+// * Con el boton consola.
 boton_consola.addEventListener("click", () => {
     if (modo === "edicion") {
         mostrar_elementos([formulario]) // Muestra el formulario
         condicionar_formulario(formulario, "comando") // Lo condiciona para poder ingresar comandos
     }
 })
+// TODO: Formulario para cambio de nombre de personajes y habilidades
 
 mostrar_personaje(personajes[0]) // Muestra el personaje principal desde inició

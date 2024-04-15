@@ -1,5 +1,3 @@
-// TODO: Documentar
-
 const personaje_prueba = {
     nombre: "guerrero",
     portada: "img/guerrero.png",
@@ -118,7 +116,7 @@ class Personaje extends EntidadBase {
      */
     ConfigurarEquipamiento = (slot, nombre) => {
         console.log(slot, nombre)
-        // TODO: Completar
+        // TODO: Completar logica para cambio de equipamiento.
     }
 
     /**
@@ -132,7 +130,11 @@ class Personaje extends EntidadBase {
         this[`habilidad${slot}`].Actualizar(nueva)
     }
 
-    // TODO: Metodo para entregar el total de un atributo
+    /**
+     * ? Entrega el valor total de un atributo (ataque, vida, etc)
+     * @param {string} nombre - El nombre del atributo.
+     * @returns {number} El resultado de la suma.
+     */
     TotalAtibuto = (nombre) => {
         return this.atributos[nombre] + this.equipo1.atributos[nombre] + this.equipo2.atributos[nombre] + this.equipo3.atributos[nombre]
     }
