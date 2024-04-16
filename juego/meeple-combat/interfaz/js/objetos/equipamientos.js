@@ -84,3 +84,8 @@ const equipos = {
         poderMaximo: -10,
     },
 }
+
+const nombre_equipos = Object.keys(equipos).filter(nombre => {
+    if (nombre != "nada") return true
+    else return false
+})

@@ -125,6 +125,7 @@ aspectos_personaje.forEach(id => {
         if (modo === "jugar") mostrar_aspecto_personaje(personajes[indice_personaje], nombre_aspecto)
         // Si el modo de juego es "edicion" muestra los controles para editar el aspecto
         else {
+            if(id.includes("equipo")) mostrar_elementos([modal_equipos], modal_equipos.tipo_display)
             console.log("Editar", nombre_aspecto)
         }
     })

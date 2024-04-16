@@ -99,6 +99,7 @@ function ocultar_modales(lista = elementos_mostrados) {
         modal.MostrarOcultarElemento()
     }
 }
+// TODO: Descartar función mostrar_modal, reemplazar por mostrar_elementos
 /**
  * ? Muestra el modal, lo agrega a `lista` y oculta los demas si se indica.
  * @param {Modal} modal - El modal en cuestion.
@@ -377,6 +378,7 @@ id_botones_armas.forEach(id => {
 
 
 // ! EQUIPAMIENTO
+const modal_equipos = modales.equipos
 // ! EQUIPAMIENTO
 
 

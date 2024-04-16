@@ -7,7 +7,7 @@ const maximo_botones = 12
  * ? Estos botones pueden estar mostrados u ocultos.
  * @param {string[]} lista - La lista con nombres de objetos.
  * @param {Object.<string, Object>} coleccion - La colección en la que se basa la lista de nombres.
- * @param {string} propiedad - La propiedad de los objetos de la colección donde esta el nombre.
+ * @param {string} propiedad - La propiedad de los objetos de la colección donde esta el nombre del icono.
  * @param {number} maximo - El máximo de botones visibles.
  * @param {string} terminacion - La expresión en la que termina el icono.
  * @returns {BotonModal[]} Una lista con los botones creados.
@@ -62,8 +62,17 @@ const botones = {
         "normales": armar_lista_botones(nombre_esbirros, esbirros, "portada", maximo_botones, "ico"),
         "especial": new BotonModal("nuevoesbirro", ["item-modal"], true, "nuevopjico", "flex"),
     },
-    // TODO: configurar los botones de los modales restantes
-    // "equipo": [],
+    "equipos": {
+        "normales": armar_lista_botones(nombre_equipos, equipos, "icono", maximo_botones),
+        // TODO: Retocar clases para una mejor creación de elementos de relleno
+        "especial": new BotonModal(
+            "nada",
+            ["item-modal"],
+            true,
+            "nada",
+            "flex"
+        ),
+    },
 }
 
 // * Diccionario de modales:

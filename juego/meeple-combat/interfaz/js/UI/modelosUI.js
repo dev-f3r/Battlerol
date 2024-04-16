@@ -250,9 +250,7 @@ class Modal extends ElementoHTML {
         this.boton_cerrar = this.CrearBotonCerrar()
 
         // * Lógica de botones generales 
-        if (this.botones_gral.length > this.maximo_botones) {
-            this.CrearBotonesGenerales()
-        }
+        this.CrearBotonesGenerales()
 
         this.vistas = this.CrearVista(this.botones_gral, this.maximo_botones) // Crea las vistas
 
@@ -311,7 +309,12 @@ class Modal extends ElementoHTML {
 
         if (longitud !== maximo) {
             for (let i = 0; i < restantes; i++) {
-                this.botones_gral.push(new BotonModal())
+
+                this.botones_gral.push(new BotonModal(
+                    "nada", // Nombre
+                    ["item-modal"], // Clases
+                    longitud < maximo ? true : false, // Mostrar?
+                ))
             }
         }
     }
