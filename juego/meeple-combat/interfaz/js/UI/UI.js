@@ -74,7 +74,8 @@ const botones = {
         "normales": armar_lista_botones(nombre_equipos, equipos, "icono", maximo_botones),
         // TODO: El boton especial debe reestaurar el slot de equipamiento seleccionado.
         "especial": new BotonModal({
-            clases: ["item-modal"]
+            clases: ["item-modal"],
+            mostrar: true,
         }),
     },
 }

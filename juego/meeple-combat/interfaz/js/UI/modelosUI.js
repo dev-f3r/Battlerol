@@ -34,6 +34,7 @@ class ElementoHTML {
         elemento = document.createElement("div"),
         funcionClick = () => { }
     }) {
+        if (nombre.includes("guerrero")) console.log(arguments)
         this.nombre = nombre;
         this.clases = clases;
         this.mostrar = mostrar;
@@ -184,7 +185,7 @@ class BotonModal extends Boton {
         icono.src = src ? `img/${src}.png` : "img/nada.png"
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
-        super({ nombre, clases, mostrar, tipo_display, icono, funcionClick })
+        super({ nombre, clases, mostrar, tipo_display, hijo: icono, funcionClick })
 
         this.icono = icono
     }
@@ -314,11 +315,11 @@ class Modal extends ElementoHTML {
         if (longitud !== maximo) {
             for (let i = 0; i < restantes; i++) {
 
-                this.botones_gral.push(new BotonModal(
-                    "nada", // Nombre
-                    ["item-modal"], // Clases
-                    longitud < maximo ? true : false, // Mostrar?
-                ))
+                this.botones_gral.push(new BotonModal({
+                    nombre: "nada", // Nombre
+                    clases: ["item-modal"], // Clases
+                    mostrar: longitud < maximo ? true : false, // Mostrar?
+                }))
             }
         }
     }
@@ -345,22 +346,22 @@ class Modal extends ElementoHTML {
      * @returns {BotonModal[]} Arreglo con los botones de navegación.
      */
     CrearBotonesNavegacion() {
-        const boton_atras = new BotonModal(
-            `atras_modal_${this.nombre}`,
-            ["item-modal"],
-            true,
-            "atras",
-            "flex",
-            () => this.CambiarVista("atras"),
-        )
-        const boton_adelante = new BotonModal(
-            `adelante_modal_${this.nombre}`,
-            ["item-modal"],
-            true,
-            "adelante",
-            "flex",
-            () => this.CambiarVista("adelante"),
-        )
+        const boton_atras = new BotonModal({
+            nombre: `atras_modal_${this.nombre}`,
+            clases: ["item-modal"],
+            mostrar: true,
+            src: "atras",
+            tipo_display: "flex",
+            funcionClick: () => this.CambiarVista("atras"),
+        })
+        const boton_adelante = new BotonModal({
+            nombre: `adelante_modal_${this.nombre}`,
+            clases: ["item-modal"],
+            mostrar: true,
+            src: "adelante",
+            tipo_display: "flex",
+            funcionClick: () => this.CambiarVista("adelante"),
+        })
 
         return [boton_atras, boton_adelante]
     }
@@ -376,14 +377,14 @@ class Modal extends ElementoHTML {
         }
 
         // Creacion del boton
-        const boton_cerrar = new BotonModal(
-            `cerrar_modal_${this.nombre}`,
-            ["item-modal"],
-            true,
-            "cerrar",
-            "flex",
-            cerrar_modal
-        )
+        const boton_cerrar = new BotonModal({
+            nombre: `cerrar_modal_${this.nombre}`,
+            clases: ["item-modal"],
+            mostrar: true,
+            src: "cerrar",
+            tipo_display: "flex",
+            funcionClick: cerrar_modal
+        })
 
         return boton_cerrar
     }
