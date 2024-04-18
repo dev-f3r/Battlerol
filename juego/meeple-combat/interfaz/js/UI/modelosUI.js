@@ -15,16 +15,17 @@ class ElementoHTML {
     elemento
 
     /**
-     * Constructor de la clase ElementoHTML.
-     * @param {string} nombre - El nombre del elemento.
-     * @param {string[]} clases - Las clases CSS del elmento.
-     * @param {boolean} mostrar - Indica si el elemento debe mostrarse.
-     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
-     * @param {HTMLElement} hijo - El elemento HTML que se insertará dentro del botón.
-     * @param {HTMLElement} elemento - El elemento HTML principal.
-     * @param {Function} funcionClick - La función que se ejecutara cuando se clickee el elemento.
+     * Constructor de la clase ElementoHTML. Crea un elemento HTML básico.
+     * @param {object} opciones - Objeto que contiene las opciones para el elemento HTML.
+     * @param {string} opciones.nombre="nada" - El nombre del elemento.
+     * @param {string[]} opciones.clases=[] - Las clases CSS del elemento.
+     * @param {boolean} opciones.mostrar=false - Indica si el elemento debe mostrarse (true: visible, false: oculto).
+     * @param {string} opciones.tipo_display="block" - El tipo de display que tomará si decide mostrarse.
+     * @param {HTMLElement} opciones.hijo=document.createElement('span') - El elemento HTML que se insertará dentro del elemento.
+     * @param {HTMLElement} opciones.elemento=document.createElement("div") - El elemento HTML principal del elemento.
+     * @param {Function} opciones.funcionClick=()=>{} - La función que se ejecutará cuando se haga clic en el elemento.
      */
-    constructor(
+    constructor({
         nombre = "nada",
         clases = [],
         mostrar = false,
@@ -32,7 +33,7 @@ class ElementoHTML {
         hijo = document.createElement('span'),
         elemento = document.createElement("div"),
         funcionClick = () => { }
-    ) {
+    }) {
         this.nombre = nombre;
         this.clases = clases;
         this.mostrar = mostrar;
@@ -118,24 +119,25 @@ class ElementoHTML {
  */
 class Boton extends ElementoHTML {
     /**
-     * Constructor de la clase Boton.
-     * @param {string} nombre - El nombre del botón (id: nombre_btn).
-     * @param {string[]} clases - Las clases CSS del botón.
-     * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
-     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
-     * @param {HTMLElement} hijo - El elemento HTML que se insertará dentro del botón.
-     * @param {Function} funcionClick - La función que se ejecutara cuando se clickee el botón.
+     * Constructor de la clase Boton. Crea un botón HTML básico.
+     * @param {object} opciones - Objeto que contiene las opciones para el botón.
+     * @param {string} opciones.nombre="nada" - El nombre del botón (id: nombre_btn).
+     * @param {string[]} opciones.clases=[] - Las clases CSS del botón.
+     * @param {boolean} opciones.mostrar=false - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
+     * @param {string} opciones.tipo_display="flex" - El tipo de display que tomará si decide mostrarse.
+     * @param {HTMLElement} opciones.hijo=document.createElement('span') - El elemento HTML que se insertará dentro del botón.
+     * @param {Function} opciones.funcionClick=()=>{} - La función que se ejecutará cuando se haga clic en el botón.
      */
-    constructor(
+    constructor({
         nombre = "nada",
         clases = [],
         mostrar = false,
         tipo_display = "flex",
         hijo = document.createElement('span'),
         funcionClick = () => { }
-    ) {
+    }) {
         const elemento = document.createElement("button")
-        super(nombre, clases, mostrar, tipo_display, hijo, elemento, funcionClick)
+        super({ nombre, clases, mostrar, tipo_display, hijo, elemento, funcionClick })
         this.id = `${this.nombre}_btn`
 
         this.ConstruirElemento()
@@ -159,21 +161,22 @@ class BotonModal extends Boton {
 
     /**
      * Constructor de la clase Boton (id: "nombre"_btn, imgsrc: img/"nombre"ico.png).
-     * @param {string} nombre - El nombre del botón.
-     * @param {string[]} clases - Las clases CSS del botón.
-     * @param {boolean} mostrar - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
-     * @param {string} src - El nombre del icono.
-     * @param {string} tipo_display - El tipo de display que tomara si decide mostrarse.
-     * @param {Function} funcionClick - La función que se ejecutara cuando se clickee el botón.
+     * @param {object} options - El objeto que contiene las opciones de los botones.
+     * @param {string} options.nombre="nada" - El nombre del botón.
+     * @param {string[]} options.clases=[] - Las clases CSS del botón.
+     * @param {boolean} options.mostrar=false - Indica si el botón debe mostrarse o no (true: display: flex, false: display: none).
+     * @param {string} options.src="" - El nombre del icono.
+     * @param {string} options.tipo_display="flex" - El tipo de display que tomara si decide mostrarse.
+     * @param {Function} options.funcionClick=()=>{} - La función que se ejecutara cuando se clickee el botón.
      */
-    constructor(
+    constructor({
         nombre = "nada",
         clases = [],
         mostrar = false,
         src = "",
         tipo_display = "flex",
         funcionClick = () => { }
-    ) {
+    } = {}) {
         // Se genera la ruta del icono del botón basado en su nombre.
         const icono = document.createElement("img")
 
@@ -181,7 +184,7 @@ class BotonModal extends Boton {
         icono.src = src ? `img/${src}.png` : "img/nada.png"
 
         // Llamada al constructor de la clase padre (Boton) con los parámetros proporcionados, incluyendo el icono.
-        super(nombre, clases, mostrar, tipo_display, icono, funcionClick)
+        super({ nombre, clases, mostrar, tipo_display, icono, funcionClick })
 
         this.icono = icono
     }
@@ -206,15 +209,16 @@ class Modal extends ElementoHTML {
 
     /**
      * Constructor de la clase Modal. Crea un modal con la estructura básica.
-     * @param {string} nombre - Nombre que identifica al modal.
-     * @param {string[]} clases - Clases CSS para aplicar estilos al modal.
-     * @param {boolean} mostrar - Indica si el modal debe mostrarse inicialmente (true: visible, false: oculto).
-     * @param {string} tipo_display - El tipo de display que tomara en caso de mostrarse.
-     * @param {number} maximo_botones - Número máximo de botones generales permitidos (sin contar navegación ni botón especial).
-     * @param {BotonModal[]} botones_gral - Arreglo con los botones generales del modal.
-     * @param {Boton} boton_especial - Botón con una acción especial dentro del modal.
+     * @param {object} opciones - Objeto que contiene las opciones para el modal.
+     * @param {string} opciones.nombre="" - Nombre que identifica al modal.
+     * @param {string[]} opciones.clases=[] - Clases CSS para aplicar estilos al modal.
+     * @param {boolean} opciones.mostrar=false - Indica si el modal debe mostrarse inicialmente (true: visible, false: oculto).
+     * @param {string} opciones.tipo_display="grid" - El tipo de display que tomará en caso de mostrarse.
+     * @param {number} opciones.maximo_botones=12 - Número máximo de botones generales permitidos (sin contar navegación ni botón especial).
+     * @param {BotonModal[]} opciones.botones_gral=[] - Arreglo con los botones generales del modal.
+     * @param {Boton} opciones.boton_especial=new BotonModal() - Botón con una acción especial dentro del modal.
      */
-    constructor(
+    constructor({
         nombre = "",
         clases = [],
         mostrar = false,
@@ -223,10 +227,10 @@ class Modal extends ElementoHTML {
 
         botones_gral = [],
         boton_especial = new BotonModal(),
-    ) {
+    } = {}) {
         const elemento = document.createElement("div")
 
-        super(nombre, clases, mostrar, tipo_display, "", elemento, () => { })
+        super({ nombre, clases, mostrar, tipo_display, elemento })
 
         this.maximo_botones = maximo_botones
         this.botones_gral = botones_gral
@@ -478,15 +482,16 @@ class Modal extends ElementoHTML {
 class Formulario extends ElementoHTML {
     /**
      * Constructor de la clase Formulario. Crea un formulario para ingreso de comandos, nombres, habilidades, etc.
-     * @param {string} nombre - Nombre del formulario.
-     * @param {string[]} clases - Clases CSS para aplicar estilos.
-     * @param {boolean} mostrar - Indica si el formulario debe mostrarse inicialmente (true: visible, false: oculto).
-     * @param {string} tipo_display - El tipo de display que tomara en caso de mostrarse.
-     * @param {HTMLElement} hijo - El elemento hijo del formulario.
-     * @param {HTMLElement} elemento - El contenedor del formulario.
-     * @param {Function} funcion_ingreso - La función que se ejecuta al ingresar texto.
+     * @param {object} opciones - Objeto que contiene las opciones para el formulario.
+     * @param {string} opciones.nombre="nada" - Nombre del formulario.
+     * @param {string[]} opciones.clases=["contenedor-input"] - Clases CSS para aplicar estilos.
+     * @param {boolean} opciones.mostrar=false - Indica si el formulario debe mostrarse inicialmente (true: visible, false: oculto).
+     * @param {string} opciones.tipo_display="flex" - El tipo de display que tomará en caso de mostrarse.
+     * @param {HTMLElement} opciones.hijo=document.createElement("span") - El elemento hijo del formulario.
+     * @param {HTMLElement} opciones.elemento=document.createElement("div") - El contenedor del formulario.
+     * @param {Function} opciones.funcion_ingreso=()=>{} - La función que se ejecuta al ingresar texto.
      */
-    constructor(
+    constructor({
         nombre = "nada",
         clases = ["contenedor-input"],
         tipo_display = "flex",
@@ -494,8 +499,8 @@ class Formulario extends ElementoHTML {
         hijo = document.createElement("span"),
         elemento = document.createElement("div"),
         funcion_ingreso = () => { }
-    ) {
-        super(nombre, clases, mostrar, tipo_display, hijo, elemento)
+    }) {
+        super({ nombre, clases, mostrar, tipo_display, hijo, elemento })
         this.funcion_ingreso = funcion_ingreso
 
         this.encabezado = document.createElement("span")

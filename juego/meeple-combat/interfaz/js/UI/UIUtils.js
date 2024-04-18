@@ -297,7 +297,7 @@ function mostrar_personaje(personaje) {
         const habilidad = document.getElementById(`habilidad${i}Txt`)
         habilidad.textContent = personaje[`habilidad${i}`].nombre.toUpperCase()
 
-        // TODO: Equipamiento
+        // TODO: Logica para mostrar los cambios en los equipamientos
     }
 }
 /**

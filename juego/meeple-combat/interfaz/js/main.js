@@ -79,7 +79,7 @@ function condicionar_formulario(formulario, modo) {
             nueva_funcion = ingresar_comandos
             nuevo_titulo += "el comando"
             break;
-        // TODO: nombre habilidad, nombre personaje
+        // TODO: Lógica para condicionar formulario para ingreso nombre habilidad, nombre personaje
         default:
             break;
     }
@@ -155,6 +155,6 @@ boton_consola.addEventListener("click", () => {
         condicionar_formulario(formulario, "comando") // Lo condiciona para poder ingresar comandos
     }
 })
-// TODO: Formulario para cambio de nombre de personajes y habilidades
+// TODO: Eventos click para formulario de cambio de nombre de personajes y habilidades
 
 mostrar_personaje(personajes[0]) // Muestra el personaje principal desde inició
