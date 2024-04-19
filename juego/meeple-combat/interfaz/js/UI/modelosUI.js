@@ -34,7 +34,6 @@ class ElementoHTML {
         elemento = document.createElement("div"),
         funcionClick = () => { }
     }) {
-        if (nombre.includes("guerrero")) console.log(arguments)
         this.nombre = nombre;
         this.clases = clases;
         this.mostrar = mostrar;
@@ -545,16 +544,26 @@ class Formulario extends ElementoHTML {
      * @param {Function} nueva - La función que se ejecutara a la hora de ingresar texto.
      */
     set Funcion_ingreso(nueva) {
-        this.funcion_ingreso = nueva
-        this.input.addEventListener("keydown", function (event) {
+        // Remueve los eventos actuales
+        this.input.removeEventListener("keydown", this.evento_input)
+        this.boton.removeEventListener("click", this.evento_boton)
+
+        this.funcion_ingreso = nueva;
+
+        // Agrega los nuevos
+        this.evento_input = (event) => {
             if (event.key === "Enter") {
-                nueva(this.value)
+                console.log("enter");
+                this.funcion_ingreso(this.value)
             }
-        })
-        this.boton.addEventListener("click", () => {
+        }
+        this.input.addEventListener("keydown", this.evento_input)
+
+        this.evento_boton = () => {
             console.log("click")
-            nueva(this.input.value)
-        })
+            this.funcion_ingreso(this.input.value)
+        }
+        this.boton.addEventListener("click", this.evento_boton)
     }
 
     /**

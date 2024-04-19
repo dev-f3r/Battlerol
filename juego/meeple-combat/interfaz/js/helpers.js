@@ -87,4 +87,36 @@ class EntidadBase {
             this.atributos[nombre] = nuevo[nombre]
         }
     }
+
+    cambiar_nombre = (nuevo) => {
+        this.nombre = nuevo
+    }
+
+    get Nombre() {
+        return this.nombre
+    }
+    get Descripcion() {
+        return this.descripcion
+    }
+    get Portada() {
+        return this.portada
+    }
+    get Atributos() {
+        return this.atributos
+    }
+
+    set Nombre(nuevo) {
+        this.nombre = nuevo
+    }
+    set Descripcion(nueva) {
+        this.descripcion = nueva
+    }
+    set Portada(nueva) {
+        this.portada = nueva
+    }
+    set Atributos(obj) {
+        for (const nombre in atributos_default) {
+            this.atributos[nombre] = obj[nombre]
+        }
+    }
 }

@@ -81,8 +81,9 @@ class Personaje extends EntidadBase {
     }
 
     /**
-     * Cambia las propiedades (nombre, descripción, portada, atributos, habilidades y armas) 
+     * ? Cambia las propiedades (nombre, descripción, portada, atributos, habilidades y armas) 
      * del personaje por otras
+     * @param {object} props - El objeto con las nuevas propiedades.
      */
     Actualizar = (props) => {
         super.Actualizar(props)

@@ -68,10 +68,11 @@ function ingresar_comandos(comando) {
 
 /**
  * ? Condiciona un determinado formulario (cambia su nombre, funcion de ingreso, etc.).
+ * @param {Personaje} personaje - El personaje sobre el cual se van a realizar cambios.
  * @param {Formulario} formulario - El formulario que se quiere condicionar.
  * @param {string} modo - El nuevo del formulario (comando, habilidad, nombre).
  */
-function condicionar_formulario(formulario, modo) {
+function condicionar_formulario(personaje, formulario, modo) {
     let nueva_funcion = () => { }
     let nuevo_titulo = "Ingrese "
     switch (modo) {
@@ -79,12 +80,19 @@ function condicionar_formulario(formulario, modo) {
             nueva_funcion = ingresar_comandos
             nuevo_titulo += "el comando"
             break;
-        // TODO: Lógica para condicionar formulario para ingreso nombre habilidad, nombre personaje
+        case "nombre":
+            nueva_funcion = personaje.cambiar_nombre
+            nuevo_titulo += "el nombre"
+        // TODO: Lógica para cambio de habilidades
         default:
             break;
     }
 
-    formulario.Funcion_ingreso = nueva_funcion
+    formulario.Funcion_ingreso = (input) => {
+        nueva_funcion(input)
+        mostrar_personaje(personaje)
+        cambiarModo()
+    }
     formulario.cambiar_encabezado = nuevo_titulo
 }
 
@@ -125,8 +133,16 @@ aspectos_personaje.forEach(id => {
         if (modo === "jugar") mostrar_aspecto_personaje(personajes[indice_personaje], nombre_aspecto)
         // Si el modo de juego es "edicion" muestra los controles para editar el aspecto
         else {
-            if(id.includes("equipo")) mostrar_elementos([modal_equipos], modal_equipos.tipo_display)
-            console.log("Editar", nombre_aspecto)
+            // Cuando se quiere modificar el equipamiento
+            if (id.includes("equipo")) mostrar_elementos([modal_equipos], modal_equipos.tipo_display)
+
+            // Cuando se quiere cambiar el nombre del personaje
+            else if (id === "nombreBtn") {
+                condicionar_formulario(personajes[indice_personaje], formulario, "nombre") // Condiciona el formulario a modo "nombre"
+                mostrar_elementos([formulario]) // Lo muestra
+            }
+
+            else console.log("Editar", nombre_aspecto)
         }
     })
 })
@@ -152,7 +168,7 @@ boton_portada.addEventListener("click", () => {
 boton_consola.addEventListener("click", () => {
     if (modo === "edicion") {
         mostrar_elementos([formulario]) // Muestra el formulario
-        condicionar_formulario(formulario, "comando") // Lo condiciona para poder ingresar comandos
+        condicionar_formulario(personajes[indice_personaje], formulario, "comando") // Lo condiciona para poder ingresar comandos
     }
 })
 // TODO: Eventos click para formulario de cambio de nombre de personajes y habilidades
