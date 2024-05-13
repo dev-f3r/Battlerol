@@ -78,7 +78,7 @@ function ingresar_comandos(comando) {
         if (esbirros[comando_filtrado]) Object.assign(nuevo_personaje, esbirros[comando_filtrado])
         // Si es un avatar secreto
         if (avataresOcultos[comando_filtrado]) Object.assign(nuevo_personaje, avataresOcultos[comando_filtrado])
-        cambiar_personaje(personajes[indice_personaje], nuevo_personaje)
+        cambiar_personaje(personajes[indice_personaje], nuevo_personaje, false)
     }
     // TODO: Agregar los comandos correspondientes
 }
@@ -109,11 +109,12 @@ function condicionar_formulario(personaje, formulario, modo, actualizar = false)
     formulario.Funcion_ingreso = (input) => {
         nueva_funcion(input)
 
-        // Si se desea actualizar el personaje
-        if (actualizar) {
-            mostrar_personaje(personaje)
-            cambiarModo()
-        }
+        mostrar_personaje(personaje)
+        cambiarModo()
+    }
+    // Si se desea actualizar el personaje
+    if (actualizar) {
+        
     }
     formulario.cambiar_encabezado = nuevo_titulo
 }
@@ -123,7 +124,7 @@ function condicionar_formulario(personaje, formulario, modo, actualizar = false)
 botones_personajes.forEach(boton => {
     const personaje_nuevo = avatares[boton.nombre] ? avatares[boton.nombre] : esbirros[boton.nombre] // Trae el personaje correcto basandose en si es un esbirro o un avatar
 
-    boton.FuncionClick = () => cambiar_personaje(personajes[indice_personaje], personaje_nuevo) // Estable la función click.
+    boton.FuncionClick = () => cambiar_personaje(personajes[indice_personaje], personaje_nuevo, true) // Estable la función click.
 })
 // * Evento click para pasar de avatar a esbirros
 boton_esbirros.addEventListener("click", () => {
