@@ -63,6 +63,23 @@ const botones_armas = botones.armas_marciales.normales.concat(botones.armas_natu
  * @param {string} comando - El comando que se quiere ingresar.
  */
 function ingresar_comandos(comando) {
+    const comando_filtrado = quitarAcentos(comando.toLowerCase())
+
+    // Si se trata del nombre de un personaje
+    if (
+        avatares[comando_filtrado]
+        || esbirros[comando_filtrado]
+        || avataresOcultos[comando_filtrado]
+    ) {
+        let nuevo_personaje = {}
+        // Si es un avatar
+        if (avatares[comando_filtrado]) Object.assign(nuevo_personaje, avatares[comando_filtrado])
+        // Si es un esbirro
+        if (esbirros[comando_filtrado]) Object.assign(nuevo_personaje, esbirros[comando_filtrado])
+        // Si es un avatar secreto
+        if (avataresOcultos[comando_filtrado]) Object.assign(nuevo_personaje, avataresOcultos[comando_filtrado])
+        cambiar_personaje(personajes[indice_personaje], nuevo_personaje)
+    }
     // TODO: Agregar los comandos correspondientes
 }
 
@@ -71,8 +88,9 @@ function ingresar_comandos(comando) {
  * @param {Personaje} personaje - El personaje sobre el cual se van a realizar cambios.
  * @param {Formulario} formulario - El formulario que se quiere condicionar.
  * @param {string} modo - El nuevo del formulario (comando, habilidad, nombre).
+ * @param {boolean} actualizar - Indica si se debe actualizar el personaje.
  */
-function condicionar_formulario(personaje, formulario, modo) {
+function condicionar_formulario(personaje, formulario, modo, actualizar = false) {
     let nueva_funcion = () => { }
     let nuevo_titulo = "Ingrese "
     switch (modo) {
@@ -90,8 +108,12 @@ function condicionar_formulario(personaje, formulario, modo) {
 
     formulario.Funcion_ingreso = (input) => {
         nueva_funcion(input)
-        mostrar_personaje(personaje)
-        cambiarModo()
+
+        // Si se desea actualizar el personaje
+        if (actualizar) {
+            mostrar_personaje(personaje)
+            cambiarModo()
+        }
     }
     formulario.cambiar_encabezado = nuevo_titulo
 }
@@ -138,7 +160,7 @@ aspectos_personaje.forEach(id => {
 
             // Cuando se quiere cambiar el nombre del personaje
             else if (id === "nombreBtn") {
-                condicionar_formulario(personajes[indice_personaje], formulario, "nombre") // Condiciona el formulario a modo "nombre"
+                condicionar_formulario(personajes[indice_personaje], formulario, "nombre", true) // Condiciona el formulario a modo "nombre"
                 mostrar_elementos([formulario]) // Lo muestra
             }
 

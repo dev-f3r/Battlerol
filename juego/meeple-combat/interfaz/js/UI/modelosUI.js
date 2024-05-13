@@ -553,14 +553,12 @@ class Formulario extends ElementoHTML {
         // Agrega los nuevos
         this.evento_input = (event) => {
             if (event.key === "Enter") {
-                console.log("enter");
-                this.funcion_ingreso(this.value)
+                this.funcion_ingreso(this.input.value)
             }
         }
         this.input.addEventListener("keydown", this.evento_input)
 
         this.evento_boton = () => {
-            console.log("click")
             this.funcion_ingreso(this.input.value)
         }
         this.boton.addEventListener("click", this.evento_boton)
