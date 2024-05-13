@@ -139,5 +139,6 @@ class Personaje extends EntidadBase {
     TotalAtibuto = (nombre) => {
         return this.atributos[nombre] + this.equipo1.atributos[nombre] + this.equipo2.atributos[nombre] + this.equipo3.atributos[nombre]
     }
+
     // TODO: Metodo para ataquar
 }

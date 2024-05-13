@@ -1,5 +1,4 @@
 // * ARCHIVO DE LÓGICA PRINCIPAL
-
 /**
  * ? Contiene todos las instancias de los personajes
  * @const {Personaje[]}
@@ -102,6 +101,7 @@ function condicionar_formulario(personaje, formulario, modo, actualizar = false)
             nueva_funcion = personaje.cambiar_nombre
             nuevo_titulo += "el nombre"
         // TODO: Lógica para cambio de habilidades
+        // TODO: Lógica para cambio en la experiencia
         default:
             break;
     }
@@ -109,12 +109,9 @@ function condicionar_formulario(personaje, formulario, modo, actualizar = false)
     formulario.Funcion_ingreso = (input) => {
         nueva_funcion(input)
 
+        // Muestra los nuevos cambios
         mostrar_personaje(personaje)
         cambiarModo()
-    }
-    // Si se desea actualizar el personaje
-    if (actualizar) {
-        
     }
     formulario.cambiar_encabezado = nuevo_titulo
 }
@@ -165,7 +162,7 @@ aspectos_personaje.forEach(id => {
                 mostrar_elementos([formulario]) // Lo muestra
             }
 
-            else console.log("Editar", nombre_aspecto)
+            else modificar_atributos(personajes[indice_personaje], nombre_aspecto) // Si no es ninguno de los anteriores, modifica el atributo correspondiente.
         }
     })
 })
@@ -197,3 +194,13 @@ boton_consola.addEventListener("click", () => {
 // TODO: Eventos click para formulario de cambio de nombre de personajes y habilidades
 
 mostrar_personaje(personajes[0]) // Muestra el personaje principal desde inició
+
+
+boton_consola.addEventListener("click", () => {
+    if (modo === "jugar") {
+        // Limpia el contenido de la consola
+        contenido_consola("")
+        // Oculta todos los elementos que estaban siendo mostrados
+        ocultar_elementos(elementos_mostrados)
+    }
+})

@@ -42,7 +42,9 @@ const atributos_default = {
     bloqueo: 0,
     velocidad: 0,
     vida: 0,
+    vidaMaxima: 0,
     poder: 0,
+    poderMaximo: 0,
 }
 
 /**

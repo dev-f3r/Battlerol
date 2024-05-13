@@ -77,7 +77,7 @@ const boton_accion = document.getElementById("accionBtn")
  * Contiene los botones arriba y abajo usados principalmente para modificar atributos.
  * @const {HTMLButtonElement}
  */
-const botones_arriba_abajo = document.getElementById("btnMasMenos").children
+const botones_arriba_abajo = document.querySelector("#btnMasMenos")
 /**
  * Contiene los botones izquierda y derecha usados principalmente navegar.
  * @const {HTMLButtonElement}
@@ -252,6 +252,9 @@ function mostrar_aspecto_personaje(personaje, nombre_aspecto) {
             : `${capitalizarPrimeraLetra(nombre_aspecto)}: ${aspecto}`
     }
 
+    if (nombre_aspecto === "poder") {
+        salida = "Anima: " + personaje.atributos.poder 
+    }
     contenido_consola(salida) // Muestra por consola la aspecto
 }
 // TODO: Refactorizar mostrar_personaje
